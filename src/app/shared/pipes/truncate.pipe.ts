@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TruncatePipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(text: string, length: number): string {
+    return text.length > length ? text.substring(0, length) + '...' : text;
   }
 
 }

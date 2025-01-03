@@ -1,1 +1,34 @@
-<p>main-layout works!</p>
+<div class="main-layout">
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="navbar-container">
+      <h1 class="navbar-logo">
+        <a routerLink="/" aria-label="Ir al inicio">Marketplace</a>
+      </h1>
+      <nav class="navbar-menu">
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
+          <li><a routerLink="/marketplace" routerLinkActive="active-link">Marketplace</a></li>
+          <li><a routerLink="/profile" routerLinkActive="active-link">Perfil</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p>© 2025 Marketplace. Todos los derechos reservados.</p>
+      <nav class="footer-links">
+        <a href="/terms" aria-label="Términos y condiciones">Términos</a>
+        <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
+        <a href="/contact" aria-label="Contáctanos">Contacto</a>
+      </nav>
+    </div>
+  </footer>
+</div>

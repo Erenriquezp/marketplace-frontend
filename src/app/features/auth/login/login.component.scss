@@ -1,0 +1,40 @@
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+  
+    form {
+      display: flex;
+      flex-direction: column;
+  
+      label {
+        margin-bottom: 0.5rem;
+      }
+  
+      input {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+  
+      button {
+        padding: 0.5rem;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 3px;
+      }
+  
+      a {
+        margin-top: 1rem;
+        color: #007bff;
+        text-decoration: none;
+      }
+    }
+  }
+  
