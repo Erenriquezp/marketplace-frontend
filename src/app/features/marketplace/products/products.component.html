@@ -1,1 +1,39 @@
-<p>products works!</p>
+<div class="product-management">
+    <h2>Gestión de Productos</h2>
+  
+    <!-- Crear un nuevo producto -->
+    <form (ngSubmit)="addProduct()">
+      <input type="text" [(ngModel)]="newProduct.name" name="name" placeholder="Nombre del producto" required />
+      <input type="text" [(ngModel)]="newProduct.description" name="description" placeholder="Descripción" required />
+      <input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Precio" required />
+      <button type="submit">Agregar Producto</button>
+    </form>
+  
+    <!-- Lista de productos -->
+    <div *ngFor="let product of products" class="product-item">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p><strong>Precio:</strong> ${{ product.price }}</p>
+  
+      <button (click)="editProduct(product)">Editar</button>
+      <button (click)="deleteProduct(product.id!)">Eliminar</button>
+    </div>
+  
+    <!-- Editar producto -->
+    <div *ngIf="editingProduct" class="edit-form">
+      <h3>Editar Producto</h3>
+      <form (ngSubmit)="saveProduct()">
+        <input type="text" [(ngModel)]="editingProduct.name" name="name" placeholder="Nombre del producto" required />
+        <input
+          type="text"
+          [(ngModel)]="editingProduct.description"
+          name="description"
+          placeholder="Descripción"
+          required
+        />
+        <input type="number" [(ngModel)]="editingProduct.price" name="price" placeholder="Precio" required />
+        <button type="submit">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  

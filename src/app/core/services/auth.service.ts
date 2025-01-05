@@ -1,32 +1,44 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/auth`; // URL del backend
+  private tokenSubject = new BehaviorSubject<string | null>(null);
 
-  login(credentials: { email: string; password: string }): Observable<unknown> {
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials);
+  constructor(private http: HttpClient) {
+    this.tokenSubject.next(localStorage.getItem('token'));
   }
 
-  register(data: unknown): Observable<unknown> {
-    return this.http.post(`${this.apiUrl}/auth/register`, data);
+  get token$(): Observable<string | null> {
+    return this.tokenSubject.asObservable();
+  }
+
+  login(email: string, password: string): Observable<void> {
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password }).pipe(
+      map((response) => {
+        localStorage.setItem('token', response.token);
+        this.tokenSubject.next(response.token);
+      })
+    );
+  }
+
+  register(data: { email: string; password: string; name: string }): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/register`, data);
+  }
+
+  forgotPassword(email: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/forgot-password`, { email });
   }
 
   logout(): void {
     localStorage.removeItem('token');
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.getToken();
+    this.tokenSubject.next(null);
   }
 }

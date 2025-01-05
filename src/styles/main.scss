@@ -1,11 +1,11 @@
-@import './variables';
-@import './mixins';
-@import './themes/light';
+@use './variables';
+@use './mixins';
+@use './themes/light';
 
 body {
   font-family: 'Arial, sans-serif';
-  background-color: $background-color;
-  color: $font-color;
+  background-color: #f8f9fa;
+  color: #212529;
   margin: 0;
   padding: 0;
 }

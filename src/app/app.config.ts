@@ -1,10 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
 import { TranslocoHttpLoader } from './transloco-loader';
-import { JWTInterceptor } from './core/interceptors/jwt.interceptor';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -17,7 +16,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideHttpClient(withInterceptors([JWTInterceptor])), // HttpClient para solicitudes HTTP
+    provideHttpClient(withFetch()), // HttpClient para solicitudes HTTP
     provideTransloco({
       config: {
         availableLangs: ['en', 'es'],

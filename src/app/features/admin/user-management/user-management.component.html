@@ -1,1 +1,82 @@
-<p>user-management works!</p>
+<div class="container">
+    <h1>Gestión de Usuarios</h1>
+  
+    <!-- Lista de Usuarios -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="editUser(user)">Editar</button>
+            <button class="btn btn-danger" (click)="deleteUser(user.id!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Formulario para Crear Usuario -->
+    <div>
+      <h2>Agregar Usuario</h2>
+      <form (ngSubmit)="addUser()">
+        <label for="username">Usuario:</label>
+        <input
+          id="username"
+          [(ngModel)]="newUser.username"
+          name="username"
+          required
+        />
+        <label for="password">Contraseña:</label>
+        <input
+          id="password"
+          [(ngModel)]="newUser.password"
+          name="password"
+          type="password"
+          required
+        />
+        <label for="role">Rol:</label>
+        <select [(ngModel)]="newUser.role" name="role" id="role">
+          <option value="ROLE_USER">Usuario</option>
+          <option value="ROLE_ADMIN">Administrador</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+      </form>
+    </div>
+  
+    <!-- Formulario para Editar Usuario -->
+    <div *ngIf="editingUser">
+      <h2>Editar Usuario</h2>
+      <form (ngSubmit)="saveUser()">
+        <label for="editUsername">Usuario:</label>
+        <input
+          id="editUsername"
+          [(ngModel)]="editingUser.username"
+          name="editUsername"
+          required
+        />
+        <label for="editRole">Rol:</label>
+        <select [(ngModel)]="editingUser.role" name="editRole" id="editRole">
+          <option value="ROLE_USER">Usuario</option>
+          <option value="ROLE_ADMIN">Administrador</option>
+        </select>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="editingUser = null"
+        >
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+  
