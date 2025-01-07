@@ -9,7 +9,7 @@ export const MARKETPLACE_ROUTES: Routes = [
   {
     path: 'services',
     loadComponent: () =>
-      import('./services/services.component').then(m => m.ServicesComponent),
+      import('./freelance-service/freelance-service.component').then(m => m.FreelanceServicesComponent),
   },
   {
     path: 'search',

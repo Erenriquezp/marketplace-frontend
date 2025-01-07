@@ -13,23 +13,31 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage = '';
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.authService.login(email, password).subscribe(() => {
-        this.router.navigate(['/marketplace']);
+      const { username, password } = this.loginForm.value;
+
+      this.authService.login(username, password).subscribe({
+        next: () => {
+          const dashboardRoute = this.authService.getDashboardRouteByRole();
+          this.router.navigate([dashboardRoute]); // Redirige según el rol
+        },
+        error: () => {
+          this.errorMessage = 'Credenciales inválidas. Por favor, inténtelo de nuevo.';
+        },
       });
     }
   }

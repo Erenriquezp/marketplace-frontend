@@ -1,3 +1,4 @@
+// auth/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -9,36 +10,53 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`; // URL del backend
-  private tokenSubject = new BehaviorSubject<string | null>(null);
+  private baseUrl = `${environment.apiUrl}/auth`; // URL base para la autenticación
+  private currentUserSubject: BehaviorSubject<{ accessToken: string; role: string }>;
+  public currentUser: Observable<{ accessToken: string; role: string }>;
 
   constructor(private http: HttpClient) {
-    this.tokenSubject.next(localStorage.getItem('token'));
+    this.currentUserSubject = new BehaviorSubject<{ accessToken: string; role: string }>(
+      JSON.parse(localStorage.getItem('currentUser') || '{}')
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  get token$(): Observable<string | null> {
-    return this.tokenSubject.asObservable();
+  public get currentUserValue(): { accessToken: string; role: string } | null {
+    return this.currentUserSubject.value;
   }
-
-  login(email: string, password: string): Observable<void> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password }).pipe(
+  login(username: string, password: string): Observable<unknown> {
+    return this.http.post<{ accessToken: string; role: string }>(`${this.baseUrl}/login`, { username, password }).pipe(
       map((response) => {
-        localStorage.setItem('token', response.token);
-        this.tokenSubject.next(response.token);
+        // Almacena el token y el rol en localStorage
+        localStorage.setItem('currentUser', JSON.stringify(response));
+        this.currentUserSubject.next(response);
+        return response;
       })
     );
   }
-
-  register(data: { email: string; password: string; name: string }): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/register`, data);
-  }
-
-  forgotPassword(email: string): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/forgot-password`, { email });
+  
+  /**
+   * Obtener la ruta del dashboard según el rol del usuario.
+   */
+  getDashboardRouteByRole(): string {
+    const role = this.currentUserValue?.role;
+    switch (role) {
+      case 'ROLE_USER':
+        return '/dashboard/client';
+      case 'ROLE_FREELANCER':
+        return '/dashboard/freelancer';
+      default:
+        return '/dashboard/freelancer'; // Redirigir al login si no tiene rol válido
+    }
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.tokenSubject.next(null);
+    // Elimina el token del localStorage
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next({ accessToken: '', role: '' });
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.currentUserValue?.accessToken;
   }
 }

@@ -1,0 +1,11 @@
+<div class="freelancer-dashboard">
+    <h1>Panel del Freelancer</h1>
+    <h2>Mis Ofertas</h2>
+    <ul>
+      <li *ngFor="let offer of offers">
+        <p><strong>{{ offer.name }}</strong></p>
+        <p>Estado: {{ offer.status }}</p>
+      </li>
+    </ul>
+  </div>
+  

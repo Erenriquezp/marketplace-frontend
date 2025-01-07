@@ -1,25 +1,37 @@
 <div class="login-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <h2>Login</h2>
-  
-      <div>
-        <label for="email">Email:</label>
-        <input id="email" formControlName="email" type="email" />
-        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          Email is required and must be valid.
-        </div>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Iniciar Sesión</h2>
+
+    <div>
+      <label for="username">Usuario</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        placeholder="Ingresa tu usuario"
+      />
+      <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+        Usuario es requerido.
       </div>
-  
-      <div>
-        <label for="password">Password:</label>
-        <input id="password" formControlName="password" type="password" />
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Password is required.
-        </div>
+    </div>
+
+    <div>
+      <label for="password">Contraseña</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Ingresa tu contraseña"
+      />
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Contraseña es requerida.
       </div>
-  
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
-      <a routerLink="/auth/forgot-password">Forgot Password?</a>
-    </form>
-  </div>
-  <p>auth-layout works!</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+  </form>
+</div>

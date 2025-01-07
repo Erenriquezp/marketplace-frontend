@@ -1,0 +1,11 @@
+<div class="client-dashboard">
+    <h1>Panel del Cliente</h1>
+    <h2>Mis Pedidos</h2>
+    <ul>
+      <li *ngFor="let order of orders">
+        <p><strong>{{ order.name }}</strong></p>
+        <p>Estado: {{ order.status }}</p>
+      </li>
+    </ul>
+  </div>
+  

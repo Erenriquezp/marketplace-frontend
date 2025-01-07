@@ -1,0 +1,25 @@
+.client-dashboard {
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: #4caf50;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+      }
+    }
+  }
+  

@@ -1,0 +1,24 @@
+<div class="freelance-service-management">
+    <h2>Gestión de Servicios Freelance</h2>
+    
+    <!-- Crear un nuevo servicio -->
+    <form (ngSubmit)="addService()">
+      <input type="text" [(ngModel)]="newService.title" name="title" placeholder="Título del servicio" required />
+      <input type="text" [(ngModel)]="newService.description" name="description" placeholder="Descripción" required />
+      <input type="number" [(ngModel)]="newService.price" name="price" placeholder="Precio" required />
+      <input type="text" [(ngModel)]="newService.category" name="category" placeholder="Categoría" required />
+      <button type="submit">Agregar Servicio</button>
+    </form>
+    
+    <!-- Lista de servicios -->
+    <div *ngFor="let service of services" class="service-item">
+      <h3>{{ service.title }}</h3>
+      <p>{{ service.description }}</p>
+      <p><strong>Precio:</strong> ${{ service.price }}</p>
+      <p><strong>Categoría:</strong> {{ service.category }}</p>
+    
+      <button (click)="editService(service)">Editar</button>
+      <button (click)="deleteService(service.id!)">Eliminar</button>
+    </div>
+  </div>
+  
