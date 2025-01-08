@@ -33,15 +33,15 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES),
       },
+      {
+        path: 'dashboard',
+        children: DASHBOARD_ROUTES, // Carga las rutas del dashboard
+      },
     ],
   },
   {
     path: 'auth',
     component: AuthLayoutComponent, // Layout para autenticación
     children: AUTH_ROUTES,
-  },
-  {
-    path: 'dashboard',
-    children: DASHBOARD_ROUTES, // Carga las rutas del dashboard
   },
 ];

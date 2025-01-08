@@ -1,1 +1,10 @@
-<p>public works!</p>
+<div class="public-profile">
+    <img [src]="userProfile.avatar" alt="Foto de perfil" class="avatar" />
+    <h1>{{ userProfile.name }}</h1>
+    <p>{{ userProfile.bio }}</p>
+    <h2>Habilidades</h2>
+    <ul>
+      <li *ngFor="let skill of userProfile.skills">{{ skill }}</li>
+    </ul>
+  </div>
+  

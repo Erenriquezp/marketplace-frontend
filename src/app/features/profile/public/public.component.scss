@@ -1,0 +1,28 @@
+.public-profile {
+    text-align: center;
+    padding: 2rem;
+  
+    .avatar {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 1rem;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: #0d6efd;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  }
+  

@@ -8,10 +8,18 @@
       <nav class="navbar-menu">
         <ul>
           <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
-          <li><a routerLink="/marketplace" routerLinkActive="active-link">Marketplace</a></li>
-          <li><a routerLink="/profile" routerLinkActive="active-link">Perfil</a></li>
+          <li><a routerLink="/marketplace/products" routerLinkActive="active-link">Marketplace</a></li>
+          <li *ngIf="isAuthenticated">
+            <a routerLink="/profile/public" routerLinkActive="active-link">Perfil</a>
+          </li>
         </ul>
       </nav>
+      <div class="auth-menu">
+        <!-- Opciones de autenticación -->
+        <button *ngIf="!isAuthenticated" routerLink="/auth/login">Log In</button>
+        <button *ngIf="!isAuthenticated" routerLink="/auth/register">Sign Up</button>
+        <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+      </div>
     </div>
   </header>
 
@@ -25,9 +33,9 @@
     <div class="footer-container">
       <p>© 2025 Marketplace. Todos los derechos reservados.</p>
       <nav class="footer-links">
-        <a href="/terms" aria-label="Términos y condiciones">Términos</a>
-        <a href="/privacy" aria-label="Política de privacidad">Privacidad</a>
-        <a href="/contact" aria-label="Contáctanos">Contacto</a>
+        <a routerLink="/terms" aria-label="Términos y condiciones">Términos</a>
+        <a routerLink="/privacy" aria-label="Política de privacidad">Privacidad</a>
+        <a routerLink="/contact" aria-label="Contáctanos">Contacto</a>
       </nav>
     </div>
   </footer>

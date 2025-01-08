@@ -1,1 +1,18 @@
-<p>settings works!</p>
+<div class="settings">
+    <h1>Configuración de Cuenta</h1>
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+      <label for="email">Correo Electrónico</label>
+      <input id="email" formControlName="email" type="email" />
+  
+      <label for="username">Nombre de Usuario</label>
+      <input id="username" formControlName="username" type="text" />
+  
+      <label>
+        <input formControlName="notifications" type="checkbox" />
+        Recibir notificaciones
+      </label>
+  
+      <button type="submit" [disabled]="settingsForm.invalid">Guardar Cambios</button>
+    </form>
+  </div>
+  
