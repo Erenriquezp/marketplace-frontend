@@ -1,4 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+    --primary-color: #d3435b;
+    --secondary-color: #721652;
+    --link-color: #a22c58;
+    --auth-link-color: #420054;
+    --button-bg-color: #420054;
+    --footer-bg-color: #420054;
+  }
+  
+  .bg-primary {
+    background-color: var(--primary-color);
+  }
+  
+  .text-primary {
+    color: var(--primary-color);
+  }
+  
+  .bg-secondary {
+    background-color: var(--secondary-color);
+  }
+  
+  .text-secondary {
+    color: var(--secondary-color);
+  }
+  
+  .text-link {
+    color: var(--link-color);
+  }
+  
+  .text-auth-link {
+    color: var(--auth-link-color);
+  }
+  
+  .bg-button {
+    background-color: var(--button-bg-color);
+  }
+  
+  .bg-footer {
+    background-color: var(--footer-bg-color);
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .bg-gradient {
+    background: linear-gradient(90deg, rgba(114, 22, 82, 0.8) 0%, rgba(211, 67, 91, 0.8) 100%);
+  }
+  
