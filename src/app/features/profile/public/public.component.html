@@ -1,10 +1,74 @@
-<div class="public-profile">
-    <img [src]="userProfile.avatar" alt="Foto de perfil" class="avatar" />
-    <h1>{{ userProfile.name }}</h1>
-    <p>{{ userProfile.bio }}</p>
-    <h2>Habilidades</h2>
-    <ul>
-      <li *ngFor="let skill of userProfile.skills">{{ skill }}</li>
-    </ul>
+<div class="profile-container bg-gray-100">
+  <!-- Profile Cover -->
+  <div class="profile-cover" style="background-image: url('https://wallpaperaccess.com/full/1100634.jpg');">
+    <div class="profile-avatar absolute left-10 bottom-[-250px]">
+      <img
+        src="\assets\images\1150644.jpg"
+        alt="Profile picture"
+        class="w-32 h-32 border-4 border-white rounded-full"
+      />
+    </div>
   </div>
-  
+
+  <!-- Profile Details -->
+  <section class="profile-details bg-gradient-to-r from-[#721656] via-[#5A4995] to-[#5A4995] p-6 rounded-lg shadow-lg mt-6 mx-auto w-11/12 md:w-2/3">
+    <div class="flex items-center">
+      <div>
+        <h2 class="text-white text-xl font-bold">Rabiul K.</h2>
+        <p class="text-white">rabiulkhan866</p>
+        <p class="text-white">PHOTOSHOP EXPERT | LOGO | GRAPHIC DESIGN</p>
+        <p class="text-white font-semibold">$20 USD / hora</p>
+      </div>
+      <button class="ml-auto bg-[#1D1856] text-white px-4 py-2 rounded-lg hover:bg-[#302080] transition">
+        Contrátame
+      </button>
+    </div>
+    <div class="mt-4 text-white">
+      <p>
+        Hi, Thank you for considering me for your project needs! I am a Professional Graphic Artist and Photoshop
+        Expert with more than 7 years of experience in the industry. With the help of a team of five amazing
+        professionals, I make myself available to clients 24/7, offering consultations, project updates, and
+        unlimited revisions on any project I've done.
+      </p>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio-section mt-8 px-4">
+    <h3 class="text-2xl font-bold text-center mb-6">Portafolio</h3>
+    <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="portfolio-item bg-white p-4 rounded-lg shadow-lg">
+        <img
+          src="https://placehold.co/200x150"
+          alt="Portfolio item"
+          class="w-full h-32 object-cover rounded-lg"
+        />
+        <p class="text-center mt-2">LOGO DESIGN</p>
+      </div>
+      <div class="portfolio-item bg-white p-4 rounded-lg shadow-lg">
+        <img
+          src="https://placehold.co/200x150"
+          alt="Portfolio item"
+          class="w-full h-32 object-cover rounded-lg"
+        />
+        <p class="text-center mt-2">LOGO DESIGN</p>
+      </div>
+      <div class="portfolio-item bg-white p-4 rounded-lg shadow-lg">
+        <img
+          src="https://placehold.co/200x150"
+          alt="Portfolio item"
+          class="w-full h-32 object-cover rounded-lg"
+        />
+        <p class="text-center mt-2">LOGO DESIGN</p>
+      </div>
+      <div class="portfolio-item bg-white p-4 rounded-lg shadow-lg">
+        <img
+          src="https://placehold.co/200x150"
+          alt="Portfolio item"
+          class="w-full h-32 object-cover rounded-lg"
+        />
+        <p class="text-center mt-2">LOGO DESIGN</p>
+      </div>
+    </div>
+  </section>
+</div>

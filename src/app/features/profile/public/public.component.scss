@@ -1,28 +1,102 @@
-.public-profile {
-    text-align: center;
-    padding: 2rem;
-  
-    .avatar {
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      margin-bottom: 1rem;
-    }
-  
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    h2 {
-      margin-top: 2rem;
-      font-size: 1.5rem;
-      color: #0d6efd;
-    }
-  
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-  }
-  
+:root {
+  --primary-color: #d3435b;
+  --secondary-color: #721656;
+  --profile-avatar-border: #ffffff;
+  --cta-button-bg: #1d1856;
+  --cta-button-hover: #302080;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7fafc;
+}
+
+/* Profile Container */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--primary-color);
+}
+
+/* Profile Cover */
+.profile-cover {
+  width: 100%;
+  height: 20rem;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.profile-avatar {
+  transform: translateY(-20%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-avatar img {
+  border-radius: 10%;
+  border: 2px solid var(--profile-avatar-border);
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+}
+
+/* Profile Details */
+.profile-details {
+  background: linear-gradient(76.87deg, var(--secondary-color) 30.7%, #5a4995 66.79%, #5a4995 135.91%);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 55rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateX(20%);
+}
+
+.profile-details button {
+  background-color: var(--cta-button-bg);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.profile-details button:hover {
+  background-color: var(--cta-button-hover);
+}
+
+/* Portfolio Section */
+.portfolio-section {
+  width: 95%;
+  padding: 1rem 5;
+  background-color: var(--primary-color);
+  text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: auto;
+  margin: 10 auto;
+  padding-bottom: 10rem;
+}
+
+.portfolio-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.portfolio-item {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}

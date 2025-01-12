@@ -1,25 +1,30 @@
-.freelancer-dashboard {
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-  
-    h2 {
-      margin-top: 2rem;
-      font-size: 1.5rem;
-      color: #4caf50;
-    }
-  
-    ul {
-      list-style: none;
-      padding: 0;
-  
-      li {
-        border: 1px solid #ddd;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-radius: 4px;
-      }
-    }
-  }
-  
+:root {
+  --primary-color: #d3435b;
+  --secondary-color: #721652;
+  --footer-bg-color: #420054;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7fafc;
+}
+
+.register-container,
+aside {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.text-primary-color {
+  color: var(--primary-color);
+}
+
+.text-secondary-color {
+  color: var(--secondary-color);
+}
+
+.bg-footer-bg-color {
+  background-color: var(--footer-bg-color);
+}
