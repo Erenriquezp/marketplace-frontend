@@ -1,1 +1,105 @@
-<p>register works!</p>
+<div class="min-h-screen flex items-center justify-center bg-white font-roboto">
+    <div class="register-container p-8 rounded-lg shadow-lg w-full max-w-md">
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://placehold.co/150x50"
+          alt="Logo Freelancer"
+          class="h-12"
+        />
+      </div>
+      <h2 class="text-2xl font-bold text-center mb-6 text-light">Registrarse</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Nombre Completo -->
+        <div class="mb-4">
+          <label for="nombre" class="block text-light">Nombre Completo</label>
+          <input
+            id="nombre"
+            type="text"
+            formControlName="name"
+            class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Ingresa tu nombre completo"
+          />
+          <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-red-400 text-sm mt-1">
+            El nombre es requerido.
+          </div>
+        </div>
+  
+        <!-- Correo Electrónico -->
+        <div class="mb-4">
+          <label for="email" class="block text-light">Correo Electrónico</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Ingresa tu correo electrónico"
+          />
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-400 text-sm mt-1">
+            Ingresa un correo válido.
+          </div>
+        </div>
+  
+        <!-- Contraseña -->
+        <div class="mb-4">
+          <label for="password" class="block text-light">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Ingresa tu contraseña"
+          />
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-400 text-sm mt-1">
+            La contraseña debe tener al menos 6 caracteres.
+          </div>
+        </div>
+  
+        <!-- Confirmar Contraseña -->
+        <div class="mb-4">
+          <label for="confirm-password" class="block text-light">Confirmar Contraseña</label>
+          <input
+            id="confirm-password"
+            type="password"
+            formControlName="confirmPassword"
+            class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Confirma tu contraseña"
+          />
+          <div *ngIf="registerForm.hasError('passwordMismatch')" class="text-red-400 text-sm mt-1">
+            Las contraseñas no coinciden.
+          </div>
+        </div>
+  
+         <!-- Selección de Rol -->
+      <div class="mb-4">
+        <label for="role" class="block text-light">Selecciona tu Rol</label>
+        <select
+          id="role"
+          formControlName="role"
+          class="input-field select-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="ROLE_USER">Cliente</option>
+          <option value="ROLE_FREELANCER">Freelancer</option>
+          <option value="ROLE_BOTH">Ambos</option>
+        </select>
+        <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched" class="text-red-400 text-sm mt-1">
+          Selecciona un rol.
+        </div>
+      </div>
+
+      <!-- Botón de Registrarse -->
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid"
+        class="register-button w-full text-white py-2 rounded-lg hover:bg-red-600 transition duration-200"
+      >
+        Registrarse
+      </button>
+    </form>
+
+    <!-- Enlace a Iniciar Sesión -->
+    <div class="flex items-center justify-center mt-6">
+      <span class="text-light">¿Ya tienes una cuenta?</span>
+      <a routerLink="/auth/login" class="text-blue-300 hover:underline ml-2"> Inicia Sesión</a>
+    </div>
+  </div>
+</div>

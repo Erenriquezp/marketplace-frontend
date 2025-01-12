@@ -34,7 +34,22 @@ export class AuthService {
       })
     );
   }
-  
+   /**
+   * Método de registro de un nuevo usuario
+   */
+   register(userData: {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+  }): Observable<unknown> {
+    return this.http.post<unknown>(`${this.baseUrl}/register`, userData).pipe(
+      map((response) => {
+        console.log('Registro exitoso:', response);
+        return response;
+      })
+    );
+  }
   /**
    * Obtener la ruta del dashboard según el rol del usuario.
    */
@@ -46,7 +61,7 @@ export class AuthService {
       case 'ROLE_FREELANCER':
         return '/dashboard/freelancer';
       default:
-        return '/dashboard/freelancer'; // Redirigir al login si no tiene rol válido
+        return '/dashboard/'; // Redirigir al login si no tiene rol válido
     }
   }
 

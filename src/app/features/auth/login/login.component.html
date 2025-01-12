@@ -1,37 +1,96 @@
 <div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h2>Iniciar Sesión</h2>
+    <h2 class="text-2xl font-bold text-center mb-6 text-white">Iniciar Sesión</h2>
 
-    <div>
-      <label for="username">Usuario</label>
+    <!-- Campo de Usuario -->
+    <div class="mb-4">
+      <label for="username" class="block text-gray-200">Usuario</label>
       <input
         id="username"
         type="text"
         formControlName="username"
+        class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Ingresa tu usuario"
       />
-      <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+      <div
+        *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        class="text-red-400 text-sm mt-1"
+      >
         Usuario es requerido.
       </div>
     </div>
 
-    <div>
-      <label for="password">Contraseña</label>
+    <!-- Campo de Contraseña -->
+    <div class="mb-4">
+      <label for="password" class="block text-gray-200">Contraseña</label>
       <input
         id="password"
         type="password"
         formControlName="password"
+        class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Ingresa tu contraseña"
       />
-      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      <div
+        *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        class="text-red-400 text-sm mt-1"
+      >
         Contraseña es requerida.
       </div>
     </div>
 
-    <div *ngIf="errorMessage" class="error-message">
+    <!-- Mensaje de Error Global -->
+    <div *ngIf="errorMessage" class="error-message text-red-400 text-center mb-4">
       {{ errorMessage }}
     </div>
 
-    <button type="submit" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+    <!-- Botón de Enviar -->
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+      class="login-button w-full text-white py-2 rounded-lg hover:bg-red-600 transition duration-200"
+    >
+      Iniciar Sesión
+    </button>
   </form>
+
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center">
+      <input
+        id="remember"
+        type="checkbox"
+        formControlName="rememberMe"
+        class="mr-2"
+      />
+      <label for="remember" class="text-gray-200">Recuérdame</label>
+    </div>
+    <a routerLink="/auth/forgot-password" class="text-blue-300 hover:underline">
+      ¿Olvidaste tu contraseña?
+    </a>
+  </div>
+
+  <!-- Enlaces de Registro y Olvido de Contraseña -->
+  <div class="flex items-center justify-center mt-6">
+    <span class="text-gray-200">¿No tienes una cuenta?</span>
+    <a routerLink="/auth/register" class="text-blue-300 hover:underline ml-2">Regístrate</a>
+  </div>
+  <div class="flex items-center justify-center mt-6">
+    <span class="text-gray-200">O inicia sesión con</span>
+  </div>
+  <div class="flex justify-center mt-4">
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg mr-2 hover:bg-blue-700 transition duration-200"
+    >
+      <i class="fab fa-facebook-f"></i>
+    </button>
+    <button
+      class="bg-red-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-red-600 transition duration-200"
+    >
+      <i class="fab fa-google"></i>
+    </button>
+    <button
+      class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition duration-200"
+    >
+      <i class="fab fa-apple"></i>
+    </button>
+  </div>
 </div>
