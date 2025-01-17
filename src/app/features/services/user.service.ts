@@ -3,11 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+// Interfaces para User y sus datos asociados
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  tags: string[];
+  fileUrl: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Role {
+  id: number;
+  name: string;
+}
+
 export interface User {
-  id?: number;
+  id: number;
   username: string;
-  password?: string;
-  role: string;
+  password: string;
+  email: string;
+  phoneNumber: string;
+  roles: Role[];
+  wallet: number;
+  profilePictureUrl: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  products: Product[];
 }
 
 @Injectable({
@@ -30,7 +57,12 @@ export class UserService {
 
   // Obtener un usuario por ID
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`);
+    return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
+      catchError((error) => {
+        console.error(`Error al obtener el usuario con ID ${id}`, error);
+        throw error;
+      })
+    );
   }
 
   // Crear un nuevo usuario

@@ -14,7 +14,7 @@ import { of } from 'rxjs';
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
-  newUser: User = { username: '', password: '', role: 'ROLE_USER' };
+  newUser: User = { id: 0, username: '', password: '', email: '', phoneNumber: '', wallet: 0, roles: [], profilePictureUrl: '', isActive: true, createdAt: '', updatedAt: '', products: [] };
   editingUser: User | null = null;
   loading = false;
   errorMessage: string | null = null;
@@ -48,7 +48,7 @@ export class UserManagementComponent implements OnInit {
   addUser(): void {
     this.userService.createUser(this.newUser).subscribe((user) => {
       this.users.push(user);
-      this.newUser = { username: '', password: '', role: 'ROLE_USER' }; // Reset form
+      this.newUser = { id: 0, username: '', password: '', email: '', phoneNumber: '', wallet: 0, roles: [], profilePictureUrl: '', isActive: true, createdAt: '', updatedAt: '', products: [] }; // Reset form
     });
   }
 

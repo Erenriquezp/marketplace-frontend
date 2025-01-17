@@ -15,7 +15,7 @@
         <tr *ngFor="let user of users">
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
-          <td>{{ user.role }}</td>
+          <td>{{ user.roles }}</td>
           <td>
             <button class="btn btn-warning" (click)="editUser(user)">Editar</button>
             <button class="btn btn-danger" (click)="deleteUser(user.id!)">Eliminar</button>
@@ -44,7 +44,7 @@
           required
         />
         <label for="role">Rol:</label>
-        <select [(ngModel)]="newUser.role" name="role" id="role">
+        <select [(ngModel)]="newUser.roles" name="role" id="role">
           <option value="ROLE_USER">Usuario</option>
           <option value="ROLE_ADMIN">Administrador</option>
         </select>
@@ -64,7 +64,7 @@
           required
         />
         <label for="editRole">Rol:</label>
-        <select [(ngModel)]="editingUser.role" name="editRole" id="editRole">
+        <select [(ngModel)]="editingUser.roles" name="editRole" id="editRole">
           <option value="ROLE_USER">Usuario</option>
           <option value="ROLE_ADMIN">Administrador</option>
         </select>

@@ -1,15 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService, User } from '../../services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-freelancer',
   imports: [CommonModule],
   templateUrl: './freelancer.component.html',
-  styleUrls: ['./freelancer.component.scss',], // Corregido: `styleUrls` en lugar de `styleUrl`
+  styleUrls: ['./freelancer.component.scss'],
 })
-export class FreelancerComponent {
-  offers = [
-    { id: 1, name: 'Servicio 1', status: 'Aceptado' },
-    { id: 2, name: 'Servicio 2', status: 'En espera' },
-  ];
+export class FreelancerComponent implements OnInit {
+  userData: User | null = null;
+
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadCurrentUserData();
+  }
+
+  // Cargar datos del usuario autenticado desde el backend
+  private loadCurrentUserData(): void {
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser) {
+      this.userService.getUserById(currentUser.id).subscribe({
+        next: (data) => (this.userData = data),
+        error: (error) =>
+          console.error('Error al cargar los datos del usuario', error),
+      });
+      console.log('Datos del usuario cargados:', currentUser.id);
+    } else {
+      console.error('No hay un usuario autenticado.');
+    }
+  }
 }

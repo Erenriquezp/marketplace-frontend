@@ -1,43 +1,54 @@
-// auth/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
+export interface AuthResponse {
+  id: number; // ID del usuario autenticado
+  accessToken: string;
+  roles: string[];
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = `${environment.apiUrl}/auth`; // URL base para la autenticación
-  private currentUserSubject: BehaviorSubject<{ accessToken: string; role: string }>;
-  public currentUser: Observable<{ accessToken: string; role: string }>;
+  private currentUserSubject: BehaviorSubject<AuthResponse | null>;
+  public currentUser: Observable<AuthResponse | null>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<{ accessToken: string; role: string }>(
-      JSON.parse(localStorage.getItem('currentUser') || '{}')
+    const storedUser = localStorage.getItem('currentUser');
+    this.currentUserSubject = new BehaviorSubject<AuthResponse | null>(
+      storedUser ? JSON.parse(storedUser) : null
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): { accessToken: string; role: string } | null {
+  public get currentUserValue(): AuthResponse | null {
     return this.currentUserSubject.value;
   }
-  login(username: string, password: string): Observable<unknown> {
-    return this.http.post<{ accessToken: string; role: string }>(`${this.baseUrl}/login`, { username, password }).pipe(
+
+  /**
+   * Iniciar sesión con credenciales de usuario.
+   */
+  login(username: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, { username, password }).pipe(
       map((response) => {
-        // Almacena el token y el rol en localStorage
+        // Almacena el token y los roles en localStorage
         localStorage.setItem('currentUser', JSON.stringify(response));
         this.currentUserSubject.next(response);
+        
         return response;
       })
     );
   }
-   /**
-   * Método de registro de un nuevo usuario
+
+  /**
+   * Registrar un nuevo usuario.
    */
-   register(userData: {
+  register(userData: {
     name: string;
     email: string;
     password: string;
@@ -50,27 +61,34 @@ export class AuthService {
       })
     );
   }
+
   /**
-   * Obtener la ruta del dashboard según el rol del usuario.
+   * Determinar la ruta de redirección del dashboard según los roles del usuario.
    */
   getDashboardRouteByRole(): string {
-    const role = this.currentUserValue?.role;
-    switch (role) {
-      case 'ROLE_USER':
-        return '/dashboard/client';
-      case 'ROLE_FREELANCER':
-        return '/dashboard/freelancer';
-      default:
-        return '/dashboard/'; // Redirigir al login si no tiene rol válido
+    const roles = this.currentUserValue?.roles || [];
+    if (roles.includes('ROLE_USER')) {
+      return '/dashboard/client';
+    } else if (roles.includes('ROLE_FREELANCER')) {
+      return '/dashboard/freelancer';
+    } else if (roles.includes('ROLE_ADMIN')) {
+      return '/dashboard/admin';
     }
+    return '/auth/login'; // Redirige al login si no tiene roles válidos
   }
 
+  /**
+   * Cerrar sesión.
+   */
   logout(): void {
     // Elimina el token del localStorage
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next({ accessToken: '', role: '' });
+    this.currentUserSubject.next(null);
   }
 
+  /**
+   * Verificar si el usuario está autenticado.
+   */
   isAuthenticated(): boolean {
     return !!this.currentUserValue?.accessToken;
   }

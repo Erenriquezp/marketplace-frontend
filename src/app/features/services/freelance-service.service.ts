@@ -12,7 +12,7 @@ export interface FreelanceService {
   category: string; // Nueva propiedad para categoría
 }
 
-// Interfaz para la respuesta de servicios paginados
+// Interfaz para la respuesta de productos paginados
 export interface FreelanceServiceResponse {
   content: FreelanceService[];
   totalElements: number;
@@ -20,6 +20,7 @@ export interface FreelanceServiceResponse {
   size: number;
   number: number;
 }
+
 
 @Injectable({
   providedIn: 'root',

@@ -5,30 +5,56 @@
       <!-- Sidebar -->
       <aside class="bg-white shadow-md rounded-lg p-4">
         <div class="flex items-center space-x-6">
-            <img
-            src="/assets/images/wallpaperflare.com_wallpaper.jpg"
+          <!--[src]="userData?.profilePictureUrl || '/assets/images/default-profile.jpg'"-->
+          <img
+            [src]="'/assets/images/default-profile.jpg'"
             class="h-40 w-40 rounded-full"
             alt="Foto de perfil del freelancer"
-            />
+          />
           <div>
-            <h2 class="text-xl font-bold text-primary-color">Juan Pérez</h2>
-            <p class="text-secondary-color">Desarrollador Web</p>
+            <h2 class="text-xl font-bold text-primary-color">
+              {{ userData?.username || 'Cargando...' }}
+            </h2>
+            <p class="text-secondary-color">
+              {{ userData?.email || 'Correo no disponible' }}
+            </p>
+            <p class="text-secondary-color">
+              Teléfono: {{ userData?.phoneNumber || 'No disponible' }}
+            </p>
+            <p class="text-secondary-color">
+              Roles:
+              <span *ngFor="let role of userData?.roles; let i = index">
+                {{ role.name }}<span *ngIf="i < ((userData?.roles?.length || 0) - 1)">,</span>
+              </span>
+            </p>
           </div>
         </div>
         <div class="mt-6">
           <h3 class="text-lg font-semibold text-primary-color">Estadísticas</h3>
           <div class="mt-4 space-y-2">
             <div class="flex justify-between items-center">
-              <span class="text-secondary-color">Proyectos Completados</span>
-              <span class="text-primary-color font-bold">24</span>
+              <span class="text-secondary-color">Productos Publicados</span>
+              <span class="text-primary-color font-bold">
+                {{ userData?.products?.length || 0 }}
+              </span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-secondary-color">Proyectos en Progreso</span>
-              <span class="text-primary-color font-bold">5</span>
+              <span class="text-secondary-color">Wallet</span>
+              <span class="text-primary-color font-bold">${{ userData?.wallet || 0 }}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-secondary-color">Calificación</span>
-              <span class="text-primary-color font-bold">4.8/5</span>
+              <span class="text-secondary-color">Estado</span>
+              <span class="text-primary-color font-bold">
+                {{ userData?.isActive ? 'Activo' : 'Inactivo' }}
+              </span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Miembro desde</span>
+              <span class="text-primary-color font-bold">{{ userData?.createdAt | date: 'medium' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Última actualización</span>
+              <span class="text-primary-color font-bold">{{ userData?.updatedAt | date: 'medium' }}</span>
             </div>
           </div>
         </div>
@@ -36,70 +62,41 @@
 
       <!-- Main Dashboard -->
       <main class="col-span-2">
-        <!-- Proyectos Recientes -->
+        <!-- Productos Publicados -->
         <section class="bg-white shadow-md rounded-lg p-4 mb-6">
-          <h2 class="text-xl font-bold text-primary-color">Proyectos Recientes</h2>
+          <h2 class="text-xl font-bold text-primary-color">Productos Publicados</h2>
           <div class="mt-4 space-y-4">
-            <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 class="text-lg font-semibold text-primary-color">
-                  Desarrollo de Sitio Web
-                </h3>
-                <p class="text-secondary-color">Cliente: María López</p>
+            <div
+              *ngFor="let product of userData?.products"
+              class="bg-gray-50 p-4 rounded-lg flex flex-col md:flex-row md:justify-between items-start md:items-center"
+            >
+              <div class="flex items-start space-x-4">
+                <img
+                  [src]="product.fileUrl || '/assets/images/default-profile.jpg'"
+                  class="h-24 w-24 rounded-md object-cover"
+                  alt="Imagen del producto"
+                />
+                <div>
+                  <h3 class="text-lg font-semibold text-primary-color">
+                    {{ product.name }}
+                  </h3>
+                  <p class="text-secondary-color">{{ product.description }}</p>
+                  <p class="text-secondary-color">Categoría: {{ product.category }}</p>
+                  <p class="text-secondary-color">
+                    Etiquetas:
+                    <span *ngFor="let tag of product.tags; let i = index">
+                      {{ tag }}<span *ngIf="i < (product.tags.length - 1)">,</span>
+                    </span>
+                  </p>
+                  <p class="text-secondary-color">
+                    Publicado:
+                    {{ product.createdAt | date: 'medium' }}
+                  </p>
+                </div>
               </div>
-              <span class="text-primary-color font-bold">En Progreso</span>
-            </div>
-            <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 class="text-lg font-semibold text-primary-color">
-                  Aplicación Móvil
-                </h3>
-                <p class="text-secondary-color">Cliente: Carlos García</p>
-              </div>
-              <span class="text-primary-color font-bold">Completado</span>
-            </div>
-            <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 class="text-lg font-semibold text-primary-color">
-                  Rediseño de Logo
-                </h3>
-                <p class="text-secondary-color">Cliente: Ana Martínez</p>
-              </div>
-              <span class="text-primary-color font-bold">En Progreso</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- Mensajes Recientes -->
-        <section class="bg-white shadow-md rounded-lg p-4">
-          <h2 class="text-xl font-bold text-primary-color">Mensajes Recientes</h2>
-          <div class="mt-4 space-y-4">
-            <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 class="text-lg font-semibold text-primary-color">
-                  María López
-                </h3>
-                <p class="text-secondary-color">Hola, ¿cómo va el proyecto?</p>
-              </div>
-              <span class="text-secondary-color">Hace 2 horas</span>
-            </div>
-            <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 class="text-lg font-semibold text-primary-color">
-                  Carlos García
-                </h3>
-                <p class="text-secondary-color">Gracias por el trabajo, ¡excelente!</p>
-              </div>
-              <span class="text-secondary-color">Ayer</span>
-            </div>
-            <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 class="text-lg font-semibold text-primary-color">
-                  Ana Martínez
-                </h3>
-                <p class="text-secondary-color">¿Podemos hacer una reunión mañana?</p>
-              </div>
-              <span class="text-secondary-color">Hace 3 días</span>
+              <span class="text-primary-color font-bold text-lg mt-4 md:mt-0">
+                ${{ product.price.toFixed(2) }}
+              </span>
             </div>
           </div>
         </section>

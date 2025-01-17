@@ -8,14 +8,25 @@ import { AuthService } from '../services/auth.service';
 export class RoleGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
+  /**
+   * Verifica si el usuario tiene al menos uno de los roles requeridos para acceder a la ruta.
+   */
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const currentUser = this.authService.currentUserValue;
 
-    if (currentUser && route.data['roles']?.includes(currentUser.role)) {
-      return true;
+    // Verificar si el usuario está autenticado y tiene roles
+    if (currentUser?.roles && route.data['roles']) {
+      // Verificar si al menos uno de los roles requeridos está en los roles del usuario
+      const hasRole = route.data['roles'].some((role: string) =>
+        currentUser.roles.includes(role)
+      );
+
+      if (hasRole) {
+        return true; // Usuario tiene permiso
+      }
     }
 
-    // Redirige al login si no tiene permisos
+    // Si no tiene permisos, redirigir al login o a una página de acceso denegado
     this.router.navigate(['/auth/login']);
     return false;
   }
