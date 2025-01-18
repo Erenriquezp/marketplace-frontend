@@ -1,10 +1,259 @@
-<div class="product-search">
-    <h2>Buscar Productos o Servicios</h2>
-    <!-- Lista de productos -->
-    <div *ngFor="let product of products" class="product-item">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <p><strong>Precio:</strong> ${{ product.price }}</p>
+<!-- Sección Hero -->
+<section class="bg-[#D3435B] text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">
+            Encuentra los Servicios Freelance Perfectos para tu Negocio
+        </h1>
+        <p class="text-lg mb-8">
+            Desde desarrollo web hasta diseño gráfico, tenemos los freelancers que
+            necesitas para abordar tu trabajo más importante.
+        </p>
+        <div class="max-w-lg mx-auto flex">
+            <input class="search-input w-full px-4 py-2 rounded-l-md text-gray-700 bg-[#721652]"
+                placeholder="Buscar servicios..." [(ngModel)]="searchQuery" />
+            <button (click)="onSearch()" class="search-button bg-[#FA9C86] text-blue-600 px-4 py-2 rounded-r-md">
+                Buscar
+            </button>
+        </div>
     </div>
-  </div>
-  
+</section>
+<div class="section-divider"></div>
+
+<!-- Sección de Información de Pago -->
+<section class="bg-[#721652] text-white py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-10">Información de Pago</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Tarjeta: Pagos Seguros -->
+            <div class="flex items-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
+                <img alt="Icono de pagos seguros" class="w-16 h-16 mr-6"
+                    src="https://cdn-icons-png.flaticon.com/512/190/190411.png" />
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Pagos Seguros</h3>
+                    <p class="text-sm">
+                        Tus transacciones están protegidas y encriptadas.
+                    </p>
+                </div>
+            </div>
+            <!-- Tarjeta: Facturación Fácil -->
+            <div class="flex items-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
+                <img alt="Icono de facturación fácil" class="w-16 h-16 mr-6"
+                    src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" />
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Facturación Fácil</h3>
+                    <p class="text-sm">
+                        Gestiona tus facturas sin esfuerzo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- Productos Destacados -->
+<section class="bg-[#D3435B] py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-white">
+            Productos Destacados
+        </h2>
+        <div *ngIf="products?.length; else noResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div *ngFor="let product of products"
+                class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
+                    class="w-full h-48 object-cover rounded-t-lg mb-4" />
+                <h3 class="text-xl font-bold text-center mb-2">{{ product.name }}</h3>
+                <p class="text-gray-600 mb-4">{{ product.description }}</p>
+                <div class="text-center">
+                    <p class="text-lg font-bold text-[#FA9C86] mb-4">
+                        ${{ product.price }}
+                    </p>
+                    <a [routerLink]="['/marketplace/products', product.id]"
+                        class="bg-[#FA9C86] text-white px-4 py-2 rounded hover:bg-[#D3435B] transition-colors duration-300">
+                        Ver Detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ng-template #noResults>
+            <p class="text-center text-gray-600 text-lg">
+                No se encontraron productos destacados.
+            </p>
+        </ng-template>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- Categorías -->
+<section class="bg-[#D3435B] py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-white">
+            Realiza trabajos en cientos categorías diferentes
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+            <a *ngFor="let category of categories"
+                class="category-card bg-white p-4 rounded-lg shadow-md transition-colors duration-300" href="#">
+                {{ category.name }}
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Diseño de Sitios Web
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Aplicaciones Móviles
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Aplicaciones Android
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Aplicaciones iPhone
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Arquitectura de Software
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Diseño Gráfico
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Diseño de Logotipos
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Relaciones Públicas
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Logística
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Corrección de Textos
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Traducción
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Investigación
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Redacción de Investigaciones
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Redacción de Artículos
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Web Scraping
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                HTML
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                CSS
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                HTML 5
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Javascript
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Procesamiento de Datos
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Python
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Wordpress
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Búsqueda en la Web
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Finanzas
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Legal
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Linux
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Manufactura
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Entrada de Datos
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Redacción de Contenidos
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Marketing
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Excel
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Redacción Fantasma
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Copywriting
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Contabilidad
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                MySQL
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Programación en C++
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Diseño de Banners
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Ilustración
+            </a>
+            <a class="bg-white p-4 rounded-lg shadow-md hover:bg-[#FA9C86] hover:text-white transition-colors duration-300 category-card"
+                href="#">
+                Link Building
+            </a>
+        </div>
+    </div>
+</section>
+<div class="section-divider"></div>

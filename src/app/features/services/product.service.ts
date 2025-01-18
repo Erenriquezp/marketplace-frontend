@@ -9,6 +9,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  fileUrl?: string;
 }
 
 // Interfaz para la respuesta de productos paginados
@@ -88,5 +89,8 @@ export class ProductService {
         return of(); // Retorna un observable vacío en caso de error
       })
     );
+  }
+  searchProducts(query: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}?search=${query}`);
   }
 }
