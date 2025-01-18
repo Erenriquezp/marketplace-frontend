@@ -3,11 +3,12 @@
   <header class="navbar">
     <div class="navbar-container">
       <h1 class="navbar-logo">
-        <a routerLink="/" aria-label="Ir al inicio">Marketplace</a>
+        <a routerLink="/" aria-label="Ir al inicio">WORKADO</a>
       </h1>
       <nav class="navbar-menu">
         <ul>
-          <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
+          <li><a routerLink="/" routerLinkActive="active-link">Ofertas laborales</a></li>
+          <li><a routerLink="/" routerLinkActive="active-link">Solicita servicios</a></li>
           <li><a routerLink="/marketplace/products" routerLinkActive="active-link">Marketplace</a></li>
           <li *ngIf="isAuthenticated">
             <a
@@ -21,9 +22,9 @@
       </nav>
       <div class="auth-menu">
         <!-- Opciones de autenticación -->
-        <button *ngIf="!isAuthenticated" routerLink="/auth/login">Log In</button>
-        <button *ngIf="!isAuthenticated" routerLink="/auth/register">Sign Up</button>
-        <button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+        <button *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</button>
+        <button *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</button>
+        <button *ngIf="isAuthenticated" (click)="logout()">Cerrar Sesión</button>
       </div>
     </div>
   </header>
@@ -37,6 +38,31 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
+      <div class="footer-logo">
+        <img src="assets\images\logo1.png.png" alt="Marketplace Logo">
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="/about">Sobre nosotros</a></li>
+          <li><a href="/how-it-works">Cómo funciona Mi Carrito</a></li>
+          <li><a href="/publish-offers">Publicar Ofertas</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <p>Contáctanos hoy mismo:</p>
+        <ul>
+          <li>
+            <img src="assets\images\telefono.png" alt="Teléfono" class="contact-icon">
+            Por teléfono: +56 9 9495 8251
+          </li>
+          <li>
+            <img src="assets\images\email.png" alt="Email" class="contact-icon">
+            Por e-mail: <a href="mailto:contacto&#64;beedigital.cl">contacto&#64;beedigital.cl</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
       <p>© 2025 Marketplace. Todos los derechos reservados.</p>
       <nav class="footer-links">
         <a routerLink="/terms" aria-label="Términos y condiciones">Términos</a>
