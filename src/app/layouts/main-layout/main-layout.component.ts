@@ -12,12 +12,15 @@ import { CommonModule } from '@angular/common';
 })
 export class MainLayoutComponent {
   isAuthenticated = false;
+  userId: number | null = null;
 
   constructor(private authService: AuthService, private router: Router) {
     // Verifica si el usuario está autenticado
     this.isAuthenticated = this.authService.isAuthenticated();
+    this.userId = this.authService.currentUserValue?.id || null;
   }
 
+   // Obtén el ID del usuario autenticado si está disponible
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/auth/login']); // Redirige al login después del logout

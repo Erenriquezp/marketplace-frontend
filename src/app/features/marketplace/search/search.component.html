@@ -1,1 +1,10 @@
-<p>search works!</p>
+<div class="product-search">
+    <h2>Buscar Productos o Servicios</h2>
+    <!-- Lista de productos -->
+    <div *ngFor="let product of products" class="product-item">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p><strong>Precio:</strong> ${{ product.price }}</p>
+    </div>
+  </div>
+  

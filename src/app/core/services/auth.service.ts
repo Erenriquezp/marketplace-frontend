@@ -49,10 +49,11 @@ export class AuthService {
    * Registrar un nuevo usuario.
    */
   register(userData: {
-    name: string;
-    email: string;
+    username: string;
     password: string;
-    role: string;
+    email: string;
+    phoneNumber: string;
+    roles: string[];
   }): Observable<unknown> {
     return this.http.post<unknown>(`${this.baseUrl}/register`, userData).pipe(
       map((response) => {

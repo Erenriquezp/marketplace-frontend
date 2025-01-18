@@ -5,8 +5,6 @@ import { environment } from '../../../environments/environment';
 import { User } from './user.service';
 
 export interface UserProfile extends User {
-  id: number;
-  name: string;
   bio: string;
   avatar: string;
   skills: string[];

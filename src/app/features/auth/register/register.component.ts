@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -21,11 +23,12 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group(
       {
-        name: ['', Validators.required],
+        username: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
-        role: ['', Validators.required],
+        phoneNumber: ['', [Validators.required, Validators.pattern(/^[+]?[0-9]*$/)]],
+        role: ['', Validators.required], // Role debe ser ROLE_USER, ROLE_FREELANCER, etc.
       },
       { validators: this.passwordMatchValidator }
     );
@@ -39,8 +42,22 @@ export class RegisterComponent {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe(() => {
-        this.router.navigate(['/auth/login']);
+      const { username, email, password, phoneNumber, role } = this.registerForm.value;
+
+      const userData = {
+        username,
+        password,
+        email,
+        phoneNumber,
+        roles: [role], // El backend espera un array de roles
+      };
+
+      this.authService.register(userData).subscribe({
+        next: () => this.router.navigate(['/auth/login']), // Redirige al login después del registro exitoso
+        error: (err) => {
+          this.errorMessage = 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.';
+          console.error('Error en el registro:', err);
+        },
       });
     }
   }
