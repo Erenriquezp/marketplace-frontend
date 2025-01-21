@@ -1,0 +1,26 @@
+<header class="navbar">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <h1 class="navbar-logo">
+      <a routerLink="/" aria-label="Ir al inicio">WORKADO</a>
+    </h1>
+
+    <!-- Menu -->
+    <nav class="navbar-menu">
+      <ul>
+        <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
+        <li><a routerLink="/marketplace/search" routerLinkActive="active-link">Marketplace</a></li>
+        <li *ngIf="isAuthenticated">
+          <a [routerLink]="['/profile/public', userId]" routerLinkActive="active-link">Perfil</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Auth Options -->
+    <div class="auth-menu">
+      <button *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</button>
+      <button *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</button>
+      <button *ngIf="isAuthenticated" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </div>
+</header>

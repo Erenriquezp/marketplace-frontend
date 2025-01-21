@@ -1,0 +1,112 @@
+.navbar {
+  background-color: #f7f7f7;
+  border-bottom: 4px solid #d3435b;
+  padding: 0.2rem 0.3rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Logo Styling */
+  .navbar-logo a {
+    font-family: Arnoldboecklin, fantasy;
+      font-size: 3rem; 
+      font-weight: 900; 
+      text-decoration: none; 
+      color: transparent; 
+      background: linear-gradient(90deg, #5e0e6e, #d31189); 
+      -webkit-background-clip: text; 
+      letter-spacing: 0.2em;
+      background-clip: text; 
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Menu Styling */
+  .navbar-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+
+    li a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #420054;
+      text-decoration: none;
+      position: relative;
+      padding: 0.3rem 0;
+      transition: color 0.3s, border-bottom 0.3s;
+
+      &:hover,
+      &.active-link {
+        color: #d3435b;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        height: 2px;
+        background: #d3435b;
+        width: 0;
+        transition: width 0.3s;
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+
+  /* Auth Menu Styling */
+  .auth-menu {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #d3435b;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #721652;
+      }
+    }
+  }
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    .navbar-container {
+      flex-direction: column;
+      align-items: center;
+
+      .navbar-menu ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .auth-menu {
+        margin-top: 1rem;
+      }
+    }
+  }
+}

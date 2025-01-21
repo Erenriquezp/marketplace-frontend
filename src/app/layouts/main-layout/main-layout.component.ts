@@ -3,10 +3,14 @@ import { AuthService } from '../../core/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from "../../shared/navbar/navbar.component";
+import { SubNavbarComponent } from "../../shared/sub-navbar/sub-navbar.component";
+import { FooterComponent } from "../../shared/footer/footer.component";
+
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, NavbarComponent, SubNavbarComponent, FooterComponent], // Add SubNavbarComponent to the imports array
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'
 })

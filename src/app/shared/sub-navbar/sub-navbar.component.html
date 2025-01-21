@@ -1,0 +1,16 @@
+<nav class="sub-navbar" *ngIf="isAuthenticated">
+  <ul class="sub-navbar-menu">
+    <li>
+      <button (click)="navigateTo('/dashboard/freelancer')">Dashboard</button>
+    </li>
+    <li>
+      <button (click)="navigateTo('/marketplace/products')">Mis Productos</button>
+    </li>
+    <li>
+      <button (click)="navigateTo('/marketplace/services')">Mis Servicios</button>
+    </li>
+    <li>
+      <button (click)="navigateTo('/projects/post')">Post a Project</button>
+    </li>
+  </ul>
+</nav>

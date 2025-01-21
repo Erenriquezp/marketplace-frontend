@@ -1,0 +1,26 @@
+.sub-navbar {
+    background-color: #721652;
+    color: white;
+    padding: 0.5rem;
+  
+    .sub-navbar-menu {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+  
+      li {
+        margin: 0 1rem;
+  
+        a {
+          color: white;
+          text-decoration: none;
+          font-weight: bold;
+  
+          &:hover {
+            color: #fa9c86;
+          }
+        }
+      }
+    }
+}
+  

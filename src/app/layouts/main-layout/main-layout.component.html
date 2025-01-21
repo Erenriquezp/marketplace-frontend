@@ -1,79 +1,13 @@
 <div class="main-layout">
   <!-- Header / Navbar -->
-  <header class="navbar">
-    <div class="navbar-container">
-      <h1 class="navbar-logo">
-        <a routerLink="/" aria-label="Ir al inicio">WORKADO</a>
-      </h1>
-      <nav class="navbar-menu">
-        <ul>
-<<<<<<< HEAD
-          <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
-          <li><a routerLink="/marketplace/search" routerLinkActive="active-link">Marketplace</a></li>
-=======
-          <li><a routerLink="/" routerLinkActive="active-link">Ofertas laborales</a></li>
-          <li><a routerLink="/" routerLinkActive="active-link">Solicita servicios</a></li>
-          <li><a routerLink="/marketplace/products" routerLinkActive="active-link">Marketplace</a></li>
->>>>>>> 4d9f719bbfdb5d93711bb8cd7f2ef2bf23881fbe
-          <li *ngIf="isAuthenticated">
-            <a
-            [routerLink]="['/profile/public', userId]"
-            routerLinkActive="active-link"
-            >
-              Perfil
-            </a>          
-          </li>
-        </ul>
-      </nav>
-      <div class="auth-menu">
-        <!-- Opciones de autenticación -->
-        <button *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</button>
-        <button *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</button>
-        <button *ngIf="isAuthenticated" (click)="logout()">Cerrar Sesión</button>
-      </div>
-    </div>
-  </header>
+  <app-navbar></app-navbar>
 
-  <!-- Main Content 
-  <main class="main-content">
-  </main>-->
+  <!-- Sub Navbar (Visible solo si está autenticado) -->
+  <app-sub-navbar *ngIf="isAuthenticated"></app-sub-navbar>
+
+  <!-- Dynamic Content -->
   <router-outlet></router-outlet>
 
-
   <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="assets\images\logo1.png.png" alt="Marketplace Logo">
-      </div>
-      <div class="footer-links">
-        <ul>
-          <li><a href="/about">Sobre nosotros</a></li>
-          <li><a href="/how-it-works">Cómo funciona Mi Carrito</a></li>
-          <li><a href="/publish-offers">Publicar Ofertas</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <p>Contáctanos hoy mismo:</p>
-        <ul>
-          <li>
-            <img src="assets\images\telefono.png" alt="Teléfono" class="contact-icon">
-            Por teléfono: +56 9 9495 8251
-          </li>
-          <li>
-            <img src="assets\images\email.png" alt="Email" class="contact-icon">
-            Por e-mail: <a href="mailto:contacto&#64;beedigital.cl">contacto&#64;beedigital.cl</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Marketplace. Todos los derechos reservados.</p>
-      <nav class="footer-links">
-        <a routerLink="/terms" aria-label="Términos y condiciones">Términos</a>
-        <a routerLink="/privacy" aria-label="Política de privacidad">Privacidad</a>
-        <a routerLink="/contact" aria-label="Contáctanos">Contacto</a>
-      </nav>
-    </div>
-  </footer>
+  <app-footer></app-footer>
 </div>
