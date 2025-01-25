@@ -3,6 +3,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AUTH_ROUTES } from './features/auth/auth.routes';
 import { DASHBOARD_ROUTES } from '../app/features/dashboard/dashboard.routes';
+import { INFO_ROUTES } from './info/info.routes';
 
 export const routes: Routes = [
   {
@@ -43,5 +44,9 @@ export const routes: Routes = [
     path: 'auth',
     component: AuthLayoutComponent, // Layout para autenticación
     children: AUTH_ROUTES,
+  },
+  {
+    path: 'info',
+    children: INFO_ROUTES,
   },
 ];
