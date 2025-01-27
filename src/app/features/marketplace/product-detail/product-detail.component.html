@@ -1,8 +1,21 @@
-<div class="product-detail">
-    <img [src]="product.fileUrl" alt="{{ product.name }}" />
+<div *ngIf="isLoading" class="loading-spinner">Cargando producto...</div>
+
+<div *ngIf="!isLoading && !errorMessage" class="product-detail">
+  <div class="product-image">
+    <img [src]="product.fileUrl" [alt]="product.name" />
+  </div>
+  <div class="product-info">
     <h1>{{ product.name }}</h1>
     <p>{{ product.description }}</p>
-    <p><strong>Precio: ${{ product.price }}</strong></p>
-    <button class="btn-primary">Comprar</button>
-  </div>
-  
+    <p><strong>Precio:</strong> ${{ product.price }}</p>
+    <p><strong>Categoría:</strong> {{ product.category }}</p>
+    <div *ngIf="product.tags?.length">
+      <strong>Etiquetas:</strong>
+      <ul>
+        <li *ngFor="let tag of product.tags">{{ tag }}</li>
+      </ul>
+    </div>
+</div>
+
+
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>

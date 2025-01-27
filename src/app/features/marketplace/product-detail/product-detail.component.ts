@@ -1,23 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../services/product.service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ProductService } from '../../../core/services/product.service';
+import { Product } from '../../../core/models/product.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
   product!: Product;
+  isLoading = true;
+  errorMessage = '';
+
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    // Aquí podrías cargar el producto desde un servicio.
-    this.product = {
-      id: 1,
-      name: 'Producto Ejemplo',
-      description: 'Una descripción detallada del producto.',
-      price: 100.0,
-      fileUrl: 'https://via.placeholder.com/400',
-    };
+    const productId = Number(this.route.snapshot.paramMap.get('id'));
+    if (productId) {
+      this.loadProduct(productId);
+    } else {
+      this.errorMessage = 'Producto no encontrado.';
+      this.isLoading = false;
+    }
+  }
+
+  private loadProduct(id: number): void {
+    this.productService.getProductById(id).subscribe({
+      next: (data: Product) => {
+        this.product = data;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Error al cargar el producto.';
+        this.isLoading = false;
+      },
+    });
   }
 }

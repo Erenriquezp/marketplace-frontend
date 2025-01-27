@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../../services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-freelancer',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './freelancer.component.html',
   styleUrls: ['./freelancer.component.scss'],
 })
