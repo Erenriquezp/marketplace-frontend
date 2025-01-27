@@ -33,5 +33,5 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()), 
     provideAnimationsAsync(), provideStore(), 
     provideEffects(), provideRouterStore(), 
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })]
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }), provideAnimationsAsync()]
 };

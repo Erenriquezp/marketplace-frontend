@@ -45,3 +45,38 @@
     }
   }
 }
+
+.categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.category-card {
+  max-width: 350px;
+  text-align: center; /* Centra el contenido */
+  transition: transform 0.2s ease;
+  font-family: 'Poppins', sans-serif; /* Cambia la fuente */
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+mat-card-title, mat-card-actions {
+  display: flex;
+  justify-content: center; /* Centra los elementos */
+  align-items: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+mat-card img {
+  width: 500px; 
+  height: 250px; 
+  object-fit: cover; 
+  margin: 0 auto; 
+  display: block;
+  border-radius: 10px; 
+}
