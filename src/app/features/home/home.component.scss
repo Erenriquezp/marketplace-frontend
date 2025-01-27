@@ -1,3 +1,6 @@
+/* Fuentes de Google */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap');
+
 :root {
   --primary-color: #D3435B;
   --secondary-color: #721652;
@@ -5,29 +8,55 @@
   --auth-link-color: #420054;
   --button-bg-color: #420054;
   --footer-bg-color: #420054;
- }
+}
 
+/* Fuentes */
+body {
+  font-family: 'Roboto', sans-serif; /* Fuente principal */
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif; /* Fuente para los títulos */
+}
+
+/* Párrafos */
+p {
+  font-family: 'Roboto', sans-serif; /* Fuente para los párrafos */
+}
+
+/* Degradado para el fondo principal */
 .bg-primary {
-  background-color: var(--primary-color);
+  background: linear-gradient(135deg, #D3435B, #721652); /* Degradado del color primario a un tono más oscuro */
 }
 
 .text-primary {
   color: var(--primary-color);
 }
 
+/* Degradado para el fondo secundario */
 .bg-secondary {
-  background-color: var(--secondary-color);
+  background: linear-gradient(135deg, #721652, #420054); /* Degradado de colores morados */
 }
 
 .bg-gray-200 {
   background-color: #f3f4f6;
 }
 
+/* Botón con fondo degradado */
 .bg-button {
-  background-color: var(--button-bg-color);
-  &:hover {
-    background-color: #38004a; // manually darkened color
-  }
+  background: linear-gradient(135deg, #420054, #721652); /* Degradado para el botón */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif; /* Fuente para el botón */
+  font-weight: bold;
+  text-align: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.bg-button:hover {
+  background: linear-gradient(135deg, #38004a, #5d1e71); /* Degradado al pasar el ratón */
 }
 
 .text-auth-link:hover {
@@ -36,4 +65,9 @@
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+/* Estilo para las imágenes redondas */
+img.rounded-full {
+  border-radius: 50%;
 }
