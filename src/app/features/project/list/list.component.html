@@ -1,0 +1,10 @@
+<div class="project-list">
+    <h2>Mis Proyectos</h2>
+    <ul>
+      <li *ngFor="let project of projects">
+        <a [routerLink]="['/projects/detail', project.id]">{{ project.title }}</a>
+        <span>Presupuesto: ${{ project.budget }}</span>
+        <span>Fecha Límite: {{ project.deadline }}</span>
+      </li>
+    </ul>
+  </div>  

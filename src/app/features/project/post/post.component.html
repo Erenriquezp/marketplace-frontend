@@ -1,0 +1,23 @@
+<div class="project-post">
+    <h2>Publicar un Proyecto</h2>
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <label>
+        Título del Proyecto:
+        <input formControlName="title" type="text" />
+      </label>
+      <label>
+        Descripción:
+        <textarea formControlName="description"></textarea>
+      </label>
+      <label>
+        Presupuesto Estimado ($):
+        <input formControlName="budget" type="text" />
+      </label>
+      <label>
+        Fecha Límite:
+        <input formControlName="deadline" type="date" />
+      </label>
+      <button type="submit" [disabled]="projectForm.invalid">Publicar</button>
+    </form>
+  </div>
+  

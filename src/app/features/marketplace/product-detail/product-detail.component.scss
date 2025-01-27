@@ -1,0 +1,29 @@
+.product-detail {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+  
+    .btn-primary {
+      background-color: #d3435b;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #a52840;
+      }
+    }
+  }
+  

@@ -7,6 +7,11 @@ export const MARKETPLACE_ROUTES: Routes = [
       import('./products/products.component').then(m => m.ProductsComponent),
   },
   {
+    path: 'products/:id',
+    loadComponent: () =>
+      import('./product-detail/product-detail.component').then(m => m.ProductDetailComponent),
+  },
+  {
     path: 'services',
     loadComponent: () =>
       import('./freelance-service/freelance-service.component').then(m => m.FreelanceServicesComponent),
