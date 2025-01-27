@@ -1,19 +1,87 @@
 .info-page {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 2rem auto;
-    font-family: 'Roboto', sans-serif;
-  
-    h1 {
-      font-size: 2.5rem;
-      color: #420054;
+  padding: 3rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #420054, #721656, #d3435b);
+  color: #fcfcfc;
+  border-radius: 10px;
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #fcfcfc;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .faq-container {
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+
+    .faq-item {
       margin-bottom: 1rem;
-    }
-  
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      color: #333;
+      border-bottom: 1px solid #d3435b;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .faq-toggle {
+        display: none;
+      }
+
+      .faq-question {
+        display: block;
+        cursor: pointer;
+        font-size: 1.4rem;
+        font-weight: bold;
+        padding: 0.5rem 0;
+        color: #420054;
+        position: relative;
+
+        h3 {
+          margin: 0;
+        }
+
+        &::after {
+          content: '+';
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 1.4rem;
+          color: #721656;
+          transition: transform 0.3s ease;
+        }
+      }
+
+      .faq-answer {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #333;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      .faq-toggle:checked + .faq-question::after {
+        content: '−';
+        transform: translateY(-50%);
+      }
+
+      .faq-toggle:checked ~ .faq-answer {
+        max-height: 100px; /* Ajustar según el contenido */
+      }
     }
   }
-  
+}
