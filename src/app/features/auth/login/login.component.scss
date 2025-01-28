@@ -1,39 +1,136 @@
+/* Estilo de la caja de inicio de sesión */
 .login-container {
-  background-color: #420054;
+  background: linear-gradient(135deg, #5e0e6e, #d3435b); /* Fondo degradado */
   padding: 2rem;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   margin: 2rem auto;
+  background-size: 200% 200%; /* Efecto de animación en el fondo */
+  transition: background 0.5s ease-in-out;
+}
 
-  h2 {
-    color: #fff;
-    margin-bottom: 1.5rem;
-  }
+/* Título principal */
+h2 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
 
-  .input-field {
-    background-color: #a22c58;
-    color: white;
+/* Campos de entrada */
+.input-field {
+  background-color: #ffffff;
+  color: #420054; /* Color oscuro para el texto */
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  border: 2px solid #ffffff; /* Borde blanco */
+  margin-bottom: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
 
-    &:focus {
-      border-color: #d3435b;
-    }
-  }
+.input-field:focus {
+  border-color: #d3435b; /* Cambio de color al enfocar */
+  outline: none;
+}
 
-  .error-message {
-    color: #f87171; // Rojo claro para mensajes de error
-  }
+/* Mensajes de error */
+.error-message {
+  color: #f87171; /* Rojo claro para mensajes de error */
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
 
-  .login-button {
-    background-color: #d3435b;
+/* Botón de inicio de sesión */
+.login-button {
+  background-color: #d3435b;
+  color: #fff;
+  padding: 0.8rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
 
-    &:hover {
-      background-color: #c02e4e;
-    }
+.login-button:hover {
+  background-color: #c02e4e;
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
+}
 
-    &:disabled {
-      background-color: #a22c58;
-      cursor: not-allowed;
-    }
-  }
+.login-button:disabled {
+  background-color: #a22c58;
+  cursor: not-allowed;
+}
+
+/* Estilo para los enlaces */
+a {
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #d3435b;
+}
+
+/* Estilos adicionales */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.text-gray-200 {
+  color: #e5e7eb;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-red-400 {
+  color: #f87171;
+}
+
+.text-blue-300 {
+  color: #60a5fa;
+}
+
+.text-blue-500 {
+  color: #3b82f6;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Estilo para el checkbox */
+input[type="checkbox"] {
+  accent-color: #d3435b; /* Color para el checkbox */
 }

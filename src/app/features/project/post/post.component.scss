@@ -1,0 +1,77 @@
+/* Fuente global */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.project-post {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #f0f0f0; /* Fondo suave */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif; /* Fuente elegida */
+}
+
+.project-post h2 {
+  text-align: center;
+  color: #420054; /* Color principal */
+  margin-bottom: 1.5rem;
+  font-weight: 500; /* Negrita para el título */
+}
+
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  color: #721656; /* Título color suave */
+  margin-bottom: 0.5rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a22c58; /* Borde en color secundario */
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  font-family: 'Roboto', sans-serif; /* Fuente para inputs */
+}
+
+input[type="date"] {
+  background-color: #f9f9f9;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d3435b; /* Botón con color de acción */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Roboto', sans-serif; /* Fuente para botón */
+}
+
+button:hover {
+  background-color: #c02e4e; /* Hover más oscuro */
+}
+
+button:disabled {
+  background-color: #a22c58; /* Botón deshabilitado */
+  cursor: not-allowed;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #d3435b; /* Cambio de color al enfocar */
+  box-shadow: 0 0 5px rgba(211, 67, 91, 0.5);
+}

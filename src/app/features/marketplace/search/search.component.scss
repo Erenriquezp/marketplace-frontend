@@ -4,54 +4,67 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.marketplace-container .hero-section {
+.hero-section {
   text-align: center;
+  font-family: 'Poppins', sans-serif; /* Cambié la fuente aquí */
 }
 
-.marketplace-container .hero-section .search-input {
+.hero-section .search-input {
   border: none;
   font-size: 1rem;
+  font-family: 'Roboto', sans-serif; /* Cambié la fuente aquí */
 }
 
-.marketplace-container .hero-section .search-button {
+.hero-section .search-button {
   font-weight: bold;
   transition: background-color 0.3s, color 0.3s;
+  font-family: 'Roboto', sans-serif; /* Cambié la fuente aquí */
 }
 
-.marketplace-container .hero-section .search-button:hover {
+.hero-section .search-button:hover {
   background-color: #d3435b;
   color: white;
 }
 
-.marketplace-container .product-results .product-card {
+.info-section {
+  font-family: 'Poppins', sans-serif; /* Cambié la fuente aquí */
+}
+
+.info-section .info-card {
   transition: box-shadow 0.3s ease;
   border-radius: 0.5rem;
 }
 
-.marketplace-container .product-results .product-card:hover {
+.info-section .info-card:hover {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-.marketplace-container .product-results .product-card .product-image {
+.products-section {
+  font-family: 'Poppins', sans-serif; /* Cambié la fuente aquí */
+}
+
+.products-section .product-card {
+  transition: box-shadow 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.products-section .product-card:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.products-section .product-card .product-image {
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
 }
 
-.marketplace-container .product-results .product-card .details-button {
+.products-section .product-card .details-button {
   transition: background-color 0.3s, color 0.3s;
+  font-family: 'Roboto', sans-serif; /* Cambié la fuente aquí */
 }
 
-.marketplace-container .product-results .product-card .details-button:hover {
+.products-section .product-card .details-button:hover {
   background-color: #d3435b;
   color: white;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
-.marketplace-container .hero-section .search-button, .marketplace-container .product-results .product-card .details-button {
-  font-family: 'Poppins', sans-serif;
 }
 
 .categories-container {
@@ -65,7 +78,7 @@ body {
   max-width: 350px;
   text-align: center; /* Centra el contenido */
   transition: transform 0.2s ease;
-  font-family: 'Poppins', sans-serif; /* Cambia la fuente */
+  font-family: 'Poppins', sans-serif; /* Cambié la fuente aquí */
 }
 
 .category-card:hover {
@@ -77,7 +90,7 @@ mat-card-title, mat-card-actions {
   justify-content: center; /* Centra los elementos */
   align-items: center;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; /* Cambié la fuente aquí */
 }
 
 mat-card img {

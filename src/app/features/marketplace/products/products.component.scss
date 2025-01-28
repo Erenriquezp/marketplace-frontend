@@ -1,51 +1,128 @@
+/* Estilos Generales */
 .product-management {
-    max-width: 600px;
-    margin: auto;
-  
-    h2 {
-      text-align: center;
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
-  
-      input {
-        margin-bottom: 10px;
-        padding: 8px;
-      }
-  
-      button {
-        padding: 8px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-    }
-  
-    .product-item {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 10px;
-  
-      h3 {
-        margin: 0;
-      }
-  
-      button {
-        margin-right: 10px;
-      }
-    }
-  
-    .edit-form {
-      border: 1px solid #007bff;
-      padding: 15px;
-  
-      h3 {
-        margin: 0 0 10px 0;
-      }
-    }
-  }
-  
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f0f0; /* Fondo claro */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #420054; /* Título en color morado oscuro */
+}
+
+/* Estilos del formulario de creación */
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d3435b; /* Borde color rojo */
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #721656; /* Resaltado en color morado cuando está en foco */
+  outline: none;
+}
+
+button {
+  padding: 10px;
+  background-color: #a22c58; /* Botones con color rojo */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #721656; /* Efecto hover con color morado oscuro */
+}
+
+button:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+/* Estilos para cada producto en la lista */
+.product-item {
+  border: 1px solid #d3435b; /* Borde rojo para cada producto */
+  padding: 20px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-item h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #420054; /* Color morado oscuro para el nombre del producto */
+}
+
+.product-item p {
+  color: #721656; /* Descripción en color morado */
+  font-size: 1rem;
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+.buttons button {
+  margin-right: 10px;
+}
+
+.buttons button:hover {
+  transform: scale(1.05); /* Efecto de agrandado al pasar el mouse */
+}
+
+/* Estilos para el formulario de edición */
+.edit-form {
+  background-color: #fcfcfc; /* Fondo claro similar al formulario de creación */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #a22c58; /* Borde con color rojo */
+  margin-top: 30px;
+}
+
+.edit-form h3 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: #420054; /* Título en color morado oscuro */
+}
+
+.edit-form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d3435b; /* Borde rojo para los campos de edición */
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.edit-form button {
+  padding: 10px;
+  background-color: #a22c58; /* Botón de guardar cambios en color rojo */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.edit-form button:hover {
+  background-color: #721656; /* Efecto hover con color morado oscuro */
+}

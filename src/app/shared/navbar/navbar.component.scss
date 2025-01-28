@@ -13,14 +13,14 @@
   /* Logo Styling */
   .navbar-logo a {
     font-family: Arnoldboecklin, fantasy;
-      font-size: 3rem; 
-      font-weight: 900; 
-      text-decoration: none; 
-      color: transparent; 
-      background: linear-gradient(90deg, #5e0e6e, #d31189); 
-      -webkit-background-clip: text; 
-      letter-spacing: 0.2em;
-      background-clip: text; 
+    font-size: 3rem;
+    font-weight: 900;
+    text-decoration: none;
+    color: transparent;
+    background: linear-gradient(90deg, #5e0e6e, #d31189);
+    -webkit-background-clip: text;
+    letter-spacing: 0.2em;
+    background-clip: text;
 
     &:hover {
       transform: scale(1.1);
@@ -35,8 +35,10 @@
     margin: 0;
     padding: 0;
 
+    /* Aplicamos el tipo de letra directamente aquí */
+    font-family: 'Roboto', sans-serif;
+    
     li a {
-      font-family: 'Roboto', sans-serif;
       font-size: 1.2rem;
       font-weight: 500;
       color: #420054;
@@ -90,22 +92,22 @@
       }
     }
   }
-}
 
-/* Responsive Navbar */
-@media (max-width: 768px) {
-  .navbar {
-    .navbar-container {
-      flex-direction: column;
-      align-items: center;
-
-      .navbar-menu ul {
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    .navbar {
+      .navbar-container {
         flex-direction: column;
-        gap: 1rem;
-      }
+        align-items: center;
 
-      .auth-menu {
-        margin-top: 1rem;
+        .navbar-menu ul {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .auth-menu {
+          margin-top: 1rem;
+        }
       }
     }
   }

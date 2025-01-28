@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-search',
   imports: [FormsModule, CommonModule, RouterModule, MatCardModule, MatButtonModule],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss'
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
   products: Product[] = [];
@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
     { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.jpg' },
     { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.jpg' }
   ];
-  
+
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -59,11 +59,10 @@ export class SearchComponent implements OnInit {
       this.loadProducts(); // Cargar todos los productos si no hay búsqueda
     }
   }
-  
+
   // Método para cambiar de página
   changePage(page: number): void {
     this.currentPage = page;
     this.loadProducts(); // Cargar productos de la nueva página
   }
 }
-

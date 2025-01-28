@@ -71,3 +71,32 @@ p {
 img.rounded-full {
   border-radius: 50%;
 }
+
+/* Estilo para el enlace que actúa como botón */
+a.text-primary {
+  display: inline-block;
+  padding: 0.4rem 1rem;  /* Reduce el tamaño del padding */
+  background-color: #d3435b;  /* Color de fondo */
+  color: white;  /* Color del texto */
+  text-align: center;
+  text-decoration: none;  /* Quita el subrayado */
+  border-radius: 4px;  /* Bordes redondeados */
+  font-family: 'Roboto', sans-serif;  /* Tipo de letra */
+  font-size: 1rem;  /* Tamaño de letra más pequeño */
+  transition: background-color 0.3s, transform 0.3s;  /* Transiciones para el hover */
+}
+
+/* Cambio de color cuando el enlace está activo o se pasa el cursor (hover) */
+a.text-primary:hover {
+  background-color: #721652;  /* Color de fondo en hover */
+  transform: scale(1.05);  /* Agrandar ligeramente el botón */
+}
+
+a.text-primary:active {
+  background-color: #5e0e6e;  /* Color de fondo cuando el botón es presionado */
+}
+
+/* Estilo cuando el enlace tiene la clase 'active-link' */
+a.active-link {
+  border: 2px solid #d3435b;  /* Agregar borde cuando el enlace está activo */
+}

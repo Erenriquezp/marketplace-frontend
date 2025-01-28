@@ -1,26 +1,62 @@
+/* Estilos del Navbar */
 .sub-navbar {
-    background-color: #721652;
-    color: white;
-    padding: 0.5rem;
-  
-    .sub-navbar-menu {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-  
-      li {
-        margin: 0 1rem;
-  
-        a {
-          color: white;
-          text-decoration: none;
-          font-weight: bold;
-  
-          &:hover {
-            color: #fa9c86;
-          }
-        }
-      }
-    }
+  background-color: #721652; /* Color de fondo */
+  color: white;
+  padding: 0.75rem 2rem; /* Espaciado interior */
+  font-family: 'Poppins', sans-serif; /* Cambio de fuente */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombras sutiles */
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Fijar navbar en la parte superior */
 }
-  
+
+/* Menú dentro del Navbar */
+.sub-navbar-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elementos del menú */
+.sub-navbar-menu li {
+  margin: 0 1.5rem;
+}
+
+/* Estilos de los botones */
+.sub-navbar-menu button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Efecto al pasar el mouse sobre los botones */
+.sub-navbar-menu button:hover {
+  color: #fa9c86; /* Color de resaltado */
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+
+/* Estilos de los botones en estado activo (opcional) */
+.sub-navbar-menu button:focus,
+.sub-navbar-menu button:active {
+  outline: none;
+  color: #d6b6b1; /* Color suave al hacer clic */
+}
+
+/* Agregar un estilo cuando el navbar está en modo móvil */
+@media (max-width: 768px) {
+  .sub-navbar-menu {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sub-navbar-menu li {
+    margin-bottom: 1rem;
+  }
+}
