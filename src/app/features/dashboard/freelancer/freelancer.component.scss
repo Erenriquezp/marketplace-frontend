@@ -28,3 +28,8 @@ aside {
 .bg-footer-bg-color {
   background-color: var(--footer-bg-color);
 }
+.email-text {
+  word-wrap: break-word;
+  max-width: 150px; /* Ajusta el ancho máximo según sea necesario */
+  white-space: normal;
+}

@@ -1,55 +1,79 @@
-/* Estilos Generales */
+/* Fuente global */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 .product-management {
-  max-width: 600px;
+  max-width: 700px;
   margin: 2rem auto;
-  font-family: 'Poppins', sans-serif;
-  background-color: #f0f0f0; /* Fondo claro */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #eae0ef; /* Fondo más suave */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif; /* Fuente moderna */
 }
 
 h2 {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #420054; /* Título en color morado oscuro */
+  color: #420054; /* Color principal */
+  font-weight: 600;
 }
 
-/* Estilos del formulario de creación */
+/* Estilos del formulario */
 form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
-input {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #d3435b; /* Borde color rojo */
-  border-radius: 5px;
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  color: #721656;
+  margin-bottom: 0.5rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #a22c58;
+  border-radius: 6px;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  background-color: #f9f5fc;
+  font-family: 'Inter', sans-serif;
 }
 
-input:focus {
-  border-color: #721656; /* Resaltado en color morado cuando está en foco */
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input:focus, textarea:focus {
   outline: none;
+  border-color: #d3435b;
+  box-shadow: 0 0 5px rgba(211, 67, 91, 0.5);
 }
 
-button {
-  padding: 10px;
-  background-color: #a22c58; /* Botones con color rojo */
+/* Botón principal */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #d3435b;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1.1rem;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
-button:hover {
-  background-color: #721656; /* Efecto hover con color morado oscuro */
+.btn-submit:hover {
+  background-color: #c02e4e;
+  transform: scale(1.03);
 }
 
 button:disabled {
@@ -57,72 +81,124 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Estilos para cada producto en la lista */
+/* Estilos de cada producto */
 .product-item {
-  border: 1px solid #d3435b; /* Borde rojo para cada producto */
-  padding: 20px;
-  margin-bottom: 15px;
-  background-color: #fff;
+  background-color: #ffffff;
+  border: 2px solid #a22c58;
+  padding: 1rem;
+  margin-top: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .product-item h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #420054; /* Color morado oscuro para el nombre del producto */
+  color: #420054;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .product-item p {
-  color: #721656; /* Descripción en color morado */
-  font-size: 1rem;
+  color: #721656;
+  margin: 0.3rem 0;
 }
 
+strong {
+  color: #a22c58;
+}
+
+/* Grupo de botones */
 .buttons {
-  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
 .buttons button {
-  margin-right: 10px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.buttons button:hover {
-  transform: scale(1.05); /* Efecto de agrandado al pasar el mouse */
+.btn-edit {
+  background-color: #420054;
+  color: white;
 }
 
-/* Estilos para el formulario de edición */
+.btn-edit:hover {
+  background-color: #721656;
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  background-color: #d3435b;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #a22c58;
+  transform: scale(1.05);
+}
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #d3435b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #c02e4e;
+  transform: scale(1.05);
+}
+
+.btn-submit:active {
+  transform: scale(0.95);
+}
+
+
+/* Estilos del formulario de edición */
 .edit-form {
-  background-color: #fcfcfc; /* Fondo claro similar al formulario de creación */
-  padding: 20px;
+  background-color: #fcfcfc;
+  padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #a22c58; /* Borde con color rojo */
-  margin-top: 30px;
+  border: 2px solid #a22c58;
+  margin-top: 2rem;
 }
 
 .edit-form h3 {
   margin-bottom: 15px;
   font-size: 1.8rem;
-  color: #420054; /* Título en color morado oscuro */
+  color: #420054;
 }
 
 .edit-form input {
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #d3435b; /* Borde rojo para los campos de edición */
-  border-radius: 5px;
+  border: 1px solid #d3435b;
+  border-radius: 6px;
   font-size: 1rem;
 }
 
 .edit-form button {
-  padding: 10px;
-  background-color: #a22c58; /* Botón de guardar cambios en color rojo */
+  width: 100%;
+  padding: 12px;
+  background-color: #a22c58;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1.1rem;
   cursor: pointer;
-  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
 .edit-form button:hover {
-  background-color: #721656; /* Efecto hover con color morado oscuro */
+  background-color: #721656;
+  transform: scale(1.03);
 }

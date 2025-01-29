@@ -1,83 +1,139 @@
-/* Estilo de la caja de inicio de sesión */
+/* Fondo de la página */
+body {
+  background: linear-gradient(135deg, #5e0e6e, #d3435b); /* Gradiente para el fondo de la página */
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #fff; /* Color general de texto blanco */
+}
+
+/* Contenedor del formulario de inicio de sesión */
 .login-container {
-  background: linear-gradient(135deg, #5e0e6e, #d3435b); /* Fondo degradado */
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  margin: 2rem auto;
-  background-size: 200% 200%; /* Efecto de animación en el fondo */
-  transition: background 0.5s ease-in-out;
+  margin: 5% auto;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Título principal */
+/* Título */
 h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
   color: #fff;
-  margin-bottom: 1.5rem;
-  font-family: 'Montserrat', sans-serif;
 }
 
-/* Campos de entrada */
+/* Estilos de los campos de entrada */
 .input-field {
-  background-color: #ffffff;
-  color: #420054; /* Color oscuro para el texto */
-  padding: 0.8rem;
-  border-radius: 0.5rem;
-  border: 2px solid #ffffff; /* Borde blanco */
-  margin-bottom: 1rem;
-  width: 100%;
+  background-color: #f3f4f6; /* Fondo claro para los inputs */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #333; /* Color de texto dentro del input */
+  transition: border-color 0.3s ease;
 }
 
 .input-field:focus {
-  border-color: #d3435b; /* Cambio de color al enfocar */
+  border-color: #d3435b; /* Borde rojo al hacer focus */
   outline: none;
 }
 
-/* Mensajes de error */
-.error-message {
-  color: #f87171; /* Rojo claro para mensajes de error */
+/* Mensaje de error */
+.text-red-400 {
+  color: #f87171;
   font-size: 0.875rem;
-  margin-top: 0.5rem;
 }
 
-/* Botón de inicio de sesión */
+/* Estilos para el botón de enviar */
 .login-button {
   background-color: #d3435b;
-  color: #fff;
-  padding: 0.8rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
   border: none;
+  padding: 12px;
+  font-size: 1.125rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .login-button:hover {
-  background-color: #c02e4e;
-  transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
+  background-color: #c12c4d; /* Efecto hover para el botón */
 }
 
 .login-button:disabled {
-  background-color: #a22c58;
+  background-color: #c0c0c0;
   cursor: not-allowed;
 }
 
-/* Estilo para los enlaces */
+/* Estilos para los enlaces */
 a {
+  color: #3b82f6;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #d3435b;
+  color: #d3435b; /* Efecto hover para los enlaces */
 }
 
-/* Estilos adicionales */
+/* Recuerda este estilo para el checkbox */
+input[type="checkbox"] {
+  accent-color: #d3435b;
+}
+
+/* Estilos para los botones sociales */
+button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 50px; /* Ancho fijo para los botones sociales */
+  height: 50px; /* Alto fijo para los botones sociales */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button:hover {
+  transform: scale(1.05); /* Agrandar el botón al pasar el ratón */
+}
+
+button .fab {
+  font-size: 1.25rem;
+}
+
+/* Botones sociales */
+.bg-blue-600 {
+  background-color: #3b82f6;
+}
+
+.bg-red-500 {
+  background-color: #f87171;
+}
+
+.bg-gray-800 {
+  background-color: #333;
+}
+
+.bg-blue-600:hover {
+  background-color: #2563eb;
+}
+
+.bg-red-500:hover {
+  background-color: #e11d48;
+}
+
+.bg-gray-800:hover {
+  background-color: #1f2937;
+}
+
+/* Contenedor para enlaces de registro y olvido de contraseña */
 .flex {
   display: flex;
 }
@@ -90,47 +146,31 @@ a:hover {
   justify-content: space-between;
 }
 
-.mb-4 {
+.mb-4, .mt-4, .mt-6 {
   margin-bottom: 1rem;
-}
-
-.mt-4 {
   margin-top: 1rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
-.text-gray-200 {
-  color: #e5e7eb;
-}
-
-.text-gray-400 {
-  color: #9ca3af;
-}
-
-.text-white {
-  color: #fff;
-}
-
-.text-red-400 {
-  color: #f87171;
-}
-
-.text-blue-300 {
-  color: #60a5fa;
-}
-
-.text-blue-500 {
-  color: #3b82f6;
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .text-center {
   text-align: center;
 }
 
-/* Estilo para el checkbox */
-input[type="checkbox"] {
-  accent-color: #d3435b; /* Color para el checkbox */
+.text-white {
+  color: white;
+}
+
+.text-gray-200 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.text-blue-300 {
+  color: #93c5fd;
+}
+
+.text-red-400 {
+  color: #f87171;
 }

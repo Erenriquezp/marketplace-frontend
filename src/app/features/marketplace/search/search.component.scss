@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap');
 
+
+/* Estilo cuando el campo de búsqueda está en foco */
+.search-input:focus {
+  background-color: #5e0e6e; /* Fondo ligeramente más oscuro cuando está en foco */
+  color: white; /* Asegúrate de que el texto sea blanco */
+  outline: none; /* Elimina el borde por defecto */
+}
+
 .marketplace-container {
   font-family: 'Roboto', sans-serif;
 }

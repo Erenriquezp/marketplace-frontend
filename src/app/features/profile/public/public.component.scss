@@ -4,11 +4,7 @@
   --profile-avatar-border: #ffffff;
   --cta-button-bg: #1d1856;
   --cta-button-hover: #302080;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f7fafc;
+  --font-family: 'Roboto', sans-serif; /* Fuente global */
 }
 
 /* Profile Container */
@@ -18,6 +14,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   background-color: var(--primary-color);
+  font-family: var(--font-family); /* Aplica la fuente global */
 }
 
 /* Profile Cover */
@@ -79,6 +76,13 @@ body {
   height: auto;
   margin: 10 auto;
   padding-bottom: 10rem;
+}
+
+.portfolio-section h3 {
+  color: white; /* Cambié el color a blanco */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
 .portfolio-grid {

@@ -3,10 +3,37 @@
 
   <!-- Crear un nuevo producto -->
   <form (ngSubmit)="addProduct()">
-    <input type="text" [(ngModel)]="newProduct.name" name="name" placeholder="Nombre del producto" required />
-    <input type="text" [(ngModel)]="newProduct.description" name="description" placeholder="Descripción" required />
-    <input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Precio" required />
-    <button type="submit">Agregar Producto</button>
+    <div class="form-group">
+      <label for="name">Nombre del Producto:</label>
+      <input
+        type="text"
+        [(ngModel)]="newProduct.name"
+        name="name"
+        placeholder="Nombre del producto"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción:</label>
+      <input
+        type="text"
+        [(ngModel)]="newProduct.description"
+        name="description"
+        placeholder="Descripción"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input
+        type="number"
+        [(ngModel)]="newProduct.price"
+        name="price"
+        placeholder="Precio"
+        required
+      />
+    </div>
+    <button type="submit" class="btn-submit">Agregar Producto</button>
   </form>
 
   <!-- Lista de productos -->
@@ -16,8 +43,8 @@
     <p><strong>Precio:</strong> ${{ product.price }}</p>
 
     <div class="buttons">
-      <button (click)="editProduct(product)">Editar</button>
-      <button (click)="deleteProduct(product.id!)">Eliminar</button>
+      <button class="btn-edit" (click)="editProduct(product)">Editar</button>
+      <button class="btn-delete" (click)="deleteProduct(product.id!)">Eliminar</button>
     </div>
   </div>
 
@@ -25,16 +52,37 @@
   <div *ngIf="editingProduct" class="edit-form">
     <h3>Editar Producto</h3>
     <form (ngSubmit)="saveProduct()">
-      <input type="text" [(ngModel)]="editingProduct.name" name="name" placeholder="Nombre del producto" required />
-      <input
-        type="text"
-        [(ngModel)]="editingProduct.description"
-        name="description"
-        placeholder="Descripción"
-        required
-      />
-      <input type="number" [(ngModel)]="editingProduct.price" name="price" placeholder="Precio" required />
-      <button type="submit">Guardar Cambios</button>
+      <div class="form-group">
+        <label for="name">Nombre del Producto:</label>
+        <input
+          type="text"
+          [(ngModel)]="editingProduct.name"
+          name="name"
+          placeholder="Nombre del producto"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción:</label>
+        <input
+          type="text"
+          [(ngModel)]="editingProduct.description"
+          name="description"
+          placeholder="Descripción"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="price">Precio:</label>
+        <input
+          type="number"
+          [(ngModel)]="editingProduct.price"
+          name="price"
+          placeholder="Precio"
+          required
+        />
+      </div>
+      <button type="submit" class="btn-submit">Guardar Cambios</button>
     </form>
   </div>
 </div>

@@ -71,27 +71,48 @@
   }
 
   /* Auth Menu Styling */
-  .auth-menu {
-    display: flex;
-    gap: 1rem;
+.auth-menu {
+  display: flex;
+  gap: 1.5rem; /* Igual que el navbar-menu */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  /* Aplicamos el tipo de letra Arnoldboecklin, igual que en el navbar-menu */
+  font-family: 'Roboto', sans-serif;
 
-    button {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #d3435b;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+  a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #420054;
+    text-decoration: none;
+    position: relative;
+    padding: 0.3rem 0;
+    transition: color 0.3s, border-bottom 0.3s;
 
-      &:hover {
-        background-color: #721652;
-      }
+    &:hover,
+    &.active-link {
+      color: #d3435b;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: #d3435b;
+      width: 0;
+      transition: width 0.3s;
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+    }
+
+    &:hover::after {
+      width: 100%;
     }
   }
+}
+
 
   /* Responsive Navbar */
   @media (max-width: 768px) {

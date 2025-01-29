@@ -17,10 +17,11 @@
     </nav>
 
     <!-- Auth Options -->
-    <div class="auth-menu">
-      <button *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</button>
-      <button *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</button>
-      <button *ngIf="isAuthenticated" (click)="logout()">Cerrar Sesión</button>
-    </div>
+<div class="auth-menu">
+  <a *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</a>
+  <a *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</a>
+  <a *ngIf="isAuthenticated" (click)="logout()">Cerrar Sesión</a>
+</div>
+
   </div>
 </header>
