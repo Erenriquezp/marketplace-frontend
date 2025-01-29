@@ -1,23 +1,27 @@
 <!-- Hero Section -->
-<section class="bg-primary text-white py-10">
-  <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+<section class="hero-section relative">
+  <video autoplay muted loop class="hero-video">
+    <source src="assets/videos/Jisso_Dior.mp4" type="video/mp4">
+    Tu navegador no soporta la reproducción de videos.
+  </video>
+  
+  <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center relative z-10">
     <div class="md:w-1/2 text-center md:text-left">
-      <h1 class="text-4xl font-bold mb-4">
+      <h1 class="text-4xl font-bold mb-4 text-white">
         Contrata a los mejores freelancers para cualquier trabajo, en línea.
       </h1>
-      <p class="text-lg mb-8">
+      <p class="text-lg mb-8 text-white">
         Descubre el lugar donde empresas y freelancers se unen para hacer realidad grandes proyectos. 
-        Publica ofertas, encuentra trabajo y colabora en un entorno seguro y eficiente
+        Publica ofertas, encuentra trabajo y colabora en un entorno seguro y eficiente.
       </p>
       <a class="bg-button text-white px-6 py-3 rounded-full font-semibold" routerLink="/auth/register">
         Empezar
       </a>
-        </div>
-        <div class="md:w-1/2 text-center md:text-left mt-12 md:mt-0">
-          <img src="assets/images/jisoo-blackpink-elle-singapore-2023-4k-50.jpg" alt="Freelancers trabajando en línea" class="p-4" />
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
+
+
 
     <!-- Publish Products Section -->
     <section class="bg-primary text-white py-20">
@@ -48,54 +52,44 @@
       Categorías Populares
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\1150644.jpg" alt="Desarrollo Web" class="mx-auto mb-4" />
-        <h3 class="text-xl font-semibold">Desarrollo Web</h3>
-        <p class="text-gray-600">Construye y mantiene sitios web y aplicaciones web.</p>
-        <a class="text-primary hover:underline" routerLink="/marketplace/search" routerLinkActive="active-link" href="#">Ver más</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\jisoo-flower-mv-264-1-k.jpeg" alt="Diseño Gráfico" routerLink="/marketplace/search" routerLinkActive="active-link" class="mx-auto mb-4" />
-        <h3 class="text-xl font-semibold">Diseño Gráfico</h3>
-        <p class="text-gray-600">Crea contenido visual para comunicar mensajes.</p>
-        <a class="text-primary hover:underline" routerLink="/marketplace/search" routerLinkActive="active-link" href="#">Ver más</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\jisoo-flower-4k-wallpaper-uhdpaper.com-257@1@k (1).jpg" alt="Marketing Digital" class="mx-auto mb-4" />
-        <h3 class="text-xl font-semibold">Marketing Digital</h3>
-        <p class="text-gray-600">Promociona marcas para conectar con clientes potenciales.</p>
-        <a class="text-primary hover:underline" routerLink="/marketplace/search" routerLinkActive="active-link" href="#">Ver más</a>
-      </div>
+      <mat-card class="category-card text-center" *ngFor="let category of categories">
+        <img mat-card-image [src]="category.imageUrl" alt="{{ category.name }}" class="img-fixed-size">
+        <mat-card-title>{{ category.name }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ category.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" routerLink="/marketplace/search">Ver más</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </section>
 
+
 <!-- Featured Freelancers Section -->
-<section class="bg-gray-200 py-16">
+<section class="py-16 bg-gray-200">
   <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8">Freelancers Destacados</h2>
+    <h2 class="text-3xl font-bold text-center mb-8 text-primary border-b-4 border-primary pb-4">
+      Freelancers Destacados
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\jennie-kim-blackpink-beautiful-korean-girl-uhdpaper.com-4K-8.1262.jpg" alt="John Doe" class="mx-auto mb-4 rounded-full" />
-        <h3 class="text-xl font-semibold mb-2">John Doe</h3>
-        <p class="text-gray-600">Desarrollador Web</p>
-        <a class="text-primary hover:underline" routerLink="/profile/public/1" routerLinkActive="active-link" href="#">Ver Perfil</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\lalisaa-balckpink.jpg" alt="Jane Smith" class="mx-auto mb-4 rounded-full" />
-        <h3 class="text-xl font-semibold mb-2">Jane Smith</h3>
-        <p class="text-gray-600">Diseñadora Gráfica</p>
-        <a class="text-primary hover:underline" routerLink="/profile/public/1" href="#">Ver Perfil</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\rose-blackpink.jpg" alt="Mike Johnson" class="mx-auto mb-4 rounded-full" />
-        <h3 class="text-xl font-semibold mb-2">Mike Johnson</h3>
-        <p class="text-gray-600">Especialista en Marketing Digital</p>
-        <a class="text-primary hover:underline" routerLink="/profile/public/1" href="#">Ver Perfil</a>
-      </div>
+      <mat-card class="freelancer-card text-center" *ngFor="let freelancer of freelancers">
+        <div class="freelancer-image-container">
+          <img [src]="freelancer.imageUrl" alt="{{ freelancer.name }}" class="freelancer-image">
+        </div>
+        <mat-card-title>{{ freelancer.name }}</mat-card-title>
+        <mat-card-subtitle>{{ freelancer.profession }}</mat-card-subtitle>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="'/profile/public/' + freelancer.id">
+            Ver Perfil
+          </button>
+        </mat-card-actions>
+      </mat-card>      
     </div>
   </div>
 </section>
+
 
 <!-- How It Works Section -->
 <section class="bg-secondary py-16">
@@ -126,3 +120,5 @@
     </div>
   </div>
 </section>
+
+
