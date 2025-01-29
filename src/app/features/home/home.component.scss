@@ -40,7 +40,7 @@ p {
 }
 
 .bg-gray-200 {
-  background-color: #f3f4f6;
+  background-color: white;
 }
 
 /* Botón con fondo degradado */
@@ -67,11 +67,6 @@ p {
   border-radius: 9999px;
 }
 
-/* Estilo para las imágenes redondas */
-img.rounded-full {
-  border-radius: 50%;
-}
-
 /* Estilo para el enlace que actúa como botón */
 a.text-primary {
   display: inline-block;
@@ -80,7 +75,7 @@ a.text-primary {
   color: white;  /* Color del texto */
   text-align: center;
   text-decoration: none;  /* Quita el subrayado */
-  border-radius: 4px;  /* Bordes redondeados */
+  border-radius: 10px;  /* Bordes redondeados */
   font-family: 'Roboto', sans-serif;  /* Tipo de letra */
   font-size: 1rem;  /* Tamaño de letra más pequeño */
   transition: background-color 0.3s, transform 0.3s;  /* Transiciones para el hover */
@@ -100,3 +95,130 @@ a.text-primary:active {
 a.active-link {
   border: 2px solid #d3435b;  /* Agregar borde cuando el enlace está activo */
 }
+
+
+/*-------------------------*/
+
+/* Asegurar que todas las imágenes tengan el mismo tamaño */
+.img-fixed-size {
+  width: 340px;
+  height: 300px;
+  object-fit: cover;
+  border: 4px solid white; /* Color del borde */
+}
+
+/* Ajuste de las tarjetas */
+.category-card {
+  max-width: 350px;
+  transition: transform 0.2s ease;
+  background: rgb(224, 44, 83);
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos adicionales para tarjetas de Angular Material */
+mat-card {
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/*---------------------*/
+.freelancer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  background: rgb(224, 44, 83);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.freelancer-image-container {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%; /* Hace que el contenedor sea circular */
+  overflow: hidden; /* Evita que la imagen se salga del borde */
+  border: 4px solid white; /* Color del borde */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.freelancer-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra el círculo */
+}
+/* Ajuste de las tarjetas */
+.freelancer-card {
+  max-width: 350px;
+  transition: transform 0.2s ease;
+}
+
+.freelancer-card:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos adicionales para tarjetas de Angular Material */
+freelancer-card {
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+freelancer-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+freelancer-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/*--------------------*/
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Hace que el video cubra todo el área sin distorsionarse */
+  z-index: -1; /* Lo coloca detrás del contenido */
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 10; /* Asegura que el texto y botones estén por encima del video */
+  text-align: center;
+}
+
+.hero-section h1, .hero-section p {
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Hace que el texto sea más legible sobre el video */
+}
+
