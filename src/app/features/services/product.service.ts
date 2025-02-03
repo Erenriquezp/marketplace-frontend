@@ -1,96 +1,96 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-
-// Interfaz para un producto
-export interface Product {
-  id?: number;
-  name: string;
-  description: string;
-  price: number;
-  fileUrl?: string;
-}
-
-// Interfaz para la respuesta de productos paginados
-export interface ProductResponse {
-  content: Product[]; // Array de productos
-  totalElements: number; // Total de elementos
-  totalPages: number; // Total de páginas
-  size: number; // Tamaño de la página
-  number: number; // Número de la página actual
-}
+import { Product } from '../../core/models/product.model';
+import { AuthService } from '../../core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = `${environment.apiUrl}/products`; // URL base del backend
+  private apiUrl = `${environment.apiUrl}/products`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  /**
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.currentUserValue?.accessToken;
+    if (!token) {
+      console.error('No hay token de autenticación');
+    }
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+  }
+
+   /**
    * Obtener productos con paginación.
-   * @param page Número de la página a obtener.
-   * @param size Tamaño de la página.
-   * @returns Observable con la respuesta de productos.
    */
-  getProducts(page = 0, size = 10): Observable<ProductResponse> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
-
-    return this.http.get<ProductResponse>(this.apiUrl, { params }).pipe(
+  getProducts(page = 0, size = 10): Observable<{ content: Product[]; totalElements: number }> {
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    return this.http.get<{ content: Product[]; totalElements: number }>(this.apiUrl, { params }).pipe(
       catchError((error) => {
         console.error('Error al obtener productos', error);
-        return of({ content: [], totalElements: 0, totalPages: 0, size: 0, number: 0 }); // Retorna un objeto vacío en caso de error
+        return of({ content: [], totalElements: 0 });
       })
     );
   }
 
-  /**
-   * Crear un nuevo producto.
-   * @param product Producto a crear.
-   * @returns Observable con el producto creado.
+    /**
+   * Crear un producto asociado al usuario autenticado.
    */
   createProduct(product: Product): Observable<Product | null> {
-    return this.http.post<Product>(this.apiUrl, product).pipe(
+    const userId = this.authService.currentUserValue?.id;
+    if (!userId) {
+      console.error('No hay usuario autenticado');
+      return of(null);
+    }
+
+    product.userId = userId; // Asignamos el usuario autenticado al producto
+
+    return this.http.post<Product>(this.apiUrl, product, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('Error al crear producto', error);
-        return of(null); // Retorna null en caso de error
+        return of(null);
       })
     );
   }
 
-  /**
+    /**
    * Actualizar un producto existente.
-   * @param id ID del producto a actualizar.
-   * @param product Datos del producto a actualizar.
-   * @returns Observable con el producto actualizado.
    */
   updateProduct(id: number, product: Product): Observable<Product | null> {
-    return this.http.put<Product>(`${this.apiUrl}/${id}`, product).pipe(
+    // Convertir `tagsString` en array antes de enviarlo
+    if (product.tagsString) {
+      product.tags = product.tagsString.split(',').map(tag => tag.trim());
+    }
+    
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('Error al actualizar producto', error);
-        return of(null); // Retorna null en caso de error
+        return of(null);
       })
     );
   }
 
-  /**
+    /**
    * Eliminar un producto.
-   * @param id ID del producto a eliminar.
-   * @returns Observable vacío.
    */
   deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('Error al eliminar producto', error);
-        return of(); // Retorna un observable vacío en caso de error
+        return of();
       })
     );
   }
+  
+  // Buscar productos
   searchProducts(query: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}?search=${query}`);
+    return this.http.get<Product[]>(`${this.apiUrl}?search=${query}`).pipe(
+      catchError(() => of([]))
+    );
   }
 }

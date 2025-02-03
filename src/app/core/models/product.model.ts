@@ -1,15 +1,14 @@
-import { User } from './user.model';
-
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   price: number;
   category: string; // Categoría del producto
   tags: string[]; // Etiquetas asociadas al producto
-  fileUrl: string; // URL del archivo relacionado
-  isActive: boolean; // Indica si el producto está activo
-  createdAt: string; // Fecha de creación (ISO string)
-  updatedAt: string; // Fecha de última actualización (ISO string)
-  user: User; // Usuario asociado al producto
+  tagsString?: string; // Se usará en el formulario para convertir a array
+  fileUrl?: string; // URL del archivo relacionado
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  userId?: number; // Asociamos el producto con el usuario autenticado
 }

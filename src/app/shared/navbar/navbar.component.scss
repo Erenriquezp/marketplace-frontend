@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative; // Para el botón de menú
   }
 
   /* Logo Styling */
@@ -28,17 +29,59 @@
   }
 
   /* Menu Styling */
-  .navbar-menu ul {
+  .navbar-menu {
+    ul {
+      display: flex;
+      list-style: none;
+      gap: 5rem;
+      padding: 0.1rem 2rem;
+      margin: 0;
+      
+      li a {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #420054;
+        text-decoration: none;
+        position: relative;
+        padding: 0.3rem 0;
+        transition: color 0.3s, border-bottom 0.3s;
+
+        &:hover,
+        &.active-link {
+          color: #d3435b;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          height: 2px;
+          background: #d3435b;
+          width: 0;
+          transition: width 0.3s;
+          position: absolute;
+          left: 0;
+          bottom: -5px;
+        }
+
+        &:hover::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  /* Auth Menu Styling */
+  .auth-menu {
     display: flex;
-    list-style: none;
     gap: 1.5rem;
+    list-style: none;
     margin: 0;
     padding: 0;
-
-    /* Aplicamos el tipo de letra directamente aquí */
-    font-family: 'Roboto', sans-serif;
     
-    li a {
+    font-family: 'Roboto', sans-serif;
+
+    a {
       font-size: 1.2rem;
       font-weight: 500;
       color: #420054;
@@ -70,49 +113,13 @@
     }
   }
 
-  /* Auth Menu Styling */
-.auth-menu {
-  display: flex;
-  gap: 1.5rem; /* Igual que el navbar-menu */
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  
-  /* Aplicamos el tipo de letra Arnoldboecklin, igual que en el navbar-menu */
-  font-family: 'Roboto', sans-serif;
-
-  a {
-    font-size: 1.2rem;
-    font-weight: 500;
+  /* Button to toggle menu */
+  .menu-toggle {
+    display: none; // Ocultar por defecto
+    cursor: pointer;
+    font-size: 2rem;
     color: #420054;
-    text-decoration: none;
-    position: relative;
-    padding: 0.3rem 0;
-    transition: color 0.3s, border-bottom 0.3s;
-
-    &:hover,
-    &.active-link {
-      color: #d3435b;
-    }
-
-    &::after {
-      content: '';
-      display: block;
-      height: 2px;
-      background: #d3435b;
-      width: 0;
-      transition: width 0.3s;
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-    }
-
-    &:hover::after {
-      width: 100%;
-    }
   }
-}
-
 
   /* Responsive Navbar */
   @media (max-width: 768px) {
@@ -121,9 +128,15 @@
         flex-direction: column;
         align-items: center;
 
-        .navbar-menu ul {
+        .menu-toggle {
+          display: block; // Mostrar el botón de menú
+        }
+
+        .navbar-menu {
+          display: none; // Ocultar el menú por defecto
           flex-direction: column;
           gap: 1rem;
+          padding: 1rem 0; // Espaciado adicional para el menú
         }
 
         .auth-menu {

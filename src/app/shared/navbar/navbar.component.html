@@ -11,7 +11,7 @@
         <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
         <li><a routerLink="/marketplace/search" routerLinkActive="active-link">Marketplace</a></li>
         <li *ngIf="isAuthenticated">
-          <a [routerLink]="['/profile/public', userId]" routerLinkActive="active-link">Perfil</a>
+          <a routerLink="['/profile/public', userId]" routerLinkActive="active-link">Perfil</a>
         </li>
       </ul>
     </nav>
@@ -20,7 +20,7 @@
 <div class="auth-menu">
   <a *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</a>
   <a *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</a>
-  <a *ngIf="isAuthenticated" (click)="logout()">Cerrar Sesión</a>
+  <a *ngIf="isAuthenticated" (click)="logout()" (keydown.enter)="logout()" tabindex="0">Cerrar Sesión</a>
 </div>
 
   </div>
