@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   totalElements = 0; // Para almacenar el total de elementos
   searchQuery = '';
   searchType: 'products' | 'services' = 'products'; // Estado de búsqueda
+
   categories = [
     { name: 'Diseño de Sitios Web', imageUrl: '/assets/images/categorias/pexels-designecologist-1779487.jpg' },
     { name: 'Aplicaciones Móviles', imageUrl: '/assets/images/categorias/app-1013616_1280.jpg' },
@@ -34,8 +35,11 @@ export class SearchComponent implements OnInit {
     { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.jpg' },
     { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.jpg' }
   ];
-  category: string | null = null;
-  priceRange: { min: number | null; max: number | null } = { min: null, max: null };
+  
+  searchCategory = '';
+  minPrice?: number;
+  maxPrice?: number;
+  noResultsFound = false;
 
   constructor(
     private productService: ProductService,
@@ -43,11 +47,23 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadProducts();
-    this.loadServices();
+    this.loadData();
   }
 
-  // Cargar productos con paginación
+  /**
+   * Cargar productos o servicios según el tipo seleccionado.
+   */
+  loadData(): void {
+    if (this.searchType === 'products') {
+      this.loadProducts();
+    } else {
+      this.loadServices();
+    }
+  }
+
+  /**
+   * Cargar productos con paginación.
+   */
   loadProducts(): void {
     this.productService.getProducts(this.currentPage, this.pageSize).subscribe(
       (response) => {
@@ -58,7 +74,9 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  // Cargar servicios con paginación
+  /**
+   * Cargar servicios con paginación.
+   */
   loadServices(): void {
     this.freelanceService.getFreelanceServices(this.currentPage, this.pageSize).subscribe(
       (response) => {
@@ -69,48 +87,44 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  // Ejecutar búsqueda de productos y servicios
+  /**
+   * Ejecutar búsqueda con filtros dinámicos.
+   */
   onSearch(): void {
-    if (this.searchQuery.trim() || this.category || this.priceRange) {
-      const filters: unknown = {
-        name: this.searchQuery.trim() || null,
-        category: this.category || null,
-        minPrice: this.priceRange?.min || null,
-        maxPrice: this.priceRange?.max || null,
-      };
+    this.noResultsFound = false;
 
-      if (this.searchType === 'products') {
-        this.productService.searchProducts(filters).subscribe({
-          next: (results) => (this.products = results),
-          error: (error) => console.error('Error en búsqueda de productos:', error),
-        });
-      } else {
-        this.freelanceService.searchFreelanceServices(filters).subscribe({
-          next: (results) => (this.services = results),
-          error: (error) => console.error('Error en búsqueda de servicios:', error),
-        });
-      }
+    if (this.searchType === 'products') {
+      this.productService.searchProducts(this.searchQuery, this.searchCategory, this.minPrice, this.maxPrice).subscribe({
+        next: (results) => {
+          this.products = results;
+          this.noResultsFound = results.length === 0;
+        },
+        error: (error) => console.error('Error en búsqueda de productos:', error),
+      });
     } else {
-      // Si no hay búsqueda, recargar los datos
-      this.loadProducts();
-      this.loadServices();
+      this.freelanceService.searchFreelanceServices(this.searchQuery).subscribe({
+        next: (results) => {
+          this.services = results;
+          this.noResultsFound = results.length === 0;
+        },
+        error: (error) => console.error('Error en búsqueda de servicios:', error),
+      });
     }
   }
 
-
-  // Cambiar tipo de búsqueda
+  /**
+   * Cambiar tipo de búsqueda (productos o servicios).
+   */
   changeSearchType(type: 'products' | 'services'): void {
     this.searchType = type;
     this.onSearch(); // Realizar la búsqueda según el tipo
   }
 
-  // Método para cambiar de página
+  /**
+   * Cambiar de página en la paginación.
+   */
   changePage(page: number): void {
     this.currentPage = page;
-    if (this.searchType === 'products') {
-      this.loadProducts();
-    } else {
-      this.loadServices();
-    }
+    this.loadData();
   }
 }

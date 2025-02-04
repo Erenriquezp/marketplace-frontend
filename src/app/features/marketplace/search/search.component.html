@@ -7,25 +7,41 @@
         <p class="text-lg mb-8 font-roboto">
             Desde desarrollo web hasta diseño gráfico, tenemos los freelancers que necesitas para abordar tu trabajo más importante.
         </p>
-        
+
         <!-- Filtros de búsqueda -->
-        <div class="max-w-lg mx-auto flex">
-            <select [(ngModel)]="searchType" class="search-select bg-[#721652] text-white px-4 py-2 rounded-l-md">
+        <div class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+            <select [(ngModel)]="searchType" (change)="onSearch()" class="search-select bg-[#721652] text-white px-4 py-2 rounded-md">
                 <option value="products">Productos</option>
                 <option value="services">Servicios</option>
             </select>
+
             <input 
-                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652]"
+                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md"
                 [placeholder]="searchType === 'products' ? 'Buscar productos por nombre o categoría...' : 'Buscar servicios por nombre o precio...'"
                 [(ngModel)]="searchQuery" />
-            <button (click)="onSearch()" class="search-button bg-[#D3435B] text-white px-4 py-2 rounded-r-md">
+
+            <button (click)="onSearch()" class="search-button bg-[#D3435B] text-white px-4 py-2 rounded-md">
                 Buscar
             </button>
+        </div>
+
+        <!-- Filtros adicionales -->
+        <div class="max-w-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <select [(ngModel)]="searchCategory" class="search-select bg-[#721652] text-white px-4 py-2 rounded-md">
+                <option value="" selected>Filtrar por categoría</option>
+                <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+            </select>
+
+            <input type="number" [(ngModel)]="minPrice" placeholder="Precio Mínimo"
+                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md">
+
+            <input type="number" [(ngModel)]="maxPrice" placeholder="Precio Máximo"
+                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md">
         </div>
     </div>
 </section>
 
-<!-- Sección de Productos y Servicios -->
+<!-- Sección de Resultados -->
 <section class="results-section bg-gradient-to-r from-[#5e0e6e] via-[#d31189] to-[#721652] py-20">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12 text-white font-poppins">
@@ -33,7 +49,7 @@
         </h2>
 
         <!-- Resultados de Productos -->
-        <div *ngIf="searchType === 'products' && products?.length; else noResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngIf="searchType === 'products' && products.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div *ngFor="let product of products"
                 class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
@@ -53,7 +69,7 @@
         </div>
 
         <!-- Resultados de Servicios -->
-        <div *ngIf="searchType === 'services' && services?.length; else noResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngIf="searchType === 'services' && services.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div *ngFor="let service of services"
                 class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-xl font-bold text-center mb-2 font-roboto">{{ service.name }}</h3>
@@ -70,27 +86,9 @@
             </div>
         </div>
 
-        <!-- Mensaje cuando no hay resultados -->
-        <ng-template #noResults>
-            <p class="text-center text-lg font-roboto text-white-500">
-                No se encontraron {{ searchType === 'products' ? 'productos' : 'servicios' }} con esa búsqueda.
-            </p>
-        </ng-template>
-    </div>
-</section>
-
-<!-- Categorías -->
-<section class="categories-section bg-[#721652] py-12">
-    <div class="text-center mb-10">
-        <h2 class="text-white text-4xl font-bold font-sans">Navega por nuestras categorías y encuentra lo que necesitas</h2>
-    </div>
-    <div class="categories-container">
-        <mat-card class="category-card" *ngFor="let category of categories">
-            <img mat-card-image [src]="category.imageUrl" alt="{{ category.name }}">
-            <mat-card-title>{{ category.name }}</mat-card-title>
-            <mat-card-actions>
-                <button mat-raised-button color="primary">Explorar</button>
-            </mat-card-actions>
-        </mat-card>
+        <!-- Mensaje único cuando no hay resultados -->
+        <p *ngIf="noResultsFound" class="text-center text-lg font-roboto text-white-500 mt-8">
+            No se encontraron {{ searchType === 'products' ? 'productos' : 'servicios' }} con esa búsqueda.
+        </p>
     </div>
 </section>
