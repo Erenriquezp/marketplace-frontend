@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FreelanceService } from '../../../core/models/freelance-service.model'; // Asegúrate de tener este modelo
+import { FreelanceService } from '../../../core/models/freelance-service.model';
 import { AuthService } from '../../../core/services/auth.service';
-import { FreelanceServiceService } from '../../services/freelance-service.service'; // Asegúrate de que la ruta sea correcta
+import { FreelanceServiceService } from '../../services/freelance-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,13 +11,16 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   styleUrls: ['./freelance-service.component.scss'],
 })
-export class FreelanceServiceComponent implements OnInit {
-  freelancers: FreelanceService[] = [];
-  newFreelance: FreelanceService = {
-    name: '', description: '', skills: [], estimatedDelivery: 0,
-    price: 0
-  }; // Ajusta según tu modelo
-  editingFreelance: FreelanceService | null = null;
+export class FreelanceServicesComponent implements OnInit {
+  servicesOffered: FreelanceService[] = [];
+  newService: FreelanceService = {
+    name: '',
+    description: '',
+    skillsRequired: [], // 🔹 Inicializamos como un array vacío
+    estimatedDelivery: 1,
+    price: 1
+  };
+  editingService: FreelanceService | null = null;
   currentPage = 0;
   pageSize = 10;
   totalElements = 0;
@@ -26,7 +29,7 @@ export class FreelanceServiceComponent implements OnInit {
   constructor(private freelanceService: FreelanceServiceService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.loadFreelancers();
+    this.loadServices();
     this.checkUserRole();
   }
 
@@ -39,85 +42,95 @@ export class FreelanceServiceComponent implements OnInit {
   }
 
   /**
-   * Cargar la lista de freelancers con paginación.
+   * Cargar la lista de servicios ofrecidos con paginación.
    */
-  loadFreelancers(): void {
+  loadServices(): void {
     this.freelanceService.getFreelanceServices(this.currentPage, this.pageSize).subscribe({
       next: (response) => {
-        this.freelancers = response.content;
+        this.servicesOffered = response.content.map(service => ({
+          ...service,
+          skillsRequired: service.skillsRequired || [] // 🔹 Asegura que siempre sea un array
+        }));
         this.totalElements = response.totalElements;
       },
-      error: (error) => console.error('Error al cargar freelancers', error),
+      error: (error) => console.error('Error al cargar servicios freelance', error),
     });
   }
 
   /**
-   * Crear un nuevo freelance.
+   * Convertir `skillsString` en un array antes de enviar datos al backend.
    */
-  addFreelance(): void {
+  convertSkills(service: FreelanceService): void {
+    if (service.skillsString?.trim()) {
+      service.skillsRequired = service.skillsString.split(',').map(skill => skill.trim());
+    } else {
+      service.skillsRequired = [];
+    }
+  }
+
+  /**
+   * Crear un nuevo servicio freelance.
+   */
+  addService(): void {
     if (!this.isFreelancer) {
       console.error('Solo los freelancers pueden publicar servicios');
       return;
     }
 
-    this.freelanceService.createFreelanceService(this.newFreelance).subscribe({
-      next: (createdFreelance) => {
-        if (createdFreelance) {
-          this.freelancers.push(createdFreelance);
-          this.newFreelance = { name: '', description: '', skills: [], estimatedDelivery: 1, price: 1 }; // Reiniciar el formulario
+    this.convertSkills(this.newService); // 🔹 Convertir skills antes de enviar
+
+    this.freelanceService.createFreelanceService(this.newService).subscribe({
+      next: (createdService) => {
+        if (createdService) {
+          this.servicesOffered.push(createdService);
+          this.newService = { name: '', description: '', skillsRequired: [], estimatedDelivery: 1, price: 1 };
         }
       },
-      error: (error) => console.error('Error al crear freelance', error),
+      error: (error) => console.error('Error al crear servicio freelance', error),
     });
   }
 
   /**
-   * Editar un freelance existente.
+   * Editar un servicio existente.
    */
-  editFreelance(freelance: FreelanceService): void {
-    this.editingFreelance = { ...freelance }; // Clonar el freelance para editar
+  editService(service: FreelanceService): void {
+    this.editingService = {
+      ...service,
+      skillsString: service.skillsRequired?.join(', ') || '' // 🔹 Convertimos array a string para el input
+    };
   }
 
-    /**
-     * Convertir tags de string a array antes de guardar.
-     */
-    convertSkills(freelance: FreelanceService): void {
-      if (freelance.skillsString) {
-        freelance.skills = freelance.skillsString.split(',').map(skill => skill.trim());
-      } else {
-        freelance.skills = [];
-      }
-    }
-
   /**
-   * Guardar los cambios en un freelance editado.
+   * Guardar los cambios en un servicio editado.
    */
-  saveFreelance(): void {
-    if (this.editingFreelance) {
-      this.freelanceService.updateFreelanceService(this.editingFreelance.id!, this.editingFreelance).subscribe({
-        next: (updatedFreelance) => {
-          if (updatedFreelance) {
-            const index = this.freelancers.findIndex((f) => f.id === updatedFreelance.id);
+  saveService(): void {
+    if (this.editingService) {
+      this.convertSkills(this.editingService); // 🔹 Convertir skills antes de enviar
+
+      this.freelanceService.updateFreelanceService(this.editingService.id!, this.editingService).subscribe({
+        next: (updatedService) => {
+          if (updatedService) {
+            const index = this.servicesOffered.findIndex((s) => s.id === updatedService.id);
             if (index !== -1) {
-              this.freelancers[index] = updatedFreelance;
+              this.servicesOffered[index] = updatedService;
             }
           }
-          this.editingFreelance = null; // Cerrar el formulario de edición
+          this.editingService = null;
         },
-        error: (error) => console.error('Error al actualizar freelance', error),
+        error: (error) => console.error('Error al actualizar servicio freelance', error),
       });
     }
   }
 
   /**
-   * Eliminar un freelance.
+   * Eliminar un servicio freelance.
    */
-  deleteFreelance(id: number): void {
+  deleteService(id: number): void {
     this.freelanceService.deleteFreelanceService(id).subscribe({
       next: () => {
-        this.freelancers = this.freelancers.filter((freelance) => freelance.id !== id);
+        this.servicesOffered = this.servicesOffered.filter((service) => service.id !== id);
       },
-      error: (error) => console.error('Error al eliminar freelance', error),
+      error: (error) => console.error('Error al eliminar servicio freelance', error),
     });
   }
 
@@ -126,6 +139,6 @@ export class FreelanceServiceComponent implements OnInit {
    */
   changePage(page: number): void {
     this.currentPage = page;
-    this.loadFreelancers();
+    this.loadServices();
   }
 }

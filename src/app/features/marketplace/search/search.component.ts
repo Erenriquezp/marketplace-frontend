@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { FreelanceServiceService } from '../../services/freelance-service.service';
 import { Product } from '../../../core/models/product.model';
+import { FreelanceService } from '../../../core/models/freelance-service.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,10 +17,12 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SearchComponent implements OnInit {
   products: Product[] = [];
+  services: FreelanceService[] = [];
   currentPage = 0;
   pageSize = 10;
-  totalElements = 0; // Para almacenar el total de productos
+  totalElements = 0; // Para almacenar el total de elementos
   searchQuery = '';
+  searchType: 'products' | 'services' = 'products'; // Estado de búsqueda
   categories = [
     { name: 'Diseño de Sitios Web', imageUrl: '/assets/images/categorias/pexels-designecologist-1779487.jpg' },
     { name: 'Aplicaciones Móviles', imageUrl: '/assets/images/categorias/app-1013616_1280.jpg' },
@@ -26,44 +30,87 @@ export class SearchComponent implements OnInit {
     { name: 'Diseño Gráfico', imageUrl: '/assets/images/categorias/workplace-2230698_1280.jpg' },
     { name: 'Diseño de Logotipos', imageUrl: '/assets/images/categorias/logo-be-creative-inspiration-design-concept.jpg' },
     { name: 'Corrección de Textos', imageUrl: '/assets/images/categorias/pexels-iamhogir-17801349.jpg' },
-    { name: 'Traducción', imageUrl: '/assets/images/categorias/5449686.jpg'},
+    { name: 'Traducción', imageUrl: '/assets/images/categorias/5449686.jpg' },
     { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.jpg' },
     { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.jpg' }
   ];
+  category: string | null = null;
+  priceRange: { min: number | null; max: number | null } = { min: null, max: null };
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private freelanceService: FreelanceServiceService
+  ) { }
 
   ngOnInit(): void {
     this.loadProducts();
+    this.loadServices();
   }
 
   // Cargar productos con paginación
   loadProducts(): void {
     this.productService.getProducts(this.currentPage, this.pageSize).subscribe(
       (response) => {
-        this.products = response.content; // Asegúrate de acceder a la propiedad 'content'
-        this.totalElements = response.totalElements; // Almacena el total de elementos
+        this.products = response.content;
+        this.totalElements = response.totalElements;
       },
-      (error) => {
-        console.error('Error al cargar productos', error);
-      }
+      (error) => console.error('Error al cargar productos', error)
     );
   }
 
+  // Cargar servicios con paginación
+  loadServices(): void {
+    this.freelanceService.getFreelanceServices(this.currentPage, this.pageSize).subscribe(
+      (response) => {
+        this.services = response.content;
+        this.totalElements = response.totalElements;
+      },
+      (error) => console.error('Error al cargar servicios freelance', error)
+    );
+  }
+
+  // Ejecutar búsqueda de productos y servicios
   onSearch(): void {
-    if (this.searchQuery.trim()) {
-      this.productService.searchProducts(this.searchQuery).subscribe({
-        next: (results) => (this.products = results),
-        error: (error) => console.error('Error en búsqueda:', error),
-      });
+    if (this.searchQuery.trim() || this.category || this.priceRange) {
+      const filters: unknown = {
+        name: this.searchQuery.trim() || null,
+        category: this.category || null,
+        minPrice: this.priceRange?.min || null,
+        maxPrice: this.priceRange?.max || null,
+      };
+
+      if (this.searchType === 'products') {
+        this.productService.searchProducts(filters).subscribe({
+          next: (results) => (this.products = results),
+          error: (error) => console.error('Error en búsqueda de productos:', error),
+        });
+      } else {
+        this.freelanceService.searchFreelanceServices(filters).subscribe({
+          next: (results) => (this.services = results),
+          error: (error) => console.error('Error en búsqueda de servicios:', error),
+        });
+      }
     } else {
-      this.loadProducts(); // Cargar todos los productos si no hay búsqueda
+      // Si no hay búsqueda, recargar los datos
+      this.loadProducts();
+      this.loadServices();
     }
+  }
+
+
+  // Cambiar tipo de búsqueda
+  changeSearchType(type: 'products' | 'services'): void {
+    this.searchType = type;
+    this.onSearch(); // Realizar la búsqueda según el tipo
   }
 
   // Método para cambiar de página
   changePage(page: number): void {
     this.currentPage = page;
-    this.loadProducts(); // Cargar productos de la nueva página
+    if (this.searchType === 'products') {
+      this.loadProducts();
+    } else {
+      this.loadServices();
+    }
   }
 }

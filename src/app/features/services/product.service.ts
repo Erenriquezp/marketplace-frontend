@@ -12,7 +12,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class ProductService {
   private apiUrl = `${environment.apiUrl}/products`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.authService.currentUserValue?.accessToken;
@@ -25,9 +25,9 @@ export class ProductService {
     });
   }
 
-   /**
-   * Obtener productos con paginación.
-   */
+  /**
+  * Obtener productos con paginación.
+  */
   getProducts(page = 0, size = 10): Observable<{ content: Product[]; totalElements: number }> {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
     return this.http.get<{ content: Product[]; totalElements: number }>(this.apiUrl, { params }).pipe(
@@ -38,9 +38,9 @@ export class ProductService {
     );
   }
 
-    /**
-   * Crear un producto asociado al usuario autenticado.
-   */
+  /**
+ * Crear un producto asociado al usuario autenticado.
+ */
   createProduct(product: Product): Observable<Product | null> {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
@@ -58,15 +58,15 @@ export class ProductService {
     );
   }
 
-    /**
-   * Actualizar un producto existente.
-   */
+  /**
+ * Actualizar un producto existente.
+ */
   updateProduct(id: number, product: Product): Observable<Product | null> {
     // Convertir `tagsString` en array antes de enviarlo
     if (product.tagsString) {
       product.tags = product.tagsString.split(',').map(tag => tag.trim());
     }
-    
+
     return this.http.put<Product>(`${this.apiUrl}/${id}`, product, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('Error al actualizar producto', error);
@@ -75,9 +75,9 @@ export class ProductService {
     );
   }
 
-    /**
-   * Eliminar un producto.
-   */
+  /**
+ * Eliminar un producto.
+ */
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
@@ -86,11 +86,14 @@ export class ProductService {
       })
     );
   }
-  
-  // Buscar productos
-  searchProducts(query: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}?search=${query}`).pipe(
-      catchError(() => of([]))
+
+  /**
+ * Buscar productos por nombre o descripción.
+ */
+  searchProducts(filters: unknown): Observable<Product[]> {
+    return this.http.post<Product[]>(`${this.apiUrl}/search`, filters).pipe(
+      catchError(() => of([])) // Devuelve un array vacío en caso de error
     );
   }
+
 }

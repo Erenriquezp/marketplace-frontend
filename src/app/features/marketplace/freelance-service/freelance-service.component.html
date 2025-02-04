@@ -1,86 +1,86 @@
-<div class="freelance-management">
+<div class="freelance-service-management">
   <h2>Gestión de Servicios Freelance</h2>
 
   <!-- Solo los Freelancers pueden publicar servicios -->
-  <form (ngSubmit)="addFreelance()" class="freelance-form" *ngIf="isFreelancer && !editingFreelance">
+  <form (ngSubmit)="addService()" class="service-form" *ngIf="isFreelancer && !editingService">
     <div class="form-group">
       <label for="name">Nombre del Servicio:</label>
-      <input type="text" [(ngModel)]="newFreelance.name" name="name" placeholder="Ejemplo: Diseño Gráfico" required />
+      <input type="text" [(ngModel)]="newService.name" name="name" placeholder="Ejemplo: Diseño Gráfico" required />
     </div>
 
     <div class="form-group">
       <label for="description">Descripción:</label>
-      <textarea [(ngModel)]="newFreelance.description" name="description" placeholder="Describe el servicio..." required></textarea>
+      <textarea [(ngModel)]="newService.description" name="description" placeholder="Describe el servicio..." required></textarea>
     </div>
 
     <div class="form-group">
       <label for="price">Precio:</label>
-      <input type="number" [(ngModel)]="newFreelance.price" name="price" placeholder="Ejemplo: 1200.00" required />
+      <input type="number" [(ngModel)]="newService.price" name="price" min="1" placeholder="Ejemplo: 1200.00" required />
     </div>
 
     <div class="form-group">
       <label for="estimatedDelivery">Tiempo de Entrega (días):</label>
-      <input type="number" [(ngModel)]="newFreelance.estimatedDelivery" name="estimatedDelivery" placeholder="Ejemplo: 5" required />
+      <input type="number" [(ngModel)]="newService.estimatedDelivery" name="estimatedDelivery" min="1" placeholder="Ejemplo: 5" required />
     </div>
 
     <div class="form-group">
       <label for="skills">Habilidades:</label>
-      <input type="text" [(ngModel)]="newFreelance.skillsString" name="skills"
+      <input type="text" [(ngModel)]="newService.skillsString" name="skills"
         placeholder="Ejemplo: Photoshop, Illustrator"
-        (blur)="convertSkills(newFreelance)" required />
+        (blur)="convertSkills(newService)" required />
     </div>
 
     <button type="submit" class="btn-submit">Agregar Servicio</button>
   </form>
 
   <!-- Lista de Servicios Freelance -->
-  <div class="freelance-list">
-    <div *ngFor="let freelance of freelancers" class="freelance-item">
-      <div class="freelance-details">
-        <h3>{{ freelance.name }}</h3>
-        <p>{{ freelance.description }}</p>
-        <p><strong>Precio:</strong> ${{ freelance.price }}</p>
-        <p><strong>Tiempo de Entrega:</strong> {{ freelance.estimatedDelivery }} días</p>
-        <p><strong>Habilidades:</strong> {{ freelance.skills.join(', ') || 'No tiene habilidades' }}</p>
+  <div class="service-list">
+    <div *ngFor="let service of servicesOffered" class="service-item">
+      <div class="service-details">
+        <h3>{{ service.name }}</h3>
+        <p>{{ service.description }}</p>
+        <p><strong>Precio:</strong> ${{ service.price }}</p>
+        <p><strong>Tiempo de Entrega:</strong> {{ service.estimatedDelivery }} días</p>
+        <p><strong>Habilidades:</strong> {{ service.skillsRequired.join(', ') || 'No tiene habilidades' }}</p>
 
         <!-- Solo el dueño del servicio puede editar o eliminar -->
-        <div class="buttons">
-          <button class="btn-edit" (click)="editFreelance(freelance)">Editar</button>
-          <button class="btn-delete" (click)="deleteFreelance(freelance.id!)">Eliminar</button>
+        <div class="button-group">
+          <button class="btn-edit" (click)="editService(service)">Editar</button>
+          <button class="btn-delete" (click)="deleteService(service.id!)">Eliminar</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Formulario para Editar Servicio -->
-  <div *ngIf="editingFreelance" class="edit-form">
+  <div *ngIf="editingService" class="edit-form">
     <h3>Editar Servicio</h3>
-    <form (ngSubmit)="saveFreelance()">
+    <form (ngSubmit)="saveService()">
       <div class="form-group">
         <label for="name">Nombre del Servicio:</label>
-        <input type="text" [(ngModel)]="editingFreelance.name" name="name" required />
+        <input type="text" [(ngModel)]="editingService.name" name="name" required />
       </div>
 
       <div class="form-group">
         <label for="description">Descripción:</label>
-        <textarea [(ngModel)]="editingFreelance.description" name="description" required></textarea>
+        <textarea [(ngModel)]="editingService.description" name="description" required></textarea>
       </div>
 
       <div class="form-group">
         <label for="price">Precio:</label>
-        <input type="number" [(ngModel)]="editingFreelance.price" name="price" required />
+        <input type="number" [(ngModel)]="editingService.price" name="price" min="1" required />
       </div>
 
       <div class="form-group">
         <label for="estimatedDelivery">Tiempo de Entrega (días):</label>
-        <input type="number" [(ngModel)]="editingFreelance.estimatedDelivery" name="estimatedDelivery" required />
+        <input type="number" [(ngModel)]="editingService.estimatedDelivery" name="estimatedDelivery" min="1" required />
       </div>
 
       <div class="form-group">
         <label for="skills">Habilidades:</label>
-        <input type="text" [(ngModel)]="editingFreelance.skillsString" name="skills"
+        <input type="text" [(ngModel)]="editingService.skillsString" name="skills"
           placeholder="Ejemplo: Photoshop, Illustrator"
-          (blur)="convertSkills(editingFreelance)" required />
+          (blur)="convertSkills(editingService)" required />
       </div>
 
       <button type="submit" class="btn-submit">Guardar Cambios</button>

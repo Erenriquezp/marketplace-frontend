@@ -5,68 +5,45 @@
             Encuentra los Servicios Freelance Perfectos para tu Negocio
         </h1>
         <p class="text-lg mb-8 font-roboto">
-            Desde desarrollo web hasta diseño gráfico, tenemos los freelancers que
-            necesitas para abordar tu trabajo más importante.
+            Desde desarrollo web hasta diseño gráfico, tenemos los freelancers que necesitas para abordar tu trabajo más importante.
         </p>
+        
+        <!-- Filtros de búsqueda -->
         <div class="max-w-lg mx-auto flex">
-            <input class="search-input w-full px-4 py-2 rounded-l-md text-gray-700 bg-[#721652]"
-                placeholder="Buscar productos..." [(ngModel)]="searchQuery" />
+            <select [(ngModel)]="searchType" class="search-select bg-[#721652] text-white px-4 py-2 rounded-l-md">
+                <option value="products">Productos</option>
+                <option value="services">Servicios</option>
+            </select>
+            <input 
+                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652]"
+                [placeholder]="searchType === 'products' ? 'Buscar productos por nombre o categoría...' : 'Buscar servicios por nombre o precio...'"
+                [(ngModel)]="searchQuery" />
             <button (click)="onSearch()" class="search-button bg-[#D3435B] text-white px-4 py-2 rounded-r-md">
                 Buscar
             </button>
         </div>
-        
     </div>
 </section>
 
-<!-- Sección de Información de Pago -->
-<section class="info-section bg-gradient-to-r from-[#721652] via-[#d3435b] to-[#5e0e6e] text-white py-16">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-10 font-poppins">Información de Pago</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Tarjeta: Pagos Seguros -->
-            <div class="flex items-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
-                <img alt="Icono de pagos seguros" class="w-16 h-16 mr-6"
-                    src="https://cdn-icons-png.flaticon.com/512/190/190411.png" />
-                <div>
-                    <h3 class="text-lg font-semibold mb-2 font-roboto">Pagos Seguros</h3>
-                    <p class="text-sm font-roboto">
-                        Tus transacciones están protegidas y encriptadas.
-                    </p>
-                </div>
-            </div>
-            <!-- Tarjeta: Facturación Fácil -->
-            <div class="flex items-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
-                <img alt="Icono de facturación fácil" class="w-16 h-16 mr-6"
-                    src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" />
-                <div>
-                    <h3 class="text-lg font-semibold mb-2 font-roboto">Facturación Fácil</h3>
-                    <p class="text-sm font-roboto">
-                        Gestiona tus facturas sin esfuerzo.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Productos Destacados -->
-<section class="products-section bg-gradient-to-r from-[#5e0e6e] via-[#d31189] to-[#721652] py-20">
+<!-- Sección de Productos y Servicios -->
+<section class="results-section bg-gradient-to-r from-[#5e0e6e] via-[#d31189] to-[#721652] py-20">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12 text-white font-poppins">
-            Productos Destacados
+            {{ searchType === 'products' ? 'Productos Disponibles' : 'Servicios Freelance' }}
         </h2>
-        <div *ngIf="products?.length; else noResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Resultados de Productos -->
+        <div *ngIf="searchType === 'products' && products?.length; else noResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div *ngFor="let product of products"
                 class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
                     class="w-full h-48 object-cover rounded-t-lg mb-4" />
                 <h3 class="text-xl font-bold text-center mb-2 font-roboto">{{ product.name }}</h3>
                 <p class="text-gray-600 mb-4 font-roboto">{{ product.description }}</p>
+                <p class="text-center text-lg font-bold text-[#FA9C86] font-roboto">
+                    ${{ product.price }}
+                </p>
                 <div class="text-center">
-                    <p class="text-lg font-bold text-[#FA9C86] mb-4 font-roboto">
-                        ${{ product.price }}
-                    </p>
                     <a [routerLink]="['/marketplace/products', product.id]"
                         class="bg-[#FA9C86] text-white px-4 py-2 rounded hover:bg-[#D3435B] transition-colors duration-300 font-roboto">
                         Ver Detalles
@@ -74,12 +51,31 @@
                 </div>
             </div>
         </div>
+
+        <!-- Resultados de Servicios -->
+        <div *ngIf="searchType === 'services' && services?.length; else noResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div *ngFor="let service of services"
+                class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-bold text-center mb-2 font-roboto">{{ service.name }}</h3>
+                <p class="text-gray-600 mb-4 font-roboto">{{ service.description }}</p>
+                <p class="text-center text-lg font-bold text-[#FA9C86] font-roboto">
+                    ${{ service.price }} - {{ service.estimatedDelivery }} días
+                </p>
+                <div class="text-center">
+                    <a [routerLink]="['/marketplace/services', service.id]"
+                        class="bg-[#FA9C86] text-white px-4 py-2 rounded hover:bg-[#D3435B] transition-colors duration-300 font-roboto">
+                        Ver Detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensaje cuando no hay resultados -->
         <ng-template #noResults>
             <p class="text-center text-lg font-roboto text-white-500">
-                No se encontraron productos destacados.
+                No se encontraron {{ searchType === 'products' ? 'productos' : 'servicios' }} con esa búsqueda.
             </p>
         </ng-template>
-        
     </div>
 </section>
 

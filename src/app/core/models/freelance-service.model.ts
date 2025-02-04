@@ -3,7 +3,7 @@ export interface FreelanceService {
     name: string; // Nombre del servicio
     description: string; // Descripción detallada
     price: number; // Precio del servicio
-    skills: string[]; // Habilidades requeridas
+    skillsRequired: string[]; // Habilidades requeridas
     skillsString?: string; // Habilidades requeridas (String)
     estimatedDelivery: number; // Tiempo de entrega en días
     userId?: number; // ID del usuario que ofrece el servicio
