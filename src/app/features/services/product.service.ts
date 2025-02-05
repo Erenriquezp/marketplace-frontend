@@ -87,21 +87,21 @@ export class ProductService {
     );
   }
 
-  /**
-   * Buscar productos con filtros dinámicos: `name`, `category`, `minPrice`, `maxPrice`.
+   /**
+   * Buscar productos por categoría.
+   * @param category La categoría de los productos.
+   * @param page Número de página (por defecto 0).
+   * @param size Cantidad de productos por página (por defecto 10).
    */
-  searchProducts(name?: string, category?: string, minPrice?: number, maxPrice?: number): Observable<Product[]> {
-    const filters: { name?: string; category?: string; minPrice?: number; maxPrice?: number } = {};
+   searchProductsByCategory(category: string): Observable<{ content: Product[]}> {
+    const params = new HttpParams()
+      .set('category', category);
 
-    if (name) filters.name = name;
-    if (category) filters.category = category;
-    if (minPrice !== undefined) filters.minPrice = minPrice;
-    if (maxPrice !== undefined) filters.maxPrice = maxPrice;
-
-    return this.http.post<Product[]>(`${this.apiUrl}/search`, filters, { headers: this.getAuthHeaders() }).pipe(
+      console.log('Parámetros de búsqueda:', params.toString());
+    return this.http.get<{ content: Product[] }>(`${this.apiUrl}/by-category`, { params }).pipe(
       catchError((error) => {
-        console.error('Error en la búsqueda de productos', error);
-        return of([]); // Devuelve un array vacío si hay error
+        console.error('Error en la búsqueda de productos por categoría:', error);
+        return of({ content: [] }); // Retorna un objeto con una propiedad content vacía si hay error
       })
     );
   }

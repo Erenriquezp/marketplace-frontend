@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
     { name: 'Diseño Gráfico', imageUrl: '/assets/images/categorias/workplace-2230698_1280.jpg' },
     { name: 'Diseño de Logotipos', imageUrl: '/assets/images/categorias/logo-be-creative-inspiration-design-concept.jpg' },
     { name: 'Corrección de Textos', imageUrl: '/assets/images/categorias/pexels-iamhogir-17801349.jpg' },
-    { name: 'Traducción', imageUrl: '/assets/images/categorias/5449686.jpg' },
+    { name: 'Art', imageUrl: '/assets/images/categorias/5449686.jpg' },
     { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.jpg' },
     { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.jpg' }
   ];
@@ -87,28 +87,22 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  /**
-   * Ejecutar búsqueda con filtros dinámicos.
-   */
   onSearch(): void {
-    this.noResultsFound = false;
-
-    if (this.searchType === 'products') {
-      this.productService.searchProducts(this.searchQuery, this.searchCategory, this.minPrice, this.maxPrice).subscribe({
+    this.noResultsFound = true;
+  
+    if (this.searchType === 'products' && this.searchCategory) {
+      this.productService.searchProductsByCategory(this.searchCategory).subscribe({
         next: (results) => {
-          this.products = results;
-          this.noResultsFound = results.length === 0;
+          this.products = results.content;
+          console.log('Resultados encontrados:', results.content.length);
+          this.noResultsFound = results.content.length === 0;
+          console.log('Resultados:', this.noResultsFound);
+          console.log('Resultados:', results);
         },
         error: (error) => console.error('Error en búsqueda de productos:', error),
       });
     } else {
-      this.freelanceService.searchFreelanceServices(this.searchQuery).subscribe({
-        next: (results) => {
-          this.services = results;
-          this.noResultsFound = results.length === 0;
-        },
-        error: (error) => console.error('Error en búsqueda de servicios:', error),
-      });
+      console.warn('Debe seleccionar una categoría para buscar productos.');
     }
   }
 
