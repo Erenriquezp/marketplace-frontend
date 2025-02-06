@@ -1,22 +1,43 @@
-<div class="project-post">
-  <h2>Publicar un Proyecto</h2>
-  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+<div class="project-post-container bg-gray-100 py-10 px-6 rounded-lg shadow-lg w-full max-w-2xl mx-auto">
+  <h2 class="text-2xl font-bold text-center text-[#721656]">Publicar un Proyecto</h2>
+
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="mt-6">
     <div class="form-field">
       <label for="title">Título del Proyecto</label>
       <input formControlName="title" id="title" type="text" placeholder="Escribe el título del proyecto" />
+      <small *ngIf="projectForm.get('title')?.invalid && projectForm.get('title')?.touched" class="error-text">
+        El título es obligatorio.
+      </small>
     </div>
+
     <div class="form-field">
       <label for="description">Descripción</label>
-      <textarea formControlName="description" id="description" placeholder="Escribe la descripción del proyecto"></textarea>
+      <textarea formControlName="description" id="description" placeholder="Describe los detalles del proyecto"></textarea>
+      <small *ngIf="projectForm.get('description')?.invalid && projectForm.get('description')?.touched" class="error-text">
+        La descripción debe tener al menos 20 caracteres.
+      </small>
     </div>
+
     <div class="form-field">
-      <label for="budget">Presupuesto Estimado ($)</label>
-      <input formControlName="budget" id="budget" type="text" placeholder="Ingresa el presupuesto estimado" />
+      <label for="estimatedBudget">Presupuesto Estimado ($)</label>
+      <input formControlName="estimatedBudget" id="estimatedBudget" type="number" placeholder="Ejemplo: 1200" />
+      <small *ngIf="projectForm.get('estimatedBudget')?.invalid && projectForm.get('estimatedBudget')?.touched" class="error-text">
+        El presupuesto debe ser un número positivo.
+      </small>
     </div>
+
     <div class="form-field">
       <label for="deadline">Fecha Límite</label>
       <input formControlName="deadline" id="deadline" type="date" />
+      <small *ngIf="projectForm.get('deadline')?.invalid && projectForm.get('deadline')?.touched" class="error-text">
+        La fecha límite es obligatoria.
+      </small>
     </div>
-    <button type="submit" [disabled]="projectForm.invalid" class="submit-button">Publicar</button>
+
+    <button type="submit" [disabled]="projectForm.invalid" class="submit-button mt-4">
+      Publicar Proyecto
+    </button>
   </form>
+
+  <p *ngIf="errorMessage" class="error-message text-center mt-4 text-red-600">{{ errorMessage }}</p>
 </div>

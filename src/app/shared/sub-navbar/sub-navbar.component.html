@@ -9,8 +9,11 @@
     <li>
       <button (click)="navigateTo('/marketplace/services')">Mis Servicios</button>
     </li>
-    <li>
-      <button (click)="navigateTo('/project/post')">Post a Project</button>
+    <li *ngIf="userRoles.includes('ROLE_USER')">
+      <button (click)="navigateTo('/project/post')">Publicar un proyecto</button>
+    </li>
+    <li *ngIf="userRoles.includes('ROLE_USER')">
+      <button (click)="navigateTo('/project/list')">Mis Proyectos</button>
     </li>
   </ul>
 </nav>

@@ -20,9 +20,9 @@
 /* Profile Cover */
 .profile-cover {
   width: 100%;
-  height: 20rem;
+  height: 22rem;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   position: relative;
 }
 
@@ -45,7 +45,6 @@
 .profile-details {
   background: linear-gradient(76.87deg, var(--secondary-color) 30.7%, #5a4995 66.79%, #5a4995 135.91%);
   color: white;
-  padding: 2.5rem;
   border-radius: 0.5rem;
   width: 90%;
   max-width: 55rem;

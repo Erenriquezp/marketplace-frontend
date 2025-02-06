@@ -5,7 +5,8 @@
             Encuentra los Servicios Freelance Perfectos para tu Negocio
         </h1>
         <p class="text-lg mb-8 font-roboto">
-            Desde desarrollo web hasta diseño gráfico, tenemos los freelancers que necesitas para abordar tu trabajo más importante.
+            Desde desarrollo web hasta diseño gráfico, tenemos los freelancers que necesitas para abordar tu trabajo más
+            importante.
         </p>
 
         <!-- Filtros de búsqueda -->
@@ -18,8 +19,7 @@
             </select>
 
             <!-- Campo de búsqueda -->
-            <input 
-                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md"
+            <input class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md"
                 [placeholder]="searchType === 'products' ? 'Buscar productos por nombre o categoría...' : 'Buscar servicios por nombre o precio...'"
                 [(ngModel)]="searchQuery" />
 
@@ -36,14 +36,6 @@
                 <option value="" selected>Filtrar por categoría</option>
                 <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
             </select>
-
-            <!-- Filtro por Precio Mínimo -->
-            <input type="number" [(ngModel)]="minPrice" placeholder="Precio Mínimo"
-                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md">
-
-            <!-- Filtro por Precio Máximo -->
-            <input type="number" [(ngModel)]="maxPrice" placeholder="Precio Máximo"
-                class="search-input w-full px-4 py-2 text-gray-700 bg-[#721652] rounded-md">
         </div>
     </div>
 </section>
@@ -56,7 +48,8 @@
         </h2>
 
         <!-- Resultados de Productos -->
-        <div *ngIf="searchType === 'products' else noResultsFound" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngIf="searchType === 'products' && products.length > 0"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div *ngFor="let product of products"
                 class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
@@ -76,7 +69,8 @@
         </div>
 
         <!-- Resultados de Servicios -->
-        <div *ngIf="searchType === 'services' && services?.length; else noResultsFound" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngIf="searchType === 'services' && services?.length"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div *ngFor="let service of services"
                 class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-xl font-bold text-center mb-2 font-roboto">{{ service.name }}</h3>
@@ -92,20 +86,23 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="products.length > 0">
+            <!-- Mensaje cuando no hay resultados -->
+            <ng-template #noResultsFound>
+                <!-- <p class="text-center text-lg font-roboto text-white-500">
+       No se encontraron {{ searchType === 'products' ? 'productos' : 'servicios' }} con esa búsqueda.
+   </p> -->
+            </ng-template>
+        </div>
 
-        <!-- Mensaje cuando no hay resultados -->
-        <ng-template #noResultsFound>
-             <!-- <p class="text-center text-lg font-roboto text-white-500">
-                No se encontraron {{ searchType === 'products' ? 'productos' : 'servicios' }} con esa búsqueda.
-            </p> -->
-        </ng-template>
     </div>
 </section>
 
 <!-- Categorías -->
 <section class="categories-section bg-[#721652] py-12">
     <div class="text-center mb-10">
-        <h2 class="text-white text-4xl font-bold font-sans">Navega por nuestras categorías y encuentra lo que necesitas</h2>
+        <h2 class="text-white text-4xl font-bold font-sans">Navega por nuestras categorías y encuentra lo que necesitas
+        </h2>
     </div>
     <div class="categories-container">
         <mat-card class="category-card" *ngFor="let category of categories">

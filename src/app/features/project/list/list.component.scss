@@ -1,0 +1,30 @@
+.project-list-container {
+    background: #fdf8fc;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #721656;
+  }
+  
+  .project-card {
+    background-color: #ffffff;
+    border-left: 5px solid #721656;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .project-card:hover {
+    transform: scale(1.02);
+  }
+  
+  p {
+    color: #555;
+  }
+  
