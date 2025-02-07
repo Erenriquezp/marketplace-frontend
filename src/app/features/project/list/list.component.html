@@ -1,10 +1,23 @@
-<div class="project-list">
-    <h2>Mis Proyectos</h2>
-    <ul>
-      <li *ngFor="let project of projects">
-        <a [routerLink]="['/projects/detail', project.id]">{{ project.title }}</a>
-        <span>Presupuesto: ${{ project.budget }}</span>
-        <span>Fecha Límite: {{ project.deadline }}</span>
-      </li>
-    </ul>
-  </div>  
+<div class="project-list-container bg-gray-100 py-10 px-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold text-center text-[#721656]">Mis Proyectos</h2>
+
+  <!-- Carga en progreso -->
+  <p *ngIf="isLoading" class="text-center text-gray-600">Cargando proyectos...</p>
+
+  <!-- Error al cargar -->
+  <p *ngIf="errorMessage" class="text-center text-red-600">{{ errorMessage }}</p>
+
+  <!-- Lista de proyectos -->
+  <div *ngIf="projects.length > 0; else noProjects" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div *ngFor="let project of projects" class="project-card bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition">
+      <h3 class="text-lg font-bold text-[#5A4995]">{{ project.title }}</h3>
+      <p class="text-gray-600 mt-2">{{ project.description }}</p>
+      <p class="text-sm text-gray-500 mt-2"><strong>Presupuesto:</strong> ${{ project.estimatedBudget }}</p>
+      <p class="text-sm text-gray-500"><strong>Fecha límite:</strong> {{ project.deadline }}</p>
+    </div>
+  </div>
+
+  <ng-template #noProjects>
+    <p class="text-center text-gray-500 mt-6">No has publicado ningún proyecto aún.</p>
+  </ng-template>
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { FreelanceService } from '../../core/models/freelance-service.model';
 import { AuthService } from '../../core/services/auth.service';
@@ -12,7 +12,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class FreelanceServiceService {
   private apiUrl = `${environment.apiUrl}/freelancer-services`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.authService.currentUserValue?.accessToken;
@@ -82,10 +82,18 @@ export class FreelanceServiceService {
   /**
    * Buscar servicios freelance con filtros opcionales.
    */
+  searchFreelanceServices(name?: string, category?: string): Observable<FreelanceService[]> {
+    let params = new HttpParams();
 
-  searchFreelanceServices(filters: unknown): Observable<FreelanceService[]> {
-      return this.http.post<FreelanceService[]>(`${this.apiUrl}/search`, filters).pipe(
-        catchError(() => of([])) // Devuelve un array vacío en caso de error
-      );
-    }
+    if (category) params = params.set('category', category);
+    if (name) params = params.set('name', name);
+
+    return this.http.get<{ content: FreelanceService[] }>(`${this.apiUrl}/search`, { params }).pipe(
+      map((response: { content: FreelanceService[] }) => response.content),
+      catchError(error => {
+        console.error('Error en la búsqueda de productos:', error);
+        return of([]);
+      })
+    );
+  }
 }

@@ -88,23 +88,31 @@ export class SearchComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.noResultsFound = true;
+    this.noResultsFound = false;
   
-    if (this.searchType === 'products' && this.searchCategory) {
-      this.productService.searchProductsByCategory(this.searchCategory).subscribe({
+    if (this.searchType === 'products') {
+      this.productService.searchProducts(this.searchQuery, this.searchCategory).subscribe({
         next: (results) => {
-          this.products = results.content;
-          console.log('Resultados encontrados:', results.content.length);
-          this.noResultsFound = results.content.length === 0;
-          console.log('Resultados:', this.noResultsFound);
+          this.products = results;
+          this.noResultsFound = results.length === 0;
           console.log('Resultados:', results);
         },
         error: (error) => console.error('Error en búsqueda de productos:', error),
       });
-    } else {
-      console.warn('Debe seleccionar una categoría para buscar productos.');
     }
-  }
+
+    if (this.searchType === 'services') {
+      this.freelanceService.searchFreelanceServices(this.searchQuery, this.searchCategory).subscribe({
+        next: (results) => {
+          this.services = results;
+          this.noResultsFound = results.length === 0;
+          console.log('Resultados:', results);
+        },
+        error: (error) => console.error('Error en búsqueda de servicios:', error),
+      });
+    }
+  } 
+  
 
   /**
    * Cambiar tipo de búsqueda (productos o servicios).

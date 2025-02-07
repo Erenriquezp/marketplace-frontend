@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Product } from '../../core/models/product.model';
 import { AuthService } from '../../core/services/auth.service';
@@ -102,6 +102,25 @@ export class ProductService {
       catchError((error) => {
         console.error('Error en la búsqueda de productos por categoría:', error);
         return of({ content: [] }); // Retorna un objeto con una propiedad content vacía si hay error
+      })
+    );
+  }
+
+  /**
+   * Buscar productos por nombre o categoría.
+   * Si ambos valores están presentes, filtra por ambos.
+   */
+  searchProducts(name?: string, category?: string): Observable<Product[]> {
+    let params = new HttpParams();
+
+    if (category) params = params.set('category', category);
+    if (name) params = params.set('name', name);
+
+    return this.http.get<{ content: Product[] }>(`${this.apiUrl}/search`, { params }).pipe(
+      map((response: { content: Product[] }) => response.content),
+      catchError(error => {
+        console.error('Error en la búsqueda de productos:', error);
+        return of([]);
       })
     );
   }

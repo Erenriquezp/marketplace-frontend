@@ -9,7 +9,7 @@ export const PROJECT_ROUTES: Routes = [
   {
     path: 'list',
     loadComponent: () =>
-      import('./list/list.component').then((m) => m.ListComponent),
+      import('./list/list.component').then((m) => m.ProjectListComponent),
   },
   {
     path: 'detail/:id',
