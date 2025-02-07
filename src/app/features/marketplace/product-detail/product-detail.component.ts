@@ -3,12 +3,17 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/models/product.model';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CommonModule, RouterModule],
-  templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.scss'
+  standalone: true,
+  imports: [CommonModule, RouterModule,MatCardModule,MatButtonModule,MatChipsModule,MatProgressSpinnerModule],
+  templateUrl:'./product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
   product!: Product;

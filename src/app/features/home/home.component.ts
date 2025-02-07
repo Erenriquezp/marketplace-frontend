@@ -37,19 +37,19 @@ export class HomeComponent {
       id: 1,
       name: 'John Doe',
       profession: 'Desarrollador Web',
-      imageUrl: 'assets/images/jennie-kim-blackpink-beautiful-korean-girl-uhdpaper.com-4K-8.1262.jpg'
+      imageUrl: 'assets/images/home/beard.jpg'
     },
     {
       id: 2,
       name: 'Jane Smith',
       profession: 'Diseñadora Gráfica',
-      imageUrl: 'assets/images/lalisaa-balckpink.jpg'
+      imageUrl: 'assets/images/home/woman.jpg'
     },
     {
       id: 3,
       name: 'Mike Johnson',
       profession: 'Especialista en Marketing Digital',
-      imageUrl: 'assets/images/rose-blackpink.jpg'
+      imageUrl: 'assets/images/home/happy.jpg'
     }
   ];
 }
