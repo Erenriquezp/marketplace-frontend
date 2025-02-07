@@ -16,6 +16,9 @@ export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
   isLoading = true;
   errorMessage = '';
+  currentPage = 0;
+  pageSize = 10;
+  totalElements = 0; // Total de proyectos
 
   constructor(
     private projectService: ProjectService,
@@ -27,26 +30,34 @@ export class ProjectListComponent implements OnInit {
   }
 
   /**
-   * Cargar proyectos del usuario autenticado.
+   * Cargar proyectos del usuario autenticado con paginación.
    */
   loadUserProjects(): void {
-    const userId = this.authService.currentUserValue?.id;
-
-    if (!userId) {
-      this.errorMessage = 'No se encontró un usuario autenticado.';
+    if (!this.authService.isAuthenticated()) {
+      this.errorMessage = '⚠️ No hay un usuario autenticado.';
       this.isLoading = false;
       return;
     }
 
-    this.projectService.getUserProjects().subscribe({
-      next: (projects) => {
-        this.projects = projects;
+    this.projectService.getUserProjects(this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.projects = response.content;
+        this.totalElements = response.totalElements;
         this.isLoading = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('❌ Error al cargar proyectos:', error);
         this.errorMessage = 'Error al cargar los proyectos. Intente nuevamente.';
         this.isLoading = false;
       },
     });
+  }
+
+  /**
+   * Cambiar de página en la paginación.
+   */
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.loadUserProjects();
   }
 }

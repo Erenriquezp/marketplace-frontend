@@ -1,12 +1,15 @@
 <nav class="sub-navbar" *ngIf="isAuthenticated">
   <ul class="sub-navbar-menu">
-    <li>
+    <li *ngIf="userRoles.includes('ROLE_FREELANCER')">
       <button (click)="navigateTo('/dashboard/freelancer')">Dashboard</button>
     </li>
-    <li>
+    <li *ngIf="userRoles.includes('ROLE_USER')">
+      <button (click)="navigateTo('/dashboard/client')">Dashboard</button>
+    </li>
+    <li *ngIf="userRoles.includes('ROLE_FREELANCER')">
       <button (click)="navigateTo('/marketplace/products')">Mis Productos</button>
     </li>
-    <li>
+    <li *ngIf="userRoles.includes('ROLE_FREELANCER')">
       <button (click)="navigateTo('/marketplace/services')">Mis Servicios</button>
     </li>
     <li *ngIf="userRoles.includes('ROLE_USER')">

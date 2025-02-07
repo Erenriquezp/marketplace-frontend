@@ -1,11 +1,90 @@
-<div class="client-dashboard">
-    <h1>Panel del Cliente</h1>
-    <h2>Mis Pedidos</h2>
-    <ul>
-      <li *ngFor="let order of orders">
-        <p><strong>{{ order.name }}</strong></p>
-        <p>Estado: {{ order.status }}</p>
-      </li>
-    </ul>
+<div class="min-h-screen flex flex-col font-roboto bg-gray-100">
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-6 flex-1">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Sidebar -->
+      <aside class="bg-white shadow-md rounded-lg p-4">
+        <div class="flex items-center space-x-6">
+          <img
+            [src]="userData?.profilePictureUrl || '/assets/images/default-profile.jpg'"
+            class="h-40 w-40 rounded-full"
+            alt="Foto de perfil del cliente"
+          />
+          <div>
+            <h2 class="text-xl font-bold text-primary-color">
+              {{ userData?.username || 'Cargando...' }}
+            </h2>
+            <p class="text-secondary-color email-text">
+              {{ userData?.email || 'Correo no disponible' }}
+            </p>
+            <p class="text-secondary-color">
+              Teléfono: {{ userData?.phoneNumber || 'No disponible' }}
+            </p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-lg font-semibold text-primary-color">Estadísticas</h3>
+          <div class="mt-4 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Proyectos Activos</span>
+              <span class="text-primary-color font-bold">
+                {{ projects.length || 0 }}
+              </span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Wallet</span>
+              <span class="text-primary-color font-bold">${{ userData?.wallet || 0 }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Estado</span>
+              <span class="text-primary-color font-bold">
+                {{ userData?.isActive ? 'Activo' : 'Inactivo' }}
+              </span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Miembro desde</span>
+              <span class="text-primary-color font-bold">{{ userData?.createdAt | date: 'medium' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary-color">Última actualización</span>
+              <span class="text-primary-color font-bold">{{ userData?.updatedAt | date: 'medium' }}</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Dashboard -->
+      <main class="col-span-2">
+        <!-- Mis Proyectos -->
+        <section class="bg-white shadow-md rounded-lg p-4 mb-6">
+          <h2 class="text-xl font-bold text-primary-color">Mis Proyectos</h2>
+          <div class="mt-4 space-y-4">
+            <div
+              *ngFor="let project of projects"
+              class="bg-gray-50 p-4 rounded-lg flex flex-col md:flex-row md:justify-between items-start md:items-center"
+            >
+              <div class="flex items-start space-x-4">
+                <div>
+                  <h3 class="text-lg font-semibold text-primary-color">
+                    {{ project.title }}
+                  </h3>
+                  <p class="text-secondary-color">{{ project.description }}</p>
+                  <p class="text-secondary-color">
+                    Estado: {{ project.isActive ? 'Activo' : 'Inactivo' }}
+                  </p>
+                  <p class="text-secondary-color">
+                    Publicado: {{ project.createdAt | date: 'medium' }}
+                  </p>
+                </div>
+              </div>
+              <span class="text-primary-color font-bold text-lg mt-4 md:mt-0">
+                ${{ project.estimatedBudget.toFixed(2) }}
+              </span>
+              <a [routerLink]="['/projects', project.id]">Ver</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   </div>
-  
+</div>
