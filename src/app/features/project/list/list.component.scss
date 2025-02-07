@@ -1,30 +1,48 @@
 .project-list-container {
-    background: #fdf8fc;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    text-align: center;
-    font-size: 1.75rem;
-    font-weight: bold;
-    color: #721656;
-  }
-  
-  .project-card {
-    background-color: #ffffff;
-    border-left: 5px solid #721656;
-    padding: 1rem;
-    border-radius: 8px;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .project-card:hover {
-    transform: scale(1.02);
-  }
-  
-  p {
-    color: #555;
-  }
-  
+  background: #fdf8fc;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #721656;
+}
+
+.project-card {
+  background-color: #ffffff;
+  border-left: 5px solid #721656;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  position: relative; // Para el efecto de sombra
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Sombra más pronunciada al pasar el mouse
+}
+
+p {
+  color: #555;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #420054, #721652); /* Degradado para el botón */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-family: 'Poppins', sans-serif; /* Fuente para el botón */
+  font-weight: bold;
+  text-align: center;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  border: none; // Sin borde
+  cursor: pointer; // Cambia el cursor al pasar sobre el botón
+}
+
+.delete-btn:hover {
+  transform: scale(1.05); // Efecto de aumento al pasar el mouse
+}

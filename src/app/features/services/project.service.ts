@@ -12,7 +12,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class ProjectService {
   private apiUrl = `${environment.apiUrl}/projects`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.authService.currentUserValue?.accessToken;
@@ -69,6 +69,68 @@ export class ProjectService {
       catchError((error) => {
         console.error('❌ Error al obtener proyectos del usuario:', error);
         return of({ content: [], totalElements: 0 });
+      })
+    );
+  }
+
+  /**
+ * Eliminar un proyecto por ID.
+ */
+  deleteProject(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError((error) => {
+        console.error(`❌ Error al eliminar el proyecto con ID ${id}:`, error);
+        return of();
+      })
+    );
+  }
+
+   /**
+   * Postularse a un proyecto (solo freelancers).
+   */
+   applyToProject(projectId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${projectId}/apply`, {}, { headers: this.getAuthHeaders() }).pipe(
+      catchError((error) => {
+        console.error('❌ Error al postularse al proyecto:', error);
+        return of();
+      })
+    );
+  }
+
+   /**
+   * Obtener las postulaciones de un proyecto (para clientes).
+   */
+   getProjectApplications(projectId: number): Observable<unknown[]> {
+    return this.http.get<unknown[]>(`${this.apiUrl}/${projectId}/applications`, { headers: this.getAuthHeaders() }).pipe(
+      catchError((error) => {
+        console.error('❌ Error al obtener postulaciones:', error);
+        return of([]);
+      })
+    );
+  }
+
+   /**
+   * Aceptar una postulación (solo clientes).
+   */
+   acceptApplication(projectId: number, freelancerId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${projectId}/applications/${freelancerId}/accept`, {}, 
+      { headers: this.getAuthHeaders() }).pipe(
+      catchError((error) => {
+        console.error('❌ Error al aceptar postulación:', error);
+        return of();
+      })
+    );
+  }
+
+   /**
+   * Rechazar una postulación (solo clientes).
+   */
+   rejectApplication(projectId: number, freelancerId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${projectId}/applications/${freelancerId}/reject`, {}, 
+      { headers: this.getAuthHeaders() }).pipe(
+      catchError((error) => {
+        console.error('❌ Error al rechazar postulación:', error);
+        return of();
       })
     );
   }

@@ -13,7 +13,10 @@
       <h3 class="text-lg font-bold text-[#5A4995]">{{ project.title }}</h3>
       <p class="text-gray-600 mt-2">{{ project.description }}</p>
       <p class="text-sm text-gray-500 mt-2"><strong>Presupuesto:</strong> ${{ project.estimatedBudget }}</p>
-      <p class="text-sm text-gray-500"><strong>Fecha límite:</strong> {{ project.deadline }}</p>
+      <p class="text-sm text-gray-500"><strong>Fecha límite:</strong> {{ project.deadline | date: 'mediumDate' }}</p>
+      <div class="mt-4">
+        <button class="delete-btn" (click)="project.id !== undefined && deleteProject(project.id)">Eliminar</button>
+      </div>
     </div>
   </div>
 

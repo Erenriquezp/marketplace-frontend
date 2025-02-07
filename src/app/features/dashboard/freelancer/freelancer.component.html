@@ -21,12 +21,6 @@
             <p class="text-secondary-color">
               Teléfono: {{ userData?.phoneNumber || 'No disponible' }}
             </p>
-            <p class="text-secondary-color">
-              Roles:
-              <span *ngFor="let role of userData?.roles; let i = index">
-                {{ role.name }}<span *ngIf="i < ((userData?.roles?.length || 0) - 1)">,</span>
-              </span>
-            </p>
           </div>
         </div>
         <div class="mt-6">

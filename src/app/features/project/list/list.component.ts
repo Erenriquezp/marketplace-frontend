@@ -54,6 +54,25 @@ export class ProjectListComponent implements OnInit {
   }
 
   /**
+   * Eliminar un proyecto.
+   */
+  deleteProject(id: number): void {
+    if (!confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
+      return; // Cancelar si el usuario no confirma
+    }
+
+    this.projectService.deleteProject(id).subscribe({
+      next: () => {
+        this.projects = this.projects.filter(project => project.id !== id); // Actualiza la lista
+      },
+      error: (error) => {
+        console.error('❌ Error al eliminar proyecto:', error);
+        alert('Error al eliminar el proyecto. Intente nuevamente.');
+      },
+    });
+  }
+  
+  /**
    * Cambiar de página en la paginación.
    */
   changePage(page: number): void {
