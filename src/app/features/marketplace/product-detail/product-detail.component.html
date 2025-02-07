@@ -1,21 +1,67 @@
-<div *ngIf="isLoading" class="loading-spinner">Cargando producto...</div>
+<mat-card *ngIf="!isLoading && !errorMessage" class="product-detail">
+  <div class="header">
+    <h1 class="product-title">{{ product.name }}</h1>
 
-<div *ngIf="!isLoading && !errorMessage" class="product-detail">
-  <div class="product-image">
-    <img [src]="product.fileUrl" [alt]="product.name" />
-  </div>
-  <div class="product-info">
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <p><strong>Precio:</strong> ${{ product.price }}</p>
-    <p><strong>Categoría:</strong> {{ product.category }}</p>
-    <div *ngIf="product.tags?.length">
-      <strong>Etiquetas:</strong>
-      <ul>
-        <li *ngFor="let tag of product.tags">{{ tag }}</li>
-      </ul>
+    <div class="user-info">
+      <img class="user-avatar" src="/assets/images/categorias/gatito.jpg" alt="User Avatar">
+      <span class="username">&#64;zeeshanysf</span>
+      <span class="country">
+        <img src="https://flagcdn.com/w40/pk.png" alt="Pakistan Flag">
+        Pakistan
+      </span>
     </div>
-</div>
+  </div>
 
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="container">
+    <!-- Imagen del Producto -->
+    <div class="product-image">
+      <img [src]="product.fileUrl" [alt]="product.name" />
+    </div>
 
-<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <!-- Información del Producto -->
+    <mat-card-content class="product-info">
+      <span class="rating">5.0 ★★★★★</span>
+      <p>Diseño profesional de perfil de empresa con un estilo moderno y elegante.</p>
+      <p><strong>Precio:</strong> $300 USD</p>
+      <p><strong>Categoría:</strong> Diseño Gráfico</p>
+
+      <!-- Número de comentarios -->
+      <div class="comments-info">
+        <span>💬 159 Comentarios</span>
+      </div>
+
+      <div class="tags-container">
+        <strong>Etiquetas:</strong>
+        <div class="chip-list">
+          <mat-chip class="chip">Empresa</mat-chip>
+          <mat-chip class="chip">Diseño</mat-chip>
+          <mat-chip class="chip">Marketing</mat-chip>
+        </div>
+      </div>
+
+      <div class="buy-section">
+        <button class="buy-button">Comprar por $300 USD</button>
+        <button class="chat-button">💬 Chat</button>
+      </div>
+    </mat-card-content>
+  </div>
+
+  <!-- SOBRE ESTE SERVICIO (SECCIÓN NUEVA) -->
+  <div class="about-service">
+    <h2>About this service</h2>
+    <p>🌟 <strong>Elevate Your Brand with Stunning Company Profiles!</strong> 🌟 Are you looking to make a lasting impression in the corporate world? Look no further!...</p>
+    <p>✨ <strong>Bespoke Designs:</strong> I understand that every company is unique...</p>
+    <p>⚡ <strong>Attention to Detail:</strong> From layout to typography...</p>
+    <p>📖 <strong>Visual Storytelling:</strong> I believe in the power of visual storytelling...</p>
+    <p>💼 <strong>Professionalism:</strong> With years of experience...</p>
+    <p><strong>What I Offer:</strong> 🛠️ Custom Design 📖 Research and Content Development ✏️ Graphic Design 📄 Print and Digital Formats</p>
+  </div>
+</mat-card>
+
+<mat-card *ngIf="errorMessage" class="error-card">
+  <mat-card-content>
+    <p class="error-message">{{ errorMessage }}</p>
+  </mat-card-content>
+</mat-card>
+

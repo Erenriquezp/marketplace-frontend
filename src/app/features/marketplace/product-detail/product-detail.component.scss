@@ -1,46 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  background: #D3435B; /* Fondo morado */
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilo de la tarjeta principal */
 .product-detail {
+  width: 90vw;
+  height: 125vh;
+  padding: 20px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Evita desbordamientos */
+}
+
+/* ENCABEZADO */
+.header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  margin: 2rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
 
-  .product-image {
-    img {
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+.product-title {
+  font-family: 'Poppins',sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* INFORMACIÓN DEL USUARIO */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  gap: 30px;
+}
+
+.username {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #555;
+  gap: 5px;
+}
+
+.country {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #444;
+  gap: 5px;
+}
+
+.country img {
+  width: 30px;
+  height: auto;
+  border-radius: 3px;
+  gap: 30px;
+}
+
+/* DISEÑO DE LA INFORMACIÓN DEL PRODUCTO */
+.container {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 500px;
+  height:100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-info {
+  flex: 1;
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 12px;
+}
+
+.product-info p {
+  font-size: 1.3rem;
+  color: #444;
+  margin: 5px 0;
+}
+.rating {
+  align-self: flex-start; /* Alinea el rating a la izquierda */
+  font-size: 1.5rem;
+  color: #f4b400;
+}
+/* COMENTARIOS */
+.comments-info {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  margin-top: 1.7rem;
+}
+
+/* TAGS */
+.tags-container {
+  margin-top: 10px;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chip {
+  background: #6200ea;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+/* BOTONES */
+.buy-section {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buy-button, .chat-button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.buy-button {
+  background: #ca3454;
+  color: white;
+}
+
+.buy-button:hover {
+  background: #b3385d;
+}
+
+.chat-button {
+  background: #8b167c;
+  color: white;
+}
+
+.chat-button:hover {
+  background: #6b096e;
+}
+
+/* ESTILO DEL ERROR */
+.error-card {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+  text-align: center;
+  background: #ffebee;
+  border-left: 5px solid #d32f2f;
+}
+
+.error-message {
+  font-size: 1rem;
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-image img {
+    max-width: 100%;
   }
 
-  .product-info {
-    margin-top: 1.5rem;
-    text-align: center;
-
-    h1 {
-      font-size: 2rem;
-      color: #333;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-
-      li {
-        background: #f3f3f3;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        margin: 0.3rem 0;
-      }
-    }
-  }
-
-  .error-message {
-    color: red;
-    font-size: 1.2rem;
+  .buy-section {
+    flex-direction: column;
   }
 }
+
+.product-detail {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+  gap: 5px; /* Espacio entre los elementos */
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-image {
+  flex: 1;
+  max-width: 500px;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.about-service {
+  background: #111; /* Fondo oscuro */
+  color: #fff; /* Texto blanco */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1);
+  width: 100%; /* Ocupar todo el ancho */
+}
+
+
+

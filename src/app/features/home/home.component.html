@@ -51,55 +51,41 @@
       Categorías Populares
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="/assets/images/categorias/pexels-designecologist-1779487.jpg" alt="Desarrollo Web" class="mx-auto mb-4" />
-        <h3 class="text-xl font-semibold">Desarrollo Web</h3>
-        <p class="text-gray-600">Construye y mantiene sitios web y aplicaciones web.</p>
-        <a class="text-primary hover:underline" routerLink="/marketplace/search" routerLinkActive="active-link" href="#">Ver más</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="/assets/images/categorias/workplace-2230698_1280.jpg" alt="Diseño Gráfico" routerLink="/marketplace/search" routerLinkActive="active-link" class="mx-auto mb-4" />
-        <h3 class="text-xl font-semibold">Diseño Gráfico</h3>
-        <p class="text-gray-600">Crea contenido visual para comunicar mensajes.</p>
-        <a class="text-primary hover:underline" routerLink="/marketplace/search" routerLinkActive="active-link" href="#">Ver más</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="/assets/images/categorias/pexels-serpstat-177219-572056.jpg" alt="Marketing Digital" class="mx-auto mb-4" />
-        <h3 class="text-xl font-semibold">Marketing Digital</h3>
-        <p class="text-gray-600">Promociona marcas para conectar con clientes potenciales.</p>
-        <a class="text-primary hover:underline" routerLink="/marketplace/search" routerLinkActive="active-link" href="#">Ver más</a>
-      </div>
+      <mat-card *ngFor="let category of categories" class="text-center category-card">
+        <img mat-card-image [src]="category.imageUrl" alt="{{ category.name }}" class="img-fixed-size" />
+        <mat-card-title>{{ category.name }}</mat-card-title>
+        <mat-card-content>
+          <p class="text-gray-600">{{ category.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button class="rose-button" routerLink="/marketplace/search">Ver más</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </section>
-
 
 <!-- Featured Freelancers Section -->
 <section class="py-16 bg-gray-200">
   <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8">Freelancers Destacados</h2>
+    <h2 class="text-3xl font-bold text-center mb-8 text-primary border-b-4 border-primary pb-4">
+      Freelancers Destacados
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\home\beard.jpg" alt="John Doe" class="mx-auto mb-4 rounded-full" />
-        <h3 class="text-xl font-semibold mb-2">John Doe</h3>
-        <p class="text-gray-600">Desarrollador Web</p>
-        <a class="text-primary hover:underline" routerLink="/profile/public/1" routerLinkActive="active-link" href="#">Ver Perfil</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\home\woman.jpg" alt="Jane Smith" class="mx-auto mb-4 rounded-full" />
-        <h3 class="text-xl font-semibold mb-2">Jane Smith</h3>
-        <p class="text-gray-600">Diseñadora Gráfica</p>
-        <a class="text-primary hover:underline" routerLink="/profile/public/1" href="#">Ver Perfil</a>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <img src="assets\images\home\happy.jpg" alt="Mike Johnson" class="mx-auto mb-4 rounded-full" />
-        <h3 class="text-xl font-semibold mb-2">Mike Johnson</h3>
-        <p class="text-gray-600">Especialista en Marketing Digital</p>
-        <a class="text-primary hover:underline" routerLink="/profile/public/1" href="#">Ver Perfil</a>
-      </div>
+      <mat-card class="freelancer-card text-center" *ngFor="let freelancer of freelancers">
+        <img [src]="freelancer.imageUrl" alt="{{ freelancer.name }}" class="freelancer-img mx-auto mb-4" />
+        <mat-card-title>{{ freelancer.name }}</mat-card-title>
+        <mat-card-subtitle>{{ freelancer.profession }}</mat-card-subtitle>
+        <mat-card-actions>
+          <button mat-raised-button class="rose-button" [routerLink]="'/profile/public/' + freelancer.id">
+            Ver Perfil
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </section>
+
 
 
 <!-- How It Works Section -->
