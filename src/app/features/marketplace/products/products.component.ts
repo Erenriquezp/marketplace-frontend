@@ -19,6 +19,8 @@ export class ProductsComponent implements OnInit {
   pageSize = 10;
   totalElements = 0;
   isFreelancer = false;
+  isLoading = true;
+  errorMessage = '';
 
   constructor(private productService: ProductService, private authService: AuthService) {}
 
@@ -38,14 +40,25 @@ export class ProductsComponent implements OnInit {
   /**
    * Cargar la lista de productos con paginación.
    */
-  loadProducts(): void {
-    this.productService.getProducts(this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.products = response.content;
-        this.totalElements = response.totalElements;
-      },
-      error: (error) => console.error('Error al cargar productos', error),
-    });
+  private loadProducts(): void {
+    const userId = this.authService.currentUserValue?.id; // Obtén el ID del usuario autenticado
+    if (userId) {
+      this.productService.getProductsByUserId(userId).subscribe({
+        next: (response) => {
+          this.products = response.content;
+          this.totalElements = response.totalElements;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error al cargar productos del usuario', error);
+          this.errorMessage = 'Error al cargar productos.';
+          this.isLoading = false;
+        },
+      });
+    } else {
+      this.errorMessage = 'No hay un usuario autenticado.';
+      this.isLoading = false;
+    }
   }
 
   /**

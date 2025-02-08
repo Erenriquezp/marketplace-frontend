@@ -25,8 +25,10 @@ export class FreelanceServicesComponent implements OnInit {
   pageSize = 10;
   totalElements = 0;
   isFreelancer = false;
+  isLoading = true;
+  errorMessage = '';
 
-  constructor(private freelanceService: FreelanceServiceService, private authService: AuthService) {}
+  constructor(private freelanceService: FreelanceServiceService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadServices();
@@ -44,17 +46,25 @@ export class FreelanceServicesComponent implements OnInit {
   /**
    * Cargar la lista de servicios ofrecidos con paginación.
    */
-  loadServices(): void {
-    this.freelanceService.getFreelanceServices(this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.servicesOffered = response.content.map(service => ({
-          ...service,
-          skillsRequired: service.skillsRequired || [] // 🔹 Asegura que siempre sea un array
-        }));
-        this.totalElements = response.totalElements;
-      },
-      error: (error) => console.error('Error al cargar servicios freelance', error),
-    });
+  private loadServices(): void {
+    const userId = this.authService.currentUserValue?.id; // Obtén el ID del usuario autenticado
+    if (userId) {
+      this.freelanceService.getServicesByUserId(userId).subscribe({
+        next: (response) => {
+          this.servicesOffered = response.content;
+          this.totalElements = response.totalElements;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error al cargar productos del usuario', error);
+          this.errorMessage = 'Error al cargar productos.';
+          this.isLoading = false;
+        },
+      });
+    } else {
+      this.errorMessage = 'No hay un usuario autenticado.';
+      this.isLoading = false;
+    }
   }
 
   /**

@@ -35,6 +35,21 @@ export class FreelanceServiceService {
     );
   }
 
+    /**
+     * Obtener productos por ID de usuario con paginación.
+     */
+     getServicesByUserId(userId: number, page = 0, size = 10): Observable<{ content: FreelanceService[]; totalElements: number }> {
+      const params = new HttpParams()
+        .set('page', page.toString())
+        .set('size', size.toString());
+      return this.http.get<{ content: FreelanceService[]; totalElements: number }>(`${this.apiUrl}/by-user/${userId}`, { params }).pipe(
+        catchError((error) => {
+          console.error('Error al obtener servicios por ID de usuario', error);
+          return of({ content: [], totalElements: 0 });
+        })
+      );
+    }
+
   /**
    * Crear un nuevo servicio freelance.
    */

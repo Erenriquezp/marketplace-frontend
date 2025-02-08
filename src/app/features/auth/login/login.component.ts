@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage = '';
+  isLoading = false; // Para manejar el estado de carga
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,11 +24,13 @@ export class LoginComponent {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      rememberMe: [false] // Agrega el control rememberMe aquí
     });
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.isLoading = true; // Inicia el estado de carga
       const { username, password } = this.loginForm.value;
 
       this.authService.login(username, password).subscribe({
@@ -36,6 +39,7 @@ export class LoginComponent {
           this.router.navigate([dashboardRoute]); // Redirige según el rol
         },
         error: () => {
+          this.isLoading = false; // Detiene el estado de carga
           this.errorMessage = 'Credenciales inválidas. Por favor, inténtelo de nuevo.';
         },
       });

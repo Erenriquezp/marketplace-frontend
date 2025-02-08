@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { StorageService } from '../services/storage.service';
 
 export interface AuthResponse {
   id: number; // ID del usuario autenticado
@@ -18,10 +19,10 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<AuthResponse | null>;
   public currentUser: Observable<AuthResponse | null>;
 
-  constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('currentUser');
+  constructor(private http: HttpClient, private storageService: StorageService) {
+    const storedUser = this.storageService.getItem('currentUser ');
     this.currentUserSubject = new BehaviorSubject<AuthResponse | null>(
-      storedUser ? JSON.parse(storedUser) : null
+      storedUser? JSON.parse(storedUser ) : null
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -37,7 +38,7 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.baseUrl}/login`, { username, password }).pipe(
       map((response) => {
         // Almacena el token y los roles en localStorage
-        localStorage.setItem('currentUser', JSON.stringify(response));
+        this.storageService.setItem('currentUser ', JSON.stringify(response));
         this.currentUserSubject.next(response);
         
         return response;
@@ -83,7 +84,7 @@ export class AuthService {
    */
   logout(): void {
     // Elimina el token del localStorage
-    localStorage.removeItem('currentUser');
+    this.storageService.removeItem('currentUser ');
     this.currentUserSubject.next(null);
   }
 
