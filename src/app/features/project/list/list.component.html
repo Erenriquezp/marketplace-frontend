@@ -1,5 +1,7 @@
 <div class="project-list-container bg-gray-100 py-10 px-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-  <h2 class="text-2xl font-bold text-center text-[#721656]">Mis Proyectos</h2>
+  <h2 class="text-2xl font-bold text-center text-[#721656]">
+    {{ isClient ? 'Mis Proyectos' : 'Proyectos Disponibles' }}
+  </h2>
 
   <!-- Carga en progreso -->
   <p *ngIf="isLoading" class="text-center text-gray-600">Cargando proyectos...</p>
@@ -14,13 +16,32 @@
       <p class="text-gray-600 mt-2">{{ project.description }}</p>
       <p class="text-sm text-gray-500 mt-2"><strong>Presupuesto:</strong> ${{ project.estimatedBudget }}</p>
       <p class="text-sm text-gray-500"><strong>Fecha límite:</strong> {{ project.deadline | date: 'mediumDate' }}</p>
-      <div class="mt-4">
-        <button class="delete-btn" (click)="project.id !== undefined && deleteProject(project.id)">Eliminar</button>
+
+      <!-- Opciones para CLIENTES -->
+      <div *ngIf="isClient">
+        <div class="mt-4">
+          <button class="delete-btn" (click)="project.id !== undefined && deleteProject(project.id)">Eliminar</button>
+        </div>
+        <div>
+          <button [routerLink]="['/project/applications', project.id]" class="ver-button">
+            Ver postulaciones
+          </button>
+        </div>
+      </div>
+
+      <!-- Nuevo botón: Ver estado de postulación (FREELANCERS) -->
+      <div *ngIf="isFreelancer" class="mt-4 text-center">
+        <button [routerLink]="['/project/applications', project.id]" class="ver-button">
+          Postularse a este proyecto/Ver estado de mi postulación
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- Mensaje si no hay proyectos -->
   <ng-template #noProjects>
-    <p class="text-center text-gray-500 mt-6">No has publicado ningún proyecto aún.</p>
+    <p class="text-center text-gray-500 mt-6">
+      {{ isClient ? 'No has publicado ningún proyecto aún.' : 'No hay proyectos disponibles en este momento.' }}
+    </p>
   </ng-template>
 </div>

@@ -18,7 +18,9 @@ export class ProjectListComponent implements OnInit {
   errorMessage = '';
   currentPage = 0;
   pageSize = 10;
-  totalElements = 0; // Total de proyectos
+  totalElements = 0;
+  isFreelancer = false;
+  isClient = false;
 
   constructor(
     private projectService: ProjectService,
@@ -26,37 +28,71 @@ export class ProjectListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadUserProjects();
+    this.checkUserRole();
+    this.loadProjects();
   }
 
   /**
-   * Cargar proyectos del usuario autenticado con paginación.
+   * 📌 Verificar el rol del usuario autenticado.
    */
-  loadUserProjects(): void {
-    if (!this.authService.isAuthenticated()) {
-      this.errorMessage = '⚠️ No hay un usuario autenticado.';
-      this.isLoading = false;
+  checkUserRole(): void {
+    const roles = this.authService.currentUserValue?.roles || [];
+    this.isFreelancer = roles.includes('ROLE_FREELANCER');
+    this.isClient = roles.includes('ROLE_USER');
+  }
+
+  /**
+   * 📌 Cargar proyectos según el rol del usuario.
+   */
+  loadProjects(): void {
+    if (this.isFreelancer) {
+      this.projectService.getAllProjects(this.currentPage, this.pageSize).subscribe({
+        next: (response) => {
+          this.projects = response.content;
+          this.totalElements = response.totalElements;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.errorMessage = 'Error al cargar proyectos.';
+          this.isLoading = false;
+        },
+      });
+    } else {
+      this.projectService.getUserProjects(this.currentPage, this.pageSize).subscribe({
+        next: (response) => {
+          this.projects = response.content;
+          this.totalElements = response.totalElements;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.errorMessage = 'Error al cargar proyectos.';
+          this.isLoading = false;
+        },
+      });
+    }
+  }
+
+  /**
+   * 📌 Freelancer postula a un proyecto.
+   */
+  applyToProject(projectId: number): void {
+    const proposal = prompt('Describe tu propuesta:');
+    const proposedBudget = parseFloat(prompt('Ingresa tu presupuesto:') || '0');
+
+    if (!proposal || isNaN(proposedBudget) || proposedBudget <= 0) {
+      alert('Datos inválidos. Intenta nuevamente.');
       return;
     }
 
-    this.projectService.getUserProjects(this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.projects = response.content;
-        this.totalElements = response.totalElements;
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('❌ Error al cargar proyectos:', error);
-        this.errorMessage = 'Error al cargar los proyectos. Intente nuevamente.';
-        this.isLoading = false;
-      },
+    this.projectService.applyToProject(projectId, proposal, proposedBudget).subscribe({
+      next: () => alert('✅ Postulación enviada con éxito.'),
+      error: () => alert('❌ Error al postularse. Intente de nuevo.'),
     });
   }
-
-  /**
+   /**
    * Eliminar un proyecto.
    */
-  deleteProject(id: number): void {
+   deleteProject(id: number): void {
     if (!confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
       return; // Cancelar si el usuario no confirma
     }
@@ -70,13 +106,5 @@ export class ProjectListComponent implements OnInit {
         alert('Error al eliminar el proyecto. Intente nuevamente.');
       },
     });
-  }
-  
-  /**
-   * Cambiar de página en la paginación.
-   */
-  changePage(page: number): void {
-    this.currentPage = page;
-    this.loadUserProjects();
   }
 }

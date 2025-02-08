@@ -11,6 +11,7 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class ProjectService {
   private apiUrl = `${environment.apiUrl}/projects`;
+  private apiApUrl = `${environment.apiUrl}/applications`;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -39,7 +40,7 @@ export class ProjectService {
       return of(null);
     }
 
-    return this.http.post<Project>(`${this.apiUrl}/create`, project, { headers: this.getAuthHeaders() }).pipe(
+    return this.http.post<Project>(`${this.apiUrl}`, project, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('❌ Error al crear proyecto:', error);
         return of(null);
@@ -47,12 +48,14 @@ export class ProjectService {
     );
   }
 
-  /**
-   * Obtener todos los proyectos disponibles con paginación.
+   /**
+   * 📌 Obtener todos los proyectos disponibles (Para freelancers).
    */
-  getProjects(page = 0, size = 10): Observable<{ content: Project[]; totalElements: number }> {
+   getAllProjects(page = 0, size = 10): Observable<{ content: Project[]; totalElements: number }> {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
-    return this.http.get<{ content: Project[]; totalElements: number }>(this.apiUrl, { headers: this.getAuthHeaders(), params }).pipe(
+    return this.http.get<{ content: Project[]; totalElements: number }>(
+      `${this.apiUrl}`, { headers: this.getAuthHeaders(), params }
+    ).pipe(
       catchError((error) => {
         console.error('❌ Error al obtener proyectos:', error);
         return of({ content: [], totalElements: 0 });
@@ -85,11 +88,13 @@ export class ProjectService {
     );
   }
 
-   /**
-   * Postularse a un proyecto (solo freelancers).
+  /**
+   * 📌 Postularse a un proyecto (Solo freelancers).
    */
-   applyToProject(projectId: number): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/${projectId}/apply`, {}, { headers: this.getAuthHeaders() }).pipe(
+  applyToProject(projectId: number, proposal: string, proposedBudget: number): Observable<void> {
+    const applicationData = { proposal, proposedBudget };
+    return this.http.post<void>(`${this.apiApUrl}/${projectId}/apply`, applicationData, 
+      { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('❌ Error al postularse al proyecto:', error);
         return of();
@@ -101,7 +106,7 @@ export class ProjectService {
    * Obtener las postulaciones de un proyecto (para clientes).
    */
    getProjectApplications(projectId: number): Observable<unknown[]> {
-    return this.http.get<unknown[]>(`${this.apiUrl}/${projectId}/applications`, { headers: this.getAuthHeaders() }).pipe(
+    return this.http.get<unknown[]>(`${this.apiApUrl}/${projectId}/applications`, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
         console.error('❌ Error al obtener postulaciones:', error);
         return of([]);

@@ -1,18 +1,77 @@
-<div class="freelancer-proposal">
-    <h2>Enviar Propuesta</h2>
-    <form (ngSubmit)="onSubmitProposal()">
-        <label>
-            Mensaje para el Cliente:
-            <textarea></textarea>
-        </label>
-        <label>
-            Presupuesto Propuesto ($):
-            <input type="text" />
-        </label>
-        <label>
-            Tiempo Estimado (Días):
-            <input type="text" />
-        </label>
-        <button type="submit">Enviar</button>
+<div class="proposal-container">
+  
+  <!-- 🔹 FREELANCER: Ver estado de postulación o formulario -->
+  <div *ngIf="isFreelancer">
+    <h3 *ngIf="hasApplied">Estado de tu Postulación</h3>
+    <h3 *ngIf="!hasApplied">Postularse a este Proyecto</h3>
+
+    <!-- ✅ Estado de la postulación -->
+    <div *ngIf="hasApplied && freelancerApplication" class="application-status">
+      <p><strong>Propuesta:</strong> {{ freelancerApplication.proposal }}</p>
+      <p><strong>Presupuesto:</strong> ${{ freelancerApplication.proposedBudget }}</p>
+      <p><strong>Estado:</strong> 
+        <span [ngClass]="{
+          'status-pending': freelancerApplication.status === 'PENDING',
+          'status-accepted': freelancerApplication.status === 'ACCEPTED',
+          'status-rejected': freelancerApplication.status === 'REJECTED'
+        }">
+          {{ freelancerApplication.status }}
+        </span>
+      </p>
+      <p><strong>Fecha de postulación:</strong> {{ freelancerApplication.appliedAt | date: 'medium' }}</p>
+    </div>
+
+    <!-- ✅ Formulario de postulación -->
+    <form *ngIf="!hasApplied" [formGroup]="proposalForm" (ngSubmit)="submitProposal()" class="proposal-form">
+      <div class="form-group">
+        <label for="proposal">Propuesta</label>
+        <textarea formControlName="proposal" id="proposal" placeholder="Explica por qué eres el mejor candidato"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="proposedBudget">Presupuesto Propuesto ($)</label>
+        <input formControlName="proposedBudget" id="proposedBudget" type="number" placeholder="Ejemplo: 500" />
+      </div>
+
+      <button type="submit" [disabled]="proposalForm.invalid" class="submit-btn">Enviar Propuesta</button>
     </form>
+
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+
+  <!-- 🔹 CLIENTE: Lista de postulaciones -->
+  <div *ngIf="isClient">
+    <h3>Postulaciones Recibidas</h3>
+    <div *ngIf="isLoading" class="loading">Cargando postulaciones...</div>
+
+    <div *ngFor="let app of applications" class="application-card">
+      <div class="application-header">
+        <div class="freelancer-info">
+          <img [src]="app.freelancer?.profilePictureUrl || '/assets/images/default-profile.jpg'" class="freelancer-avatar" alt="Freelancer Profile Picture">
+          <div>
+            <p class="freelancer-name"><strong>{{ app.freelancer?.username }}</strong></p>
+            <a [routerLink]="['/profile/public', app.freelancer?.id]" class="view-profile">Ver Perfil</a>
+          </div>
+        </div>
+        <span class="application-status" [ngClass]="{
+          'status-pending': app.status === 'PENDING',
+          'status-accepted': app.status === 'ACCEPTED',
+          'status-rejected': app.status === 'REJECTED'
+        }">
+          {{ app.status }}
+        </span>
+      </div>
+
+      <p><strong>Propuesta:</strong> {{ app.proposal }}</p>
+      <p><strong>Presupuesto:</strong> ${{ app.proposedBudget }}</p>
+      <p><strong>Fecha de postulación:</strong> {{ app.appliedAt | date: 'medium' }}</p> 
+
+      <div class="actions">
+        <button class="btn-accept" (click)="updateStatus(app.id!, 'ACCEPTED')">Aceptar</button>
+        <button class="btn-reject" (click)="updateStatus(app.id!, 'REJECTED')">Rechazar</button>
+      </div>
+    </div>
+  </div>
+
 </div>

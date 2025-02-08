@@ -12,6 +12,9 @@
     <li *ngIf="userRoles.includes('ROLE_FREELANCER')">
       <button (click)="navigateTo('/marketplace/services')">Mis Servicios</button>
     </li>
+    <li *ngIf="userRoles.includes('ROLE_FREELANCER')">
+      <button (click)="navigateTo('/project/list')">Proyectos</button>
+    </li>
     <li *ngIf="userRoles.includes('ROLE_USER')">
       <button (click)="navigateTo('/project/post')">Publicar un proyecto</button>
     </li>
