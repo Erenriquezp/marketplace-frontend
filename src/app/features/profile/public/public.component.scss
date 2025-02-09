@@ -15,8 +15,8 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--primary-color);
   font-family: var(--font-family); /* Aplica la fuente global */
+  margin-bottom: 2rem;
 }
 
 /* Profile Cover */
@@ -77,11 +77,6 @@ $border-radius: 0.5rem;
 
 /* Additional Info & Social Links */
 .additional-info, .social-links {
-  background: #e57385;
-  box-shadow: $shadow;
-  border-radius: $border-radius;
-  padding: 1.5rem;
-  width: 90%;
   max-width: 40rem;
   margin: 1rem auto;
 }
@@ -165,19 +160,14 @@ ul {
   color: #28a745;  // Color verde
 }
 
-
-
-
 /* Services Section */
 .service-section {
   width: 95%;
-  padding: 1rem 5;
   background-color: var(--secondary-color); /* Cambié el color de fondo */
   text-align: center;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: auto;
-  margin: 10 auto;
   padding-bottom: 10rem;
 }
 

@@ -48,10 +48,8 @@
       </div>
     </div>
     
-    
   </div>
 </section>
-
 
 <!-- 📌 Información Adicional y Redes Sociales -->
 <div class="info-social-container flex flex-wrap gap-6 mt-4 p-6">
@@ -108,14 +106,12 @@
 
 </div>
 
-
-
   <!-- 📌 Portafolio (Productos del usuario) -->
 <section class="portfolio-section mt-8 px-4 py-8" *ngIf="userProfileData?.user?.products?.length; else noPortfolio">
   <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Productos</h3>
   <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     <div
-      class="portfolio-item bg-[#f7d1d6] p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+      class="portfolio-item p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
       *ngFor="let product of userProfileData?.user?.products"
     >
       <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
@@ -136,7 +132,7 @@
   <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Servicios</h3>
   <div class="service-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     <div
-      class="service-item bg-[#f7d1d6] p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+      class="service-item p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
       *ngFor="let service of servicesOffered"
     >
       <h4 class="text-xl font-semibold text-center text-gray-800 mb-2">{{ service.name }}</h4>
@@ -149,9 +145,6 @@
 <ng-template #noServices>
   <p class="text-center text-gray-500">Este usuario aún no ha ofrecido ningún servicio.</p>
 </ng-template>
-
-
-
 
 </div>
 

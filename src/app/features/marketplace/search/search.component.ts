@@ -83,7 +83,7 @@ export class SearchComponent implements OnInit {
         this.services = response.content;
         this.totalElements = response.totalElements;
       },
-      (error) => console.error('Error al cargar servicios freelance', error)
+      (error) => console.error('Error al cargar todos los servicios freelance', error)
     );
   }
 
