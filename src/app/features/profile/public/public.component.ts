@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService, FullUserProfile } from '../../services/profile.service';
 import { FreelanceServiceService } from '../../services/freelance-service.service'; // Asegúrate de que la ruta sea correcta
 import { FreelanceService } from '../../../core/models/freelance-service.model'; // Asegúrate de que el modelo sea correcto
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-public',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './public.component.html',
   styleUrls: ['./public.component.scss'], // Cambié styleUrl a styleUrls
 })
@@ -20,8 +21,9 @@ export class PublicComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
-    private freelanceService: FreelanceServiceService // Inyectar servicio de servicios freelance
-  ) {}
+    private freelanceService: FreelanceServiceService, // Inyectar servicio de servicios freelance
+    private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     // Obtener el ID del usuario de la URL
@@ -37,6 +39,7 @@ export class PublicComponent implements OnInit {
     this.profileService.getPublicProfile(this.userId).subscribe({
       next: (data) => {
         this.userProfileData = data;
+        this.cdr.detectChanges(); // 🔥 Forzar detección de cambios
       },
       error: (error) => console.error('Error al cargar perfil del usuario', error),
     });
@@ -46,9 +49,27 @@ export class PublicComponent implements OnInit {
   private loadUserServices(): void {
     this.freelanceService.getServicesByUserId(this.userId).subscribe({
       next: (data) => {
-        this.servicesOffered = data.content; // Asumiendo que la respuesta tiene la propiedad 'content'
+        this.servicesOffered = data?.content ?? data ?? []; // ✅ Manejo flexible de datos
       },
-      error: (error) => console.error('Error al cargar servicios del usuario', error),
+      error: (error) => {
+        console.error('❌ Error al cargar servicios del usuario', error);
+        this.servicesOffered = []; // ✅ Evitar que quede `undefined`
+      },
     });
   }
+
+    /**
+   * 📌 Retorna el ícono de FontAwesome según la red social
+   */
+    getSocialIcon(platform: string): string {
+      const icons: Record<string, string> = {
+        facebook: 'fab fa-facebook',
+        twitter: 'fab fa-twitter',
+        instagram: 'fab fa-instagram',
+        linkedin: 'fab fa-linkedin',
+        github: 'fab fa-github',
+        youtube: 'fab fa-youtube'
+      };
+      return icons[platform.toLowerCase()] || 'fas fa-globe'; // Ícono por defecto
+    }
 }

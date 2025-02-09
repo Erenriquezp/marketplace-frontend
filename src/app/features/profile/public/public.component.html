@@ -48,10 +48,8 @@
       </div>
     </div>
     
-    
   </div>
 </section>
-
 
 <!-- 📌 Información Adicional y Redes Sociales -->
 <div class="info-social-container flex flex-wrap gap-6 mt-4 p-6">
@@ -92,30 +90,36 @@
   <section class="social-links flex-none bg-white shadow-lg rounded-lg p-6 w-full md:w-1/3">
     <h3 class="text-lg font-bold text-[#5A4995]">Redes Sociales</h3>
     <div *ngIf="userProfileData?.profile?.socialLinks && Object.keys(userProfileData?.profile?.socialLinks || {}).length > 0">
-      <ul>
-        <li *ngFor="let platform of userProfileData?.profile?.socialLinks | keyvalue">
-          <span class="text-gray-700 select-none">{{ platform.key }}:</span>
-          <a [href]="platform.value" target="_blank" class="text-blue-600 hover:text-blue-800">
-            {{ platform.value }}
-          </a>
-        </li>
-      </ul>
+      <div class="flex space-x-4">
+        <a *ngFor="let platform of userProfileData?.profile?.socialLinks | keyvalue"
+           [href]="platform.value" target="_blank"
+           class="text-gray-700 text-2xl hover:text-[#721656] transition">
+          <i [ngClass]="getSocialIcon(platform.key)"></i>
+        </a>
+      </div>
     </div>
     <p *ngIf="!userProfileData?.profile?.socialLinks || Object.keys(userProfileData?.profile?.socialLinks || {}).length === 0" class="text-gray-500">
       No hay enlaces sociales disponibles.
-    </p>    
+    </p>
   </section>
-
 </div>
 
-
+<!-- 📌 Botón para Editar Perfil -->
+<div class="flex flex-col items-center">
+  <button
+    class="bg-[#1D1856] text-white px-6 py-3 rounded-lg hover:bg-[#302080] transition ease-in-out duration-300"
+    [routerLink]="['/profile/settings']"
+  >
+    Editar Perfil
+  </button>
+</div>
 
   <!-- 📌 Portafolio (Productos del usuario) -->
 <section class="portfolio-section mt-8 px-4 py-8" *ngIf="userProfileData?.user?.products?.length; else noPortfolio">
   <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Productos</h3>
   <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     <div
-      class="portfolio-item bg-[#f7d1d6] p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+      class="portfolio-item p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
       *ngFor="let product of userProfileData?.user?.products"
     >
       <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
@@ -136,7 +140,7 @@
   <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Servicios</h3>
   <div class="service-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     <div
-      class="service-item bg-[#f7d1d6] p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+      class="service-item p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
       *ngFor="let service of servicesOffered"
     >
       <h4 class="text-xl font-semibold text-center text-gray-800 mb-2">{{ service.name }}</h4>
@@ -149,9 +153,6 @@
 <ng-template #noServices>
   <p class="text-center text-gray-500">Este usuario aún no ha ofrecido ningún servicio.</p>
 </ng-template>
-
-
-
 
 </div>
 

@@ -29,7 +29,7 @@ export class FreelanceServiceService {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
     return this.http.get<{ content: FreelanceService[]; totalElements: number }>(this.apiUrl, { params }).pipe(
       catchError((error) => {
-        console.error('❌ Error al obtener servicios freelance:', error);
+        console.error('❌ Error al obtener todos servicios freelance:', error);
         return of({ content: [], totalElements: 0 });
       })
     );
@@ -102,11 +102,12 @@ export class FreelanceServiceService {
 
     if (category) params = params.set('category', category);
     if (name) params = params.set('name', name);
+    console.log('🔍 Buscando servicios con filtros:', name);
 
     return this.http.get<{ content: FreelanceService[] }>(`${this.apiUrl}/search`, { params }).pipe(
       map((response: { content: FreelanceService[] }) => response.content),
       catchError(error => {
-        console.error('Error en la búsqueda de productos:', error);
+        console.error('Error en la búsqueda de servicios:', error);
         return of([]);
       })
     );

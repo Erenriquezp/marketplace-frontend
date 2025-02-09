@@ -1,40 +1,67 @@
-.settings {
-    max-width: 400px;
-    margin: 2rem auto;
-  
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-  
-      label {
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-      }
-  
-      input {
-        margin-bottom: 1rem;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-  
-      button {
-        background-color: #0d6efd;
-        color: white;
-        border: none;
-        padding: 0.5rem;
-        border-radius: 4px;
-        cursor: pointer;
-  
-        &:disabled {
-          background-color: #ccc;
-        }
-      }
-    }
-  }
-  
+.settings-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #721656;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 0.4rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.4rem;
+  border-radius: 4px;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #721656;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.success {
+  color: green;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 1rem;
+}

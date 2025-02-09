@@ -1,18 +1,75 @@
-<div class="settings">
-    <h1>Configuración de Cuenta</h1>
-    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
-      <label for="email">Correo Electrónico</label>
-      <input id="email" formControlName="email" type="email" />
-  
-      <label for="username">Nombre de Usuario</label>
-      <input id="username" formControlName="username" type="text" />
-  
-      <label>
-        <input formControlName="notifications" type="checkbox" />
-        Recibir notificaciones
-      </label>
-  
-      <button type="submit" [disabled]="settingsForm.invalid">Guardar Cambios</button>
-    </form>
-  </div>
-  
+<div class="settings-container bg-white p-6 rounded-lg shadow-md w-full max-w-3xl mx-auto">
+  <h2 class="text-2xl font-bold text-center text-[#721656] mb-6">Configuración de Perfil</h2>
+
+  <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+    
+    <!-- 📌 Información básica -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="form-group">
+        <label for="username">Nombre de usuario</label>
+        <input id="username" formControlName="username" type="text" class="input-field">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="input-field">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Teléfono</label>
+        <input id="phoneNumber" formControlName="phoneNumber" type="text" class="input-field">
+      </div>
+      <div class="form-group">
+        <label for="country">País</label>
+        <input id="country" formControlName="country" type="text" class="input-field">
+      </div>
+    </div>
+
+    <!-- 📌 Información adicional -->
+    <div class="form-group">
+      <label for="language">Idioma</label>
+      <input id="language" formControlName="language" type="text" class="input-field">
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea id="description" formControlName="description" class="input-field"></textarea>
+    </div>
+
+    <!-- 📌 Habilidades -->
+    <div class="form-group">
+      <label for="skills">Habilidades</label>
+      <div formArrayName="skills">
+        <div *ngFor="let skill of skills.controls; let i = index" class="flex items-center space-x-2">
+          <input [formControlName]="i" class="input-field">
+          <button type="button" (click)="removeItem('skills', i)" class="remove-btn">✖</button>
+        </div>
+      </div>
+      <button type="button" (click)="addItem('skills')" class="add-btn">+ Agregar Habilidad</button>
+    </div>
+
+    <!-- 📌 Certificaciones -->
+    <div class="form-group">
+      <label for="certifications">Certificaciones</label>
+      <div formArrayName="certifications">
+        <div id="certifications" *ngFor="let cert of certifications.controls; let i = index" class="flex items-center space-x-2">
+          <input [formControlName]="i" class="input-field">
+          <button type="button" (click)="removeItem('certifications', i)" class="remove-btn">✖</button>
+        </div>
+      </div>
+      <button type="button" (click)="addItem('certifications')" class="add-btn">+ Agregar Certificación</button>
+    </div>
+
+    <!-- 📌 Redes Sociales -->
+    <div class="form-group" formGroupName="socialLinks">
+      <label for="socialLinks">Redes Sociales</label>
+      <div *ngFor="let key of getSocialLinksKeys();" class="flex items-center space-x-2">
+        <input id="socialLinks" [formControlName]="key" placeholder="{{ key }}" class="input-field">
+      </div>
+    </div>
+
+    <!-- 📌 Guardar cambios -->
+    <button type="submit" [disabled]="settingsForm.invalid" class="save-btn">Guardar Cambios</button>
+  </form>
+
+  <!-- 📌 Mensajes de éxito/error -->
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</div>
