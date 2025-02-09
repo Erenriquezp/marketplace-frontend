@@ -25,15 +25,15 @@ export class SearchComponent implements OnInit {
   searchType: 'products' | 'services' = 'products'; // Estado de búsqueda
 
   categories = [
-    { name: 'Diseño de Sitios Web', imageUrl: '/assets/images/categorias/pexels-designecologist-1779487.jpg' },
-    { name: 'Aplicaciones Móviles', imageUrl: '/assets/images/categorias/app-1013616_1280.jpg' },
-    { name: 'Marketing Digital', imageUrl: '/assets/images/categorias/pexels-serpstat-177219-572056.jpg' },
-    { name: 'Diseño Gráfico', imageUrl: '/assets/images/categorias/workplace-2230698_1280.jpg' },
-    { name: 'Diseño de Logotipos', imageUrl: '/assets/images/categorias/logo-be-creative-inspiration-design-concept.jpg' },
-    { name: 'Corrección de Textos', imageUrl: '/assets/images/categorias/pexels-iamhogir-17801349.jpg' },
-    { name: 'Art', imageUrl: '/assets/images/categorias/5449686.jpg' },
-    { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.jpg' },
-    { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.jpg' }
+    { name: 'Diseño de Sitios Web', imageUrl: '/assets/images/categorias/pexels-designecologist-1779487.webp' },
+    { name: 'Aplicaciones Móviles', imageUrl: '/assets/images/categorias/app-1013616_1280.webp' },
+    { name: 'Marketing Digital', imageUrl: '/assets/images/categorias/pexels-serpstat-177219-572056.webp' },
+    { name: 'Diseño Gráfico', imageUrl: '/assets/images/categorias/workplace-2230698_1280.webp' },
+    { name: 'Diseño de Logotipos', imageUrl: '/assets/images/categorias/logo-be-creative-inspiration-design-concept.webp' },
+    { name: 'Corrección de Textos', imageUrl: '/assets/images/categorias/pexels-iamhogir-17801349.webp' },
+    { name: 'Art', imageUrl: '/assets/images/categorias/5449686.webp'},
+    { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.webp' },
+    { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.webp' }
   ];
   
   searchCategory = '';

@@ -1,39 +1,78 @@
+<h2 class="product-title">Gestión de Productos</h2>
+
 <div class="product-management">
-  <h2>Gestión de Productos</h2>
+  <!-- Sección izquierda: Formulario de creación y edición -->
+  <div class="product-form-container">
 
-  <!-- Solo los Freelancers pueden publicar productos -->
-  <form (ngSubmit)="addProduct()" class="product-form" *ngIf="isFreelancer && !editingProduct">
-    <div class="form-group">
-      <label for="name">Nombre del Producto:</label>
-      <input type="text" [(ngModel)]="newProduct.name" name="name" placeholder="Ejemplo: Art" required />
+    <!-- Formulario para Agregar Producto -->
+    <form (ngSubmit)="addProduct()" class="product-form" *ngIf="isFreelancer && !editingProduct">
+      <div class="form-group">
+        <label for="name">Nombre del Producto:</label>
+        <input type="text" [(ngModel)]="newProduct.name" name="name" placeholder="Ejemplo: Art" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción:</label>
+        <textarea [(ngModel)]="newProduct.description" name="description" placeholder="Describe el producto..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Precio:</label>
+        <input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Ejemplo: 1200.00" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoría:</label>
+        <input type="text" [(ngModel)]="newProduct.category" name="category" placeholder="Ejemplo: Art" required />
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Etiquetas:</label>
+        <input type="text" [(ngModel)]="newProduct.tagsString" name="tags"
+          placeholder="Ejemplo: Art, Ilustration, Digital"
+          (blur)="convertTags(newProduct)" required />
+      </div>
+
+      <button type="submit" class="btn-submit">Agregar Producto</button>
+    </form>
+
+    <!-- Formulario para Editar Producto -->
+    <div *ngIf="editingProduct" class="edit-form">
+      <h3>Editar Producto</h3>
+      <form (ngSubmit)="saveProduct()">
+        <div class="form-group">
+          <label for="name">Nombre del Producto:</label>
+          <input type="text" [(ngModel)]="editingProduct.name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Descripción:</label>
+          <textarea [(ngModel)]="editingProduct.description" name="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Precio:</label>
+          <input type="number" [(ngModel)]="editingProduct.price" name="price" required />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Categoría:</label>
+          <input type="text" [(ngModel)]="editingProduct.category" name="category" required />
+        </div>
+
+        <div class="form-group">
+          <label for="tags">Etiquetas:</label>
+          <input type="text" [(ngModel)]="editingProduct.tagsString" name="tags"
+            placeholder="Ejemplo: Art, Ilustration, Digital"
+            (blur)="convertTags(editingProduct)" required />
+        </div>
+
+        <button type="submit" class="btn-submit">Guardar Cambios</button>
+      </form>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label for="description">Descripción:</label>
-      <textarea [(ngModel)]="newProduct.description" name="description" placeholder="Describe el producto..." required></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="price">Precio:</label>
-      <input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Ejemplo: 1200.00" required />
-    </div>
-
-    <div class="form-group">
-      <label for="category">Categoría:</label>
-      <input type="text" [(ngModel)]="newProduct.category" name="category" placeholder="Ejemplo: Art" required />
-    </div>
-
-    <div class="form-group">
-      <label for="tags">Etiquetas:</label>
-      <input type="text" [(ngModel)]="newProduct.tagsString" name="tags"
-        placeholder="Ejemplo: Art, Ilustration, Digital"
-        (blur)="convertTags(newProduct)" required />
-    </div>
-
-    <button type="submit" class="btn-submit">Agregar Producto</button>
-  </form>
-
-  <!-- Lista de Productos -->
+  <!-- Sección derecha: Lista de productos -->
   <div class="product-list">
     <div *ngFor="let product of products" class="product-item">
       <img [src]="product.fileUrl || 'https://via.placeholder.com/400'" alt="{{ product.name }}" class="product-image" />
@@ -52,39 +91,5 @@
       </div>
     </div>
   </div>
-
-  <!-- Formulario para Editar Producto -->
-  <div *ngIf="editingProduct" class="edit-form">
-    <h3>Editar Producto</h3>
-    <form (ngSubmit)="saveProduct()">
-      <div class="form-group">
-        <label for="name">Nombre del Producto:</label>
-        <input type="text" [(ngModel)]="editingProduct.name" name="name" required />
-      </div>
-
-      <div class="form-group">
-        <label for="description">Descripción:</label>
-        <textarea [(ngModel)]="editingProduct.description" name="description" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="price">Precio:</label>
-        <input type="number" [(ngModel)]="editingProduct.price" name="price" required />
-      </div>
-
-      <div class="form-group">
-        <label for="category">Categoría:</label>
-        <input type="text" [(ngModel)]="editingProduct.category" name="category" required />
-      </div>
-
-      <div class="form-group">
-        <label for="tags">Etiquetas:</label>
-        <input type="text" [(ngModel)]="editingProduct.tagsString" name="tags"
-          placeholder="Ejemplo: Art, Ilustration, Digital"
-          (blur)="convertTags(editingProduct)" required />
-      </div>
-
-      <button type="submit" class="btn-submit">Guardar Cambios</button>
-    </form>
-  </div>
 </div>
+

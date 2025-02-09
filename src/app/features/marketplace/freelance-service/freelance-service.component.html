@@ -1,5 +1,8 @@
+<h2 class="product-title">Gestión de Servicios Freelance</h2>
+
 <div class="freelance-service-management">
-  <h2>Gestión de Servicios Freelance</h2>
+
+  <div class="service-form-container">
 
   <!-- Solo los Freelancers pueden publicar servicios -->
   <form (ngSubmit)="addService()" class="service-form" *ngIf="isFreelancer && !editingService">
@@ -33,27 +36,8 @@
     <button type="submit" class="btn-submit">Agregar Servicio</button>
   </form>
 
-  <!-- Lista de Servicios Freelance -->
-  <div class="service-list">
-    <div *ngFor="let service of servicesOffered" class="service-item">
-      <div class="service-details">
-        <h3>{{ service.name }}</h3>
-        <p>{{ service.description }}</p>
-        <p><strong>Precio:</strong> ${{ service.price }}</p>
-        <p><strong>Tiempo de Entrega:</strong> {{ service.estimatedDelivery }} días</p>
-        <p><strong>Habilidades:</strong> {{ service.skillsRequired.join(', ') || 'No tiene habilidades' }}</p>
-
-        <!-- Solo el dueño del servicio puede editar o eliminar -->
-        <div class="button-group">
-          <button class="btn-edit" (click)="editService(service)">Editar</button>
-          <button class="btn-delete" (click)="deleteService(service.id!)">Eliminar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Formulario para Editar Servicio -->
-  <div *ngIf="editingService" class="edit-form">
+   <!-- Formulario para Editar Servicio -->
+   <div *ngIf="editingService" class="edit-form">
     <h3>Editar Servicio</h3>
     <form (ngSubmit)="saveService()">
       <div class="form-group">
@@ -87,3 +71,23 @@
     </form>
   </div>
 </div>
+
+  <!-- Lista de Servicios Freelance -->
+  <div class="service-list">
+    <div *ngFor="let service of servicesOffered" class="service-item">
+      <div class="service-details">
+        <h3>{{ service.name }}</h3>
+        <p>{{ service.description }}</p>
+        <p><strong>Precio:</strong> ${{ service.price }}</p>
+        <p><strong>Tiempo de Entrega:</strong> {{ service.estimatedDelivery }} días</p>
+        <p><strong>Habilidades:</strong> {{ service.skillsRequired.join(', ') || 'No tiene habilidades' }}</p>
+
+        <!-- Solo el dueño del servicio puede editar o eliminar -->
+        <div class="button-group">
+          <button class="btn-edit" (click)="editService(service)">Editar</button>
+          <button class="btn-delete" (click)="deleteService(service.id!)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

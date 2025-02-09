@@ -17,17 +17,17 @@ export class HomeComponent {
     {
       name: 'Desarrollo Web',
       description: 'Encuentra freelancers para crear sitios web y aplicaciones.',
-      imageUrl: '/assets/images/categorias/programming-background-collage.jpg'
+      imageUrl: '/assets/images/categorias/programming-background-collage.webp'
     },
     {
       name: 'Diseño Gráfico',
       description: 'Diseñadores expertos en branding, logos y contenido visual.',
-      imageUrl: '/assets/images/categorias/workplace-2230698_1280.jpg'
+      imageUrl: '/assets/images/categorias/workplace-2230698_1280.webp'
     },
     {
       name: 'Marketing Digital',
       description: 'Profesionales en SEO, redes sociales y estrategias de marketing.',
-      imageUrl: '/assets/images/categorias/pexels-serpstat-177219-572056.jpg'
+      imageUrl: '/assets/images/categorias/pexels-serpstat-177219-572056.webp'
     }
   ];
 
@@ -36,19 +36,19 @@ export class HomeComponent {
       id: 1,
       name: 'John Doe',
       profession: 'Desarrollador Web',
-      imageUrl: 'assets/images/home/beard.jpg'
+      imageUrl: 'assets/images/home/beard.webp'
     },
     {
       id: 2,
       name: 'Jane Smith',
       profession: 'Diseñadora Gráfica',
-      imageUrl: 'assets/images/home/woman.jpg'
+      imageUrl: 'assets/images/home/woman.webp'
     },
     {
       id: 3,
       name: 'Mike Johnson',
       profession: 'Especialista en Marketing Digital',
-      imageUrl: 'assets/images/home/happy.jpg'
+      imageUrl: 'assets/images/home/happy.webp'
     }
   ];
 }
