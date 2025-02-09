@@ -1,8 +1,9 @@
-<div class="profile-container bg-gray-100">
+<div class="profile-container bg-[#f5e6e8]">
+
   <!-- 📌 Imagen de portada -->
   <div
     class="profile-cover"
-    [style.background-image]="'url(https://wallpaperaccess.com/full/8054151.jpg)'"
+    [style.background-image]="'url(https://cdn.pixabay.com/photo/2018/09/03/20/11/architecture-3652286_960_720.jpg)'"
   >
     <div class="profile-avatar absolute left-10 bottom-[-250px]">
       <img
@@ -14,90 +15,145 @@
   </div>
 
   <!-- 📌 Información del usuario -->
-  <section class="profile-details bg-gradient-to-r from-[#721656] via-[#5A4995] to-[#5A4995] p-6 rounded-lg shadow-lg mt-6 mx-auto w-11/12 md:w-2/3">
-    <div class="flex items-center">
-      <div>
-        <h2 class="text-white text-xl font-bold">
-          {{ userProfileData?.user?.username || 'Usuario Desconocido' }}
-        </h2>
-        <p class="text-white">{{ userProfileData?.user?.email || 'Correo no disponible' }}</p>
-        <p class="text-white">{{ userProfileData?.user?.phoneNumber || 'Teléfono no disponible' }}</p>
-        <p class="text-white">Saldo: {{ userProfileData?.user?.wallet | currency }}</p>
-        <p class="text-white">{{ userProfileData?.profile?.description || 'Descripción no disponible.' }}</p>
-      </div>
-      <button
-        class="ml-auto bg-[#1D1856] text-white px-4 py-2 rounded-lg hover:bg-[#302080] transition"
-        *ngIf="userProfileData?.user?.isActive"
-      >
-        Contrátame
-      </button>
+<section class="profile-details bg-gradient-to-r from-[#721656] via-[#5A4995] to-[#5A4995] p-8 rounded-lg shadow-lg mt-8 mx-auto w-11/12 md:w-2/3">
+  <div class="flex items-center space-x-6">
+    <div class="w-full">
+      <h2 class="text-white text-3xl font-semibold mb-2">
+        {{ userProfileData?.user?.username || 'Usuario Desconocido' }}
+      </h2>
+      <p class="text-white text-lg mb-1">
+        <strong>Email:</strong> {{ userProfileData?.user?.email || 'Correo no disponible' }}
+      </p>
+      <p class="text-white text-lg mb-1">
+        <strong>Teléfono:</strong> {{ userProfileData?.user?.phoneNumber || 'Teléfono no disponible' }}
+      </p>
+      <p class="text-white text-lg mb-1">
+        <strong>Saldo:</strong> {{ userProfileData?.user?.wallet | currency }}
+      </p>
+      <p class="text-white text-lg mt-2">
+        <strong>Descripción:</strong> {{ userProfileData?.profile?.description || 'Descripción no disponible.' }}
+      </p>
     </div>
-  </section>
+    <div class="flex flex-col items-center">
+      <div class="mb-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Flag_of_Ecuador.svg/255px-Flag_of_Ecuador.svg.png" alt="Bandera de Ecuador" class="w-32 h-auto rounded-md shadow-md" />
+      </div>
+      <div>
+        <button
+          class="bg-[#1D1856] text-white px-6 py-3 rounded-lg hover:bg-[#302080] transition ease-in-out duration-300"
+          *ngIf="userProfileData?.user?.isActive"
+        >
+          Contrátame
+        </button>
+      </div>
+    </div>
+    
+    
+  </div>
+</section>
+
+
+<!-- 📌 Información Adicional y Redes Sociales -->
+<div class="info-social-container flex flex-wrap gap-6 mt-4 p-6">
 
   <!-- 📌 Información Adicional -->
-  <section class="additional-info mt-4 p-6 bg-white shadow-lg rounded-lg mx-auto w-11/12 md:w-2/3">
+  <section class="additional-info flex-1 bg-white shadow-lg rounded-lg p-6 w-full md:w-2/3">
     <h3 class="text-lg font-bold text-[#5A4995]">Información Adicional</h3>
     <p><strong>País:</strong> {{ userProfileData?.profile?.country || 'No especificado' }}</p>
     <p><strong>Idiomas:</strong> {{ userProfileData?.profile?.language || 'No especificado' }}</p>
     <p><strong>Experiencia:</strong> {{ userProfileData?.profile?.experience || 'No especificada' }}</p>
     <p><strong>Educación:</strong> {{ userProfileData?.profile?.education || 'No especificada' }}</p>
 
-    <!-- 🔹 Habilidades -->
-    <div *ngIf="userProfileData?.profile?.skills?.length">
-      <h4 class="font-bold text-[#721656]">Habilidades:</h4>
-      <ul class="list-disc ml-6">
-        <li *ngFor="let skill of userProfileData?.profile?.skills" class="text-gray-700">
-          {{ skill }}
-        </li>
-      </ul>
-    </div>
+    <!-- 🔹 Habilidades y Certificaciones en columnas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+      <!-- Habilidades -->
+      <div *ngIf="userProfileData?.profile?.skills?.length">
+        <h4 class="font-bold text-[#721656]">Habilidades:</h4>
+        <ul class="list-disc ml-6">
+          <li *ngFor="let skill of userProfileData?.profile?.skills" class="text-gray-700">
+            {{ skill }}
+          </li>
+        </ul>
+      </div>
 
-    <!-- 🔹 Certificaciones -->
-    <div *ngIf="userProfileData?.profile?.certifications?.length">
-      <h4 class="font-bold text-[#721656] mt-4">Certificaciones:</h4>
-      <ul class="list-disc ml-6">
-        <li *ngFor="let cert of userProfileData?.profile?.certifications" class="text-gray-700">
-          {{ cert }}
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 📌 Redes Sociales -->
-  <section class="social-links mt-4 p-6 bg-white shadow-lg rounded-lg mx-auto w-11/12 md:w-2/3">
-    <h3 class="text-lg font-bold text-[#5A4995]">Redes Sociales</h3>
-    <div *ngIf="userProfileData?.profile?.socialLinks && Object.keys(userProfileData?.profile?.socialLinks || {}).length > 0">
-      <ul>
-        <li *ngFor="let platform of userProfileData?.profile?.socialLinks | keyvalue">
-          <a [href]="platform.value" target="_blank" class="text-blue-600 hover:text-blue-800">
-            {{ platform.key }}: {{ platform.value }}
-          </a>
-        </li>
-      </ul>
-    </div>
-    <p *ngIf="!userProfileData?.profile?.socialLinks || Object.keys(userProfileData?.profile?.socialLinks || {}).length > 0" class="text-gray-500">
-      No hay enlaces sociales disponibles.
-    </p>
-  </section>
-
-  <!-- 📌 Portafolio (Productos del usuario) -->
-  <section class="portfolio-section mt-8 px-4" *ngIf="userProfileData?.user?.products?.length; else noPortfolio">
-    <h3 class="text-2xl font-bold text-center mb-6">Portafolio</h3>
-    <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      <div
-        class="portfolio-item bg-white p-4 rounded-lg shadow-lg"
-        *ngFor="let product of userProfileData?.user?.products"
-      >
-        <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
-             class="w-full h-48 object-cover rounded-t-lg mb-4" />
-        <p class="text-center mt-2">{{ product.name }}</p>
-        <p class="text-gray-500 text-center text-sm">{{ product.description }}</p>
-        <p class="text-primary-color text-center font-semibold">{{ product.price | currency }}</p>
+      <!-- Certificaciones -->
+      <div *ngIf="userProfileData?.profile?.certifications?.length">
+        <h4 class="font-bold text-[#721656]">Certificaciones:</h4>
+        <ul class="list-disc ml-6">
+          <li *ngFor="let cert of userProfileData?.profile?.certifications" class="text-gray-700">
+            {{ cert }}
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 
+  <!-- 📌 Redes Sociales -->
+  <section class="social-links flex-none bg-white shadow-lg rounded-lg p-6 w-full md:w-1/3">
+    <h3 class="text-lg font-bold text-[#5A4995]">Redes Sociales</h3>
+    <div *ngIf="userProfileData?.profile?.socialLinks && Object.keys(userProfileData?.profile?.socialLinks || {}).length > 0">
+      <ul>
+        <li *ngFor="let platform of userProfileData?.profile?.socialLinks | keyvalue">
+          <span class="text-gray-700 select-none">{{ platform.key }}:</span>
+          <a [href]="platform.value" target="_blank" class="text-blue-600 hover:text-blue-800">
+            {{ platform.value }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p *ngIf="!userProfileData?.profile?.socialLinks || Object.keys(userProfileData?.profile?.socialLinks || {}).length === 0" class="text-gray-500">
+      No hay enlaces sociales disponibles.
+    </p>    
+  </section>
+
+</div>
+
+
+
+  <!-- 📌 Portafolio (Productos del usuario) -->
+<section class="portfolio-section mt-8 px-4 py-8" *ngIf="userProfileData?.user?.products?.length; else noPortfolio">
+  <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Productos</h3>
+  <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div
+      class="portfolio-item bg-[#f7d1d6] p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+      *ngFor="let product of userProfileData?.user?.products"
+    >
+      <img [src]="product.fileUrl || '/assets/images/default-product.jpg'" alt="{{ product.name }}"
+           class="w-full h-56 object-cover rounded-t-lg mb-6 transition-opacity hover:opacity-80" />
+      <p class="text-xl font-semibold text-center text-gray-800 mb-2">{{ product.name }}</p>
+      <p class="text-gray-600 text-center text-sm mb-4">{{ product.description }}</p>
+      <p class="product-price text-center font-semibold text-lg">{{ product.price | currency }}</p>
+
+    </div>
+  </div>
+</section>
   <ng-template #noPortfolio>
     <p class="text-center text-gray-500">Este usuario aún no ha subido ningún producto.</p>
   </ng-template>
+
+<!-- 📌 Lista de Servicios ofrecidos por el usuario -->
+<section class="service-section mt-8 px-4 py-8" *ngIf="servicesOffered.length; else noServices">
+  <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Servicios</h3>
+  <div class="service-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div
+      class="service-item bg-[#f7d1d6] p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+      *ngFor="let service of servicesOffered"
+    >
+      <h4 class="text-xl font-semibold text-center text-gray-800 mb-2">{{ service.name }}</h4>
+      <p class="text-gray-600 text-center text-sm mb-4">{{ service.description }}</p>
+      <p class="price text-center font-semibold text-lg">${{ service.price }}</p>
+      <p class="text-gray-500 text-center text-sm">Habilidades necesarias: {{ service.skillsRequired.join(', ') || 'Ninguna' }}</p>
+    </div>
+  </div>
+</section>
+<ng-template #noServices>
+  <p class="text-center text-gray-500">Este usuario aún no ha ofrecido ningún servicio.</p>
+</ng-template>
+
+
+
+
 </div>
+
+
+

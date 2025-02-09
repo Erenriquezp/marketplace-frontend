@@ -4,8 +4,10 @@
   --profile-avatar-border: #ffffff;
   --cta-button-bg: #1d1856;
   --cta-button-hover: #302080;
+  --info-section-bg: #e57385; /* Agrega un color de fondo */
   --font-family: 'Roboto', sans-serif; /* Fuente global */
 }
+
 
 /* Profile Container */
 .profile-container {
@@ -41,27 +43,82 @@
   object-fit: cover;
 }
 
+/* Variables */
+$primary-color: #5A4995;
+$secondary-color: #721656;
+$text-color: #333;
+$bg-white: #e57385;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$border-radius: 0.5rem;
+
 /* Profile Details */
 .profile-details {
-  background: linear-gradient(76.87deg, var(--secondary-color) 30.7%, #5a4995 66.79%, #5a4995 135.91%);
+  background: linear-gradient(76.87deg, var(--secondary-color) 30.7%, $primary-color 66.79%, $primary-color 135.91%);
   color: white;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
   width: 90%;
   max-width: 55rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow;
   transform: translateX(20%);
+  padding: 1.5rem;
 }
 
 .profile-details button {
   background-color: var(--cta-button-bg);
   color: white;
   padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
   transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--cta-button-hover);
+  }
 }
 
-.profile-details button:hover {
-  background-color: var(--cta-button-hover);
+/* Additional Info & Social Links */
+.additional-info, .social-links {
+  background: #e57385;
+  box-shadow: $shadow;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 40rem;
+  margin: 1rem auto;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: $secondary-color;
+  margin-top: 1rem;
+}
+
+p, ul {
+  color: $text-color;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-blue-600 {
+  color: #2563eb;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #1d4ed8;
+  }
 }
 
 /* Portfolio Section */
@@ -102,4 +159,72 @@
   height: 8rem;
   object-fit: cover;
   border-radius: 0.5rem;
+}
+
+.product-price {
+  color: #28a745;  // Color verde
+}
+
+
+
+
+/* Services Section */
+.service-section {
+  width: 95%;
+  padding: 1rem 5;
+  background-color: var(--secondary-color); /* Cambié el color de fondo */
+  text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: auto;
+  margin: 10 auto;
+  padding-bottom: 10rem;
+}
+
+.service-section h3 {
+  color: white; /* Mantengo el color blanco */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.service-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.service-item {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+}
+
+.service-item h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.service-item p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.service-item .price {
+  font-size: 1.25rem;
+  color:  #28a745; /* Verde para el precio */
+  font-weight: 700;
+}
+
+.service-item .estimated-delivery {
+  font-size: 0.875rem;
+  color: #999;
+}
+
+.service-item .skills-required {
+  font-size: 0.875rem;
+  color: #777;
 }
