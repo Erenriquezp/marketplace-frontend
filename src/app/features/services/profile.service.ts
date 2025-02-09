@@ -52,4 +52,14 @@ export class ProfileService {
 
     return forkJoin({ user: userRequest, profile: profileRequest });
   }
+
+  updateProfile(userId: number, profileData: Partial<UserProfile>): Observable<UserProfile> {
+    return this.http.post<UserProfile>(`${this.profileApiUrl}/${userId}`, profileData).pipe(
+      catchError(error => {
+        console.error('❌ Error al actualizar perfil:', error);
+        return of(profileData as UserProfile); // Retorna los datos locales en caso de error
+      })
+    );
+  }
+  
 }
