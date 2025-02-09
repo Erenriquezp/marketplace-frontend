@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileService, FullUserProfile, UserProfile } from '../../services/profile.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
@@ -92,9 +93,11 @@ export class SettingsComponent implements OnInit {
 
     // Manejar redes sociales dinámicamente
     const socialGroup = this.fb.group({});
-    Object.keys(profile.socialLinks || {}).forEach(platform => {
-      socialGroup.addControl(platform, this.fb.control(profile.socialLinks[platform]));
-    });
+    if (profile.socialLinks) {
+      Object.keys(profile.socialLinks).forEach(platform => {
+        socialGroup.addControl(platform, new FormControl(profile.socialLinks[platform]));
+      });
+    }
     this.settingsForm.setControl('socialLinks', socialGroup);
   }
 
@@ -104,18 +107,18 @@ export class SettingsComponent implements OnInit {
   private setFormArray(field: string, values: string[]): void {
     const formArray = this.settingsForm.get(field) as FormArray;
     formArray.clear();
-    values.forEach(value => formArray.push(this.fb.control(value)));
+    values.forEach(value => formArray.push(new FormControl(value)));
   }
 
   /**
-   * 📌 Agregar una habilidad o certificación.
+   * 📌 Agregar un nuevo elemento a un `FormArray` (habilidades o certificaciones).
    */
   addItem(field: string): void {
-    (this.settingsForm.get(field) as FormArray).push(this.fb.control(''));
+    (this.settingsForm.get(field) as FormArray).push(new FormControl(''));
   }
 
   /**
-   * 📌 Eliminar una habilidad o certificación.
+   * 📌 Eliminar un elemento de un `FormArray`.
    */
   removeItem(field: string, index: number): void {
     (this.settingsForm.get(field) as FormArray).removeAt(index);
@@ -147,12 +150,16 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  /** ✅ Getters para acceder a los `FormArray` */
   get skills(): FormArray {
     return this.settingsForm.get('skills') as FormArray;
   }
-  
-  getSkillControl(index: number) {
-    return (this.settingsForm.get('skills') as FormArray).at(index);
+
+  get certifications(): FormArray {
+    return this.settingsForm.get('certifications') as FormArray;
   }
-  
+
+  getSocialLinksKeys(): string[] {
+    return Object.keys(this.settingsForm.get('socialLinks')?.value || {});
+  }
 }

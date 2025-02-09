@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileService, FullUserProfile } from '../../services/profile.service';
 import { FreelanceServiceService } from '../../services/freelance-service.service'; // Asegúrate de que la ruta sea correcta
 import { FreelanceService } from '../../../core/models/freelance-service.model'; // Asegúrate de que el modelo sea correcto
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-public',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './public.component.html',
   styleUrls: ['./public.component.scss'], // Cambié styleUrl a styleUrls
 })
@@ -56,4 +57,19 @@ export class PublicComponent implements OnInit {
       },
     });
   }
+
+    /**
+   * 📌 Retorna el ícono de FontAwesome según la red social
+   */
+    getSocialIcon(platform: string): string {
+      const icons: Record<string, string> = {
+        facebook: 'fab fa-facebook',
+        twitter: 'fab fa-twitter',
+        instagram: 'fab fa-instagram',
+        linkedin: 'fab fa-linkedin',
+        github: 'fab fa-github',
+        youtube: 'fab fa-youtube'
+      };
+      return icons[platform.toLowerCase()] || 'fas fa-globe'; // Ícono por defecto
+    }
 }
