@@ -1,23 +1,24 @@
-<div class="min-h-screen flex items-center justify-center bg-white font-roboto">
-  <div class="register-container p-8 rounded-lg shadow-lg w-full max-w-md">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#D3435B] to-[#5A1E3E] font-roboto">
+
+  <div class="register-container p-8 rounded-lg shadow-lg w-full max-w-md bg-white">
     <div class="flex justify-center mb-6">
       <img
-        src="https://www.unotv.com/uploads/2023/03/jisoo-121656.jpg"
+        src="https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_960_720.png"
         alt="Logo Freelancer"
         class="h-12"
       />
     </div>
-    <h2 class="text-2xl font-bold text-center mb-6 text-gray-50">Registrarse</h2>
+    <h2 class="text-2xl font-bold text-center mb-6 text-[#D3435B]">Registrarse</h2>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <!-- Nombre Completo -->
       <div class="mb-4">
-        <label for="nombre" class="block text-gray-300">Nombre de Usuario</label>
+        <label for="nombre" class="block text-[#D3435B] font-medium">Nombre de Usuario</label>
         <input
           id="nombre"
           type="text"
           formControlName="username"
-          class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D3435B]"
           placeholder="Ingresa tu nombre de usuario (username)"
         />
         <div
@@ -30,12 +31,12 @@
 
       <!-- Correo Electrónico -->
       <div class="mb-4">
-        <label for="email" class="block text-gray-300">Correo Electrónico</label>
+        <label for="email" class="block text-[#D3435B] font-medium">Correo Electrónico</label>
         <input
           id="email"
           type="email"
           formControlName="email"
-          class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D3435B]"
           placeholder="Ingresa tu correo electrónico"
         />
         <div
@@ -48,12 +49,12 @@
 
       <!-- Contraseña -->
       <div class="mb-4">
-        <label for="password" class="block text-gray-300">Contraseña</label>
+        <label for="password" class="block text-[#D3435B] font-medium">Contraseña</label>
         <input
           id="password"
           type="password"
           formControlName="password"
-          class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D3435B]"
           placeholder="Ingresa tu contraseña"
         />
         <div
@@ -66,12 +67,12 @@
 
       <!-- Confirmar Contraseña -->
       <div class="mb-4">
-        <label for="confirm-password" class="block text-gray-300">Confirmar Contraseña</label>
+        <label for="confirm-password" class="block text-[#D3435B] font-medium">Confirmar Contraseña</label>
         <input
           id="confirm-password"
           type="password"
           formControlName="confirmPassword"
-          class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D3435B]"
           placeholder="Confirma tu contraseña"
         />
         <div
@@ -84,12 +85,12 @@
 
       <!-- Teléfono -->
       <div class="mb-4">
-        <label for="phoneNumber" class="block text-gray-300">Teléfono</label>
+        <label for="phoneNumber" class="block text-[#D3435B] font-medium">Teléfono</label>
         <input
           id="phoneNumber"
           type="text"
           formControlName="phoneNumber"
-          class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D3435B]"
           placeholder="Ingresa tu número de teléfono"
         />
         <div
@@ -102,11 +103,11 @@
 
       <!-- Selección de Rol -->
       <div class="mb-4">
-        <label for="role" class="block text-gray-300">Selecciona tu Rol</label>
+        <label for="role" class="block text-[#D3435B] font-medium">Selecciona tu Rol</label>
         <select
           id="role"
           formControlName="role"
-          class="input-field w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D3435B]"
         >
           <option value="ROLE_USER">Cliente</option>
           <option value="ROLE_FREELANCER">Freelancer</option>
@@ -132,7 +133,7 @@
 
     <!-- Enlace a Iniciar Sesión -->
     <div class="flex items-center justify-center mt-6">
-      <span class="text-gray-400">¿Ya tienes una cuenta?</span>
+      <span class="text-[#D3435B]">¿Ya tienes una cuenta?</span>
       <a routerLink="/auth/login" class="text-blue-500 hover:underline ml-2">Inicia Sesión</a>
     </div>
   </div>

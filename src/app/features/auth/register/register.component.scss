@@ -1,41 +1,125 @@
+/* Fondo de la página */
+body {
+  background: linear-gradient(135deg, #5e0e6e, #d3435b); /* Mismo gradiente que el login */
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+}
+
+/* Contenedor del formulario de registro */
 .register-container {
-  background-color: #420054;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  margin: 2rem auto;
+  margin: 5% auto;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-  h2 {
-    color: #e0e0e0;
-    margin-bottom: 1.5rem;
-  }
+/* Título */
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
 
-  .input-field {
-    background-color: #a22c58;
-    color: white;
+/* Estilos de los campos de entrada */
+.input-field, .select-field {
+  background-color: #f3f4f6; /* Fondo claro para los inputs y selects */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
 
-    &:focus {
-      border-color: #d3435b;
-    }
-  }
+.input-field:focus, .select-field:focus {
+  border-color: #d3435b; /* Borde rojo al hacer focus */
+  outline: none;
+}
 
-  .select-field {
-    color: #e0e0e0;
-  }
-  .text-light {
-    color: #E0E0E0;
-  }
-  .register-button {
-    background-color: #d3435b;
+/* Mensaje de error */
+.text-red-400 {
+  color: #f87171;
+  font-size: 0.875rem;
+}
 
-    &:hover {
-      background-color: #c02e4e;
-    }
+/* Estilos para el botón de registro */
+.register-button {
+  background-color: #d3435b;
+  border: none;
+  padding: 12px;
+  font-size: 1.125rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
 
-    &:disabled {
-      background-color: #a22c58;
-      cursor: not-allowed;
-    }
-  }
+.register-button:hover {
+  background-color: #c12c4d; /* Efecto hover */
+}
+
+.register-button:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+/* Estilos para los enlaces */
+a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #d3435b;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  accent-color: #d3435b;
+}
+
+/* Contenedor de enlaces */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.mb-4, .mt-4, .mt-6 {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-gray-200 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.text-blue-300 {
+  color: #93c5fd;
 }
