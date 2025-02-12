@@ -84,7 +84,7 @@
         <p><strong>Etiquetas:</strong> {{ product.tags.join(', ') || 'No tiene etiquetas' }}</p>
 
         <!-- Solo el dueño del producto puede editar o eliminar -->
-        <div class="buttons">
+        <div class="button-group">
           <button class="btn-edit" (click)="editProduct(product)">Editar</button>
           <button class="btn-delete" (click)="deleteProduct(product.id!)">Eliminar</button>
         </div>

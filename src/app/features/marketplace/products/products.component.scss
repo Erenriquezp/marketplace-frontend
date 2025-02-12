@@ -1,10 +1,11 @@
 /* Fuente global */
 body {
+  background: white;
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh; /* Asegura que la pantalla siempre tenga el tamaño completo */
-  overflow-x: hidden; /* Evita desplazamiento horizontal no deseado */
+  min-height: 100vh; 
+  overflow-x: hidden; 
 }
 
 /* Estilo del título principal */
@@ -14,7 +15,7 @@ body {
   font-weight: bold;
   margin-bottom: 1rem;
   margin-top: 1rem;
-  color: #420054;
+  color: #721656;
   font-family: 'Inter', sans-serif;
 }
 
@@ -131,13 +132,14 @@ p {
 strong {
   color: black;
 }
+
 /* Botones */
-.buttons {
+.button-group {
   display: flex;
   gap: 0.5rem;
 }
 
-.btn-edit, .btn-delete, .btn-submit {
+.btn-edit, .btn-delete{
   padding: 0.5rem 1rem;
   border-radius: 6px;
   border: none;
@@ -146,8 +148,12 @@ strong {
 }
 
 .btn-edit {
-  background-color:#420054;
+  background-color: #420054;
   color: white;
+}
+
+.btn-edit:hover {
+  background-color: #721656;
 }
 
 .btn-delete {
@@ -155,9 +161,27 @@ strong {
   color: white;
 }
 
+.btn-delete:hover {
+  background-color: #a22c58;
+}
+
+/* Botón de envío */
 .btn-submit {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.1rem;
   background-color: #d3435b;
   color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.btn-submit:hover {
+  background-color: #a22c58;
 }
 
 /* Responsividad */
