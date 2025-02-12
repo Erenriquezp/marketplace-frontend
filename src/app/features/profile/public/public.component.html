@@ -115,7 +115,7 @@
 </div>
 
   <!-- 📌 Portafolio (Productos del usuario) -->
-<section class="portfolio-section mt-8 px-4 py-8" *ngIf="userProfileData?.user?.products?.length; else noPortfolio">
+<section class="portfolio-section mt-8 px-4 py-8" *ngIf="userProfileData?.user?.products?.length">
   <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Productos</h3>
   <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     <div
@@ -131,12 +131,12 @@
     </div>
   </div>
 </section>
-  <ng-template #noPortfolio>
+<!--  <ng-template #noPortfolio>">
     <p class="text-center text-gray-500">Este usuario aún no ha subido ningún producto.</p>
   </ng-template>
 
-<!-- 📌 Lista de Servicios ofrecidos por el usuario -->
-<section class="service-section mt-8 px-4 py-8" *ngIf="servicesOffered.length; else noServices">
+ 📌 Lista de Servicios ofrecidos por el usuario -->
+<section class="service-section mt-8 px-4 py-8" *ngIf="servicesOffered.length">
   <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">Servicios</h3>
   <div class="service-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     <div
@@ -150,9 +150,9 @@
     </div>
   </div>
 </section>
-<ng-template #noServices>
+<!--<ng-template #noServices>
   <p class="text-center text-gray-500">Este usuario aún no ha ofrecido ningún servicio.</p>
-</ng-template>
+</ng-template> !-->
 
 </div>
 
