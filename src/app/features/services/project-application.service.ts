@@ -74,6 +74,7 @@ export class ProjectApplicationService {
    * 📌 Cliente obtiene todas las postulaciones a su proyecto.
    */
   getApplicationsByProject(projectId: number): Observable<ProjectApplication[]> {
+    console.log('🔍 Obteniendo postulaciones del proyecto', projectId); // ✅ Log de depuración
     return this.http.get<{ content: ProjectApplication[] }>(
       `${this.apiUrl}/by-project/${projectId}`,
       { headers: this.getAuthHeaders() }

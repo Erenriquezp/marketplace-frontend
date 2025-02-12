@@ -21,7 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    ],
+  ],
   templateUrl: './proposal.component.html',
   styleUrl: './proposal.component.scss'
 })
@@ -78,15 +78,17 @@ export class ProposalComponent implements OnInit {
   }
 
   /**
-   * 📌 Cargar postulaciones del proyecto (solo para clientes).
-   */
+  * 📌 Cargar postulaciones del proyecto (solo para clientes).
+  */
   loadApplications(): void {
     this.applicationService.getApplicationsByProject(this.projectId).subscribe({
       next: (response) => {
+        console.log('📥 Postulaciones cargadas:', response); // ✅ Log de depuración
         this.applications = response || [];
         this.isLoading = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('❌ Error al cargar postulaciones:', error);
         this.isLoading = false;
         this.errorMessage = 'Error al cargar postulaciones.';
       }
@@ -94,27 +96,30 @@ export class ProposalComponent implements OnInit {
   }
 
   /**
-   * 📌 Verifica si el freelancer ya se ha postulado a este proyecto.
-   */
+ * 📌 Verifica si el freelancer ya se ha postulado a este proyecto.
+ */
   checkFreelancerApplication(): void {
     this.applicationService.getApplicationsByFreelancer().subscribe({
       next: (response) => {
-        console.log('🔍 Aplicaciones:', response);
+        console.log('🔍 Aplicaciones obtenidas:', response); // ✅ Log de depuración
 
-        const application = response.find(app => 
-          app.id === this.projectId && app.freelancer?.id === this.authenticatedFreelancerId
+        const application = response.find(app =>
+          app.projectId === this.projectId && app.freelancer?.id === this.authenticatedFreelancerId
         );
 
         if (application) {
+          console.log('✅ Freelancer ya aplicado:', application);
           this.freelancerApplication = application;
           this.hasApplied = true;
         } else {
+          console.log('⚠️ Freelancer aún no ha aplicado.');
           this.hasApplied = false;
         }
 
         this.isLoading = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('❌ Error al verificar postulación:', error);
         this.isLoading = false;
         this.errorMessage = 'Error al verificar postulación.';
       }
@@ -122,8 +127,8 @@ export class ProposalComponent implements OnInit {
   }
 
   /**
-   * 📌 Freelancer envía una postulación.
-   */
+ * 📌 Freelancer envía una postulación.
+ */
   submitProposal(): void {
     if (this.proposalForm.valid) {
       const application: ProjectApplication = {
@@ -132,14 +137,18 @@ export class ProposalComponent implements OnInit {
         proposedBudget: this.proposalForm.value.proposedBudget
       };
 
+      console.log('📤 Enviando postulación:', application); // ✅ Log antes de enviar
+
       this.applicationService.applyToProject(this.projectId, application).subscribe({
-        next: () => {
+        next: (response) => {
+          console.log('✅ Postulación exitosa:', response);
           this.successMessage = '¡Postulación enviada con éxito!';
           this.hasApplied = true;
           this.proposalForm.reset();
           this.checkFreelancerApplication();
         },
-        error: () => {
+        error: (error) => {
+          console.error('❌ Error al enviar postulación:', error);
           this.errorMessage = 'Error al enviar la postulación. Intente de nuevo.';
         }
       });
@@ -147,12 +156,19 @@ export class ProposalComponent implements OnInit {
   }
 
   /**
-   * 📌 Cliente acepta o rechaza una postulación.
-   */
+  * 📌 Cliente acepta o rechaza una postulación.
+  */
   updateStatus(applicationId: number, status: 'ACCEPTED' | 'REJECTED'): void {
-    this.applicationService.updateApplicationStatus(applicationId, status).subscribe(() => {
-      this.loadApplications();
+    console.log(`🔄 Cambiando estado de postulación ${applicationId} a ${status}`); // ✅ Log de depuración
+
+    this.applicationService.updateApplicationStatus(applicationId, status).subscribe({
+      next: () => {
+        console.log(`✅ Estado de postulación ${applicationId} actualizado a ${status}`);
+        this.loadApplications();
+      },
+      error: (error) => {
+        console.error(`❌ Error al actualizar estado de postulación ${applicationId}:`, error);
+      }
     });
   }
 }
-
