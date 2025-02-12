@@ -78,4 +78,9 @@ export class ClientComponent implements OnInit {
     this.currentPage = page;
     this.loadUserProjects();
   }
+  
+  toggleSidebar() {
+    document.querySelector('.sidebar')?.classList.toggle('show');
+  }
+  
 }

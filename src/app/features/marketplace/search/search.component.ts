@@ -25,15 +25,15 @@ export class SearchComponent implements OnInit {
   searchType: 'products' | 'services' = 'products'; // Estado de búsqueda
 
   categories = [
-    { name: 'Diseño de Sitios Web', imageUrl: '/assets/images/categorias/pexels-designecologist-1779487.webp' },
-    { name: 'Aplicaciones Móviles', imageUrl: '/assets/images/categorias/app-1013616_1280.webp' },
-    { name: 'Marketing Digital', imageUrl: '/assets/images/categorias/pexels-serpstat-177219-572056.webp' },
-    { name: 'Diseño Gráfico', imageUrl: '/assets/images/categorias/workplace-2230698_1280.webp' },
-    { name: 'Diseño de Logotipos', imageUrl: '/assets/images/categorias/logo-be-creative-inspiration-design-concept.webp' },
-    { name: 'Corrección de Textos', imageUrl: '/assets/images/categorias/pexels-iamhogir-17801349.webp' },
+    { name: 'WordPress', imageUrl: '/assets/images/categorias/pexels-designecologist-1779487.webp' },
+    { name: 'Flutter', imageUrl: '/assets/images/categorias/app-1013616_1280.webp' },
+    { name: 'Marketing', imageUrl: '/assets/images/categorias/pexels-serpstat-177219-572056.webp' },
+    { name: 'Publicidad', imageUrl: '/assets/images/categorias/workplace-2230698_1280.webp' },
+    { name: 'Logotipos', imageUrl: '/assets/images/categorias/logo-be-creative-inspiration-design-concept.webp' },
+    { name: 'Escritura', imageUrl: '/assets/images/categorias/pexels-iamhogir-17801349.webp' },
     { name: 'Art', imageUrl: '/assets/images/categorias/5449686.webp'},
-    { name: 'Procesamiento de Datos', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.webp' },
-    { name: 'Arquitectura de Software', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.webp' }
+    { name: 'IA', imageUrl: '/assets/images/categorias/standard-quality-control-collage-concept.webp' },
+    { name: 'Optimización Web', imageUrl: '/assets/images/categorias/pexels-mikhail-nilov-7988114.webp' }
   ];
   
   searchCategory = '';

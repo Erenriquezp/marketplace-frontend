@@ -59,7 +59,7 @@
                 <p class="text-center text-lg font-bold text-[#FA9C86] font-roboto">
                     ${{ product.price }}
                 </p>
-                <div class="text-center">
+                <div class="text-center py-3">
                     <a [routerLink]="['/marketplace/products', product.id]"
                         class="bg-[#FA9C86] text-white px-4 py-2 rounded hover:bg-[#D3435B] transition-colors duration-300 font-roboto">
                         Ver Detalles
@@ -78,7 +78,7 @@
                 <p class="text-center text-lg font-bold text-[#FA9C86] font-roboto">
                     ${{ service.price }} - {{ service.estimatedDelivery }} días
                 </p>
-                <div class="text-center">
+                <div class="text-center py-3">
                     <a [routerLink]="['/marketplace/services', service.id]"
                         class="bg-[#FA9C86] text-white px-4 py-2 rounded hover:bg-[#D3435B] transition-colors duration-300 font-roboto">
                         Ver Detalles
