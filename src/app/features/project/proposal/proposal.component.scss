@@ -1,91 +1,115 @@
+/* ✅ Estilos generales */
+body {
+  background: #faebed;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Estilo de los títulos fuera del contenedor */
+.section-title {
+  font-family: 'Inter', sans-serif; 
+  font-size: 2rem; 
+  font-weight: 600; 
+  text-align: center; 
+  color: #721656; 
+  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
+}
+
+/* Opcional: Estilo adicional para mejorar la presentación */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 700px;
+  height: 3px;
+  background-color: #721652; /* Línea decorativa */
+  margin: 1.5px auto;
+}
+
+/* ✅ Contenedor principal */
 .proposal-container {
-  max-width: 700px;
-  margin: auto;
+  max-width: 750px;
+  margin: 2rem auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Formulario de postulación */
+.proposal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.purple-button {
+  background-color: #420054 !important;
+  color: white !important;
+}
+.pink-button {
+  background-color: #d3435b !important;
+  color: white !important;
+}
+
+/* ✅ Botón de envío */
+button[mat-raised-button] {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px;
+  text-transform: uppercase;
+}
+
+/* ✅ Mensajes de éxito y error */
+.success, .error {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.success {
+  color: #4caf50;
+}
+
+.error {
+  color: #f44336;
+}
+
+/* ✅ Tarjeta de postulaciones */
+.application-card {
+  background: #fff;
+  padding: 16px;
+  margin-bottom: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-h3 {
-  text-align: center;
-  color: #444;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-textarea, input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.submit-btn:hover {
-  background-color: #0056b3;
-}
-
-.success {
-  color: green;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.error {
-  color: red;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* ✅ Estilos para las postulaciones */
-.application-card {
-  background: white;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.application-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
+/* ✅ Información del freelancer */
 .freelancer-info {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .freelancer-avatar {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin-right: 10px;
+  object-fit: cover;
+  border: 2px solid #ddd;
 }
 
 .freelancer-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -99,51 +123,46 @@ textarea, input {
   text-decoration: underline;
 }
 
-/* ✅ Estilos de estado */
+/* ✅ Estados de postulación */
+.application-status {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left:25rem;
+}
+
 .status-pending {
   color: #ff9800;
-  font-weight: bold;
 }
 
 .status-accepted {
-  color: green;
-  font-weight: bold;
+  color: #4caf50;
 }
 
 .status-rejected {
-  color: red;
-  font-weight: bold;
+  color: #f44336;
 }
 
-/* ✅ Botones */
-.actions {
+/* ✅ Botones de Aceptar y Rechazar */
+mat-card-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
 }
 
-.btn-accept {
-  background-color: green;
+button[color="accent"] {
+  background-color: #4caf50;
   color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.btn-accept:hover {
-  background-color: darkgreen;
+button[color="accent"]:hover {
+  background-color: #388e3c;
 }
 
-.btn-reject {
-  background-color: red;
+button[color="warn"] {
+  background-color: #f44336;
   color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.btn-reject:hover {
-  background-color: darkred;
+button[color="warn"]:hover {
+  background-color: #d32f2f;
 }
+

@@ -1,47 +1,54 @@
+<h2 class="section-title">
+  {{ isClient ? 'Mis Proyectos' : 'Proyectos Disponibles' }}
+</h2>
+
 <div class="project-list-container bg-gray-100 py-10 px-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-  <h2 class="text-2xl font-bold text-center text-[#721656]">
-    {{ isClient ? 'Mis Proyectos' : 'Proyectos Disponibles' }}
-  </h2>
 
   <!-- Carga en progreso -->
-  <p *ngIf="isLoading" class="text-center text-gray-600">Cargando proyectos...</p>
-
+  <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="mx-auto"></mat-progress-spinner>
+  
   <!-- Error al cargar -->
-  <p *ngIf="errorMessage" class="text-center text-red-600">{{ errorMessage }}</p>
+  <mat-card *ngIf="errorMessage" class="text-center text-red-600 p-4">
+    {{ errorMessage }}
+  </mat-card>
 
   <!-- Lista de proyectos -->
   <div *ngIf="projects.length > 0; else noProjects" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div *ngFor="let project of projects" class="project-card bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition">
-      <h3 class="text-lg font-bold text-[#5A4995]">{{ project.title }}</h3>
-      <p class="text-gray-600 mt-2">{{ project.description }}</p>
-      <p class="text-sm text-gray-500 mt-2"><strong>Presupuesto:</strong> ${{ project.estimatedBudget }}</p>
-      <p class="text-sm text-gray-500"><strong>Fecha límite:</strong> {{ project.deadline | date: 'mediumDate' }}</p>
+    <mat-card *ngFor="let project of projects" class="project-form">
+      <mat-card-title class="project-card-title">{{ project.title }}</mat-card-title>
+      <mat-card-content>
+        <p class="project-description mt-2">{{ project.description }}</p>
+        <p class="project-information mt-2"><strong>Presupuesto:</strong> ${{ project.estimatedBudget }}</p>
+        <p class="project-information mt-2"><strong>Fecha límite:</strong> {{ project.deadline | date: 'mediumDate' }}</p>
+      </mat-card-content>
 
       <!-- Opciones para CLIENTES -->
       <div *ngIf="isClient">
         <div class="mt-4">
-          <button class="delete-btn" (click)="project.id !== undefined && deleteProject(project.id)">Eliminar</button>
-        </div>
-        <div>
-          <button [routerLink]="['/project/applications', project.id]" class="ver-button">
+          <button mat-raised-button type="submit" [routerLink]="['/project/applications', project.id]"class="pink-button">
             Ver postulaciones
           </button>
+          <button mat-raised-button type="submit" (click)="project.id !== undefined && deleteProject(project.id)"class="purple-button">
+            Eliminar
+          </button>
         </div>
-      </div>
+      </div> 
 
       <!-- Nuevo botón: Ver estado de postulación (FREELANCERS) -->
       <div *ngIf="isFreelancer" class="mt-4 text-center">
-        <button [routerLink]="['/project/applications', project.id]" class="ver-button">
+        <button mat-raised-button type="submit" [routerLink]="['/project/applications', project.id]" class="purple-button">
           Postularse a este proyecto/Ver estado de mi postulación
-        </button>
+        </button>  
+
       </div>
-    </div>
+    </mat-card>
   </div>
 
   <!-- Mensaje si no hay proyectos -->
   <ng-template #noProjects>
-    <p class="text-center text-gray-500 mt-6">
+    <mat-card class="text-center text-gray-500 mt-6 p-4">
       {{ isClient ? 'No has publicado ningún proyecto aún.' : 'No hay proyectos disponibles en este momento.' }}
-    </p>
+    </mat-card>
   </ng-template>
 </div>
+

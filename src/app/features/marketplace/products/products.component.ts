@@ -4,11 +4,13 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatButtonModule],
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {

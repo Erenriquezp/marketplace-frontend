@@ -5,13 +5,18 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Project } from '../../../core/models/project.model';
 import { RouterModule } from '@angular/router';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-project-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatCardModule, MatProgressSpinnerModule],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
 export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
   isLoading = true;

@@ -1,12 +1,14 @@
 <div class="proposal-container">
-  
-  <!-- 🔹 FREELANCER: Ver estado de postulación o formulario -->
-  <div *ngIf="isFreelancer">
-    <h3 *ngIf="hasApplied">Estado de tu Postulación</h3>
-    <h3 *ngIf="!hasApplied">Postularse a este Proyecto</h3>
 
+  <!-- 🔹 FREELANCER: Ver estado de postulación o formulario -->
+  <h3 class="section-title" *ngIf="isFreelancer">
+      <span *ngIf="hasApplied">Estado de tu Postulación</span>
+      <span *ngIf="!hasApplied">Postularse a este Proyecto</span>
+    </h3>
+    
     <!-- ✅ Estado de la postulación -->
-    <div *ngIf="hasApplied && freelancerApplication" class="application-status">
+    <mat-card *ngIf="isFreelancer">
+    <mat-card-content *ngIf="hasApplied && freelancerApplication">
       <p><strong>Propuesta:</strong> {{ freelancerApplication.proposal }}</p>
       <p><strong>Presupuesto:</strong> ${{ freelancerApplication.proposedBudget }}</p>
       <p><strong>Estado:</strong> 
@@ -19,34 +21,38 @@
         </span>
       </p>
       <p><strong>Fecha de postulación:</strong> {{ freelancerApplication.appliedAt | date: 'medium' }}</p>
-    </div>
+    </mat-card-content>
 
+    
     <!-- ✅ Formulario de postulación -->
     <form *ngIf="!hasApplied" [formGroup]="proposalForm" (ngSubmit)="submitProposal()" class="proposal-form">
-      <div class="form-group">
-        <label for="proposal">Propuesta</label>
-        <textarea formControlName="proposal" id="proposal" placeholder="Explica por qué eres el mejor candidato"></textarea>
-      </div>
+      <mat-form-field class="full-width">
+        <mat-label>Propuesta</mat-label>
+        <textarea matInput formControlName="proposal" placeholder="Explica por qué eres el mejor candidato"></textarea>
+        <mat-error *ngIf="proposalForm.controls['proposal'].invalid">Este campo es obligatorio</mat-error>
+      </mat-form-field>
 
-      <div class="form-group">
-        <label for="proposedBudget">Presupuesto Propuesto ($)</label>
-        <input formControlName="proposedBudget" id="proposedBudget" type="number" placeholder="Ejemplo: 500" />
-      </div>
-
-      <button type="submit" [disabled]="proposalForm.invalid" class="submit-btn">Enviar Propuesta</button>
+      <mat-form-field class="full-width">
+        <mat-label>Presupuesto Propuesto ($)</mat-label>
+        <input matInput type="number" formControlName="proposedBudget" placeholder="Ejemplo: 500" />
+        <mat-error *ngIf="proposalForm.controls['proposedBudget'].invalid">Ingrese un presupuesto válido</mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" [disabled]="proposalForm.invalid" class="purple-button">
+        Enviar Propuesta
+      </button>      
     </form>
+  </mat-card>
 
-    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-  </div>
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
   <!-- 🔹 CLIENTE: Lista de postulaciones -->
-  <div *ngIf="isClient">
-    <h3>Postulaciones Recibidas</h3>
-    <div *ngIf="isLoading" class="loading">Cargando postulaciones...</div>
+  <mat-card *ngIf="isClient">
+    <h2 class="section-title">Postulaciones Recibidas</h2>
+    <mat-card-content *ngIf="isLoading" class="loading">Cargando postulaciones...</mat-card-content>
 
-    <div *ngFor="let app of applications" class="application-card">
-      <div class="application-header">
+    <mat-card *ngFor="let app of applications" class="application-card">
+      <mat-card-header>
         <div class="freelancer-info">
           <img [src]="app.freelancer?.profilePictureUrl || '/assets/images/default-profile.jpg'" class="freelancer-avatar" alt="Freelancer Profile Picture">
           <div>
@@ -61,17 +67,24 @@
         }">
           {{ app.status }}
         </span>
-      </div>
+      </mat-card-header>
 
-      <p><strong>Propuesta:</strong> {{ app.proposal }}</p>
-      <p><strong>Presupuesto:</strong> ${{ app.proposedBudget }}</p>
-      <p><strong>Fecha de postulación:</strong> {{ app.appliedAt | date: 'medium' }}</p> 
+      <mat-card-content>
+        <p><strong>Propuesta:</strong> {{ app.proposal }}</p>
+        <p><strong>Presupuesto:</strong> ${{ app.proposedBudget }}</p>
+        <p><strong>Fecha de postulación:</strong> {{ app.appliedAt | date: 'medium' }}</p> 
+      </mat-card-content>
 
-      <div class="actions">
-        <button class="btn-accept" (click)="updateStatus(app.id!, 'ACCEPTED')">Aceptar</button>
-        <button class="btn-reject" (click)="updateStatus(app.id!, 'REJECTED')">Rechazar</button>
-      </div>
-    </div>
-  </div>
-
+      <mat-card-actions>
+        <button mat-raised-button type="submit" (click)="updateStatus(app.id!, 'ACCEPTED')" class="pink-button">Aceptar</button>
+        <button mat-raised-button type="submit" (click)="updateStatus(app.id!, 'REJECTED')" class="purple-button">Rechazar</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-card>
+ 
 </div>
+
+
+
+
+

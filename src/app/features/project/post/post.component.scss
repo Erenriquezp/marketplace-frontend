@@ -1,78 +1,105 @@
 /* Fuente global */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-.project-post {
-  max-width: 600px;
-  margin: 2rem auto;
-  background-color: #f0f0f0; /* Fondo suave */
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif; /* Fuente elegida */
+body {
+  background: white;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
 }
 
-.project-post h2 {
+/* Estilo del título principal */
+.project-title {
   text-align: center;
-  font-size: 2rem;
-  color: #420054; /* Color principal */
-  margin-bottom: 1.5rem;
-  font-weight: 500; /* Negrita para el título */
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  color: #721656;
+  font-family: 'Inter', sans-serif;
 }
 
+.project-post-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px; /* Aumentado para mejor apariencia */
+  margin: 2rem auto;
+  background-color: #eae0ef;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(248, 246, 246, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Espaciado entre campos */
 .form-field {
-  margin-bottom: 1.5rem;
+  margin-bottom: 40px;
 }
 
 label {
   display: block;
-  font-weight: 500;
-  color: #721656; /* Título color suave */
-  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: black; 
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 input, textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #a22c58; /* Borde en color secundario */
-  border-radius: 5px;
-  font-size: 1rem;
+  max-width: 700px; 
+  padding: 12px;
+  border: 1px solid #a22c58;
+  border-radius: 8px;
+  font-size: 16px;
   background-color: #ffffff;
-  font-family: 'Roboto', sans-serif; /* Fuente para inputs */
-}
-
-input[type="date"] {
-  background-color: #f9f9f9;
 }
 
 textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
 }
 
-button {
+.submit-button {
   width: 100%;
-  padding: 12px;
-  background-color: #d3435b; /* Botón con color de acción */
+  max-width: 500px; /* Se mantiene el ancho */
+  padding: 14px;
+  background-color: #d3435b;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
+  border-radius: 8px;
+  font-size: 18px;
   cursor: pointer;
+  font-weight: bold;
   transition: background-color 0.3s ease;
-  font-family: 'Roboto', sans-serif; /* Fuente para botón */
 }
 
-button:hover {
-  background-color: #c02e4e; /* Hover más oscuro */
+.submit-button:hover {
+  background-color: #c02e4e;
 }
 
-button:disabled {
-  background-color: #a22c58; /* Botón deshabilitado */
+.submit-button:disabled {
+  background-color: #a22c58;
   cursor: not-allowed;
+}
+
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 input:focus, textarea:focus {
   outline: none;
-  border-color: #d3435b; /* Cambio de color al enfocar */
-  box-shadow: 0 0 5px rgba(211, 67, 91, 0.5);
+  border-color: #d3435b;
+  box-shadow: 0 0 8px rgba(211, 67, 91, 0.5);
 }
