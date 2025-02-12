@@ -27,6 +27,7 @@
     "@angular/ssr": "^19.0.6",
     "@auth0/angular-jwt": "^5.2.0",
     "@jsverse/transloco": "^7.5.1",
+    "@netlify/angular-runtime": "^2.2.2",
     "@ngneat/reactive-forms": "^5.0.2",
     "@ngneat/transloco": "^6.0.4",
     "@ngrx/effects": "^19.0.0",
