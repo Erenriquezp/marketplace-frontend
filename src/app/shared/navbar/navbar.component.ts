@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent {
   isAuthenticated = false;
   userId: number | null = null;
+  isMenuOpen = false;
 
   constructor(private authService: AuthService, private router: Router) {
     this.isAuthenticated = this.authService.isAuthenticated();
@@ -22,6 +23,9 @@ export class NavbarComponent {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
+  }
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
 }

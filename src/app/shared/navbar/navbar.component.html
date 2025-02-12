@@ -1,12 +1,17 @@
 <header class="navbar">
   <div class="navbar-container">
-    <!-- Logo -->
+    <!-- 📌 Botón para abrir/cerrar menú en móviles -->
+    <button class="menu-toggle" (click)="toggleMenu()">
+      ☰
+    </button>
+
+    <!-- 📌 Logo -->
     <h1 class="navbar-logo">
       <a routerLink="/" aria-label="Ir al inicio">WORKADO</a>
     </h1>
 
-    <!-- Menu -->
-    <nav class="navbar-menu">
+    <!-- 📌 Menú -->
+    <nav class="navbar-menu" [class.show]="isMenuOpen">
       <ul>
         <li><a routerLink="/" routerLinkActive="active-link">Inicio</a></li>
         <li><a routerLink="/marketplace/search" routerLinkActive="active-link">Marketplace</a></li>
@@ -16,12 +21,11 @@
       </ul>
     </nav>
 
-    <!-- Auth Options -->
-<div class="auth-menu">
-  <a *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</a>
-  <a *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</a>
-  <a *ngIf="isAuthenticated" (click)="logout()" (keydown.enter)="logout()" tabindex="0">Cerrar Sesión</a>
-</div>
-
+    <!-- 📌 Opciones de Autenticación -->
+    <div class="auth-menu" [class.show]="isMenuOpen">
+      <a *ngIf="!isAuthenticated" routerLink="/auth/register">Registrarse</a>
+      <a *ngIf="!isAuthenticated" routerLink="/auth/login">Iniciar Sesión</a>
+      <a *ngIf="isAuthenticated" (click)="logout()" (keydown.enter)="logout()" tabindex="0">Cerrar Sesión</a>
+    </div>
   </div>
 </header>
