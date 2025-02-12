@@ -1,15 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 .proposal-container {
   max-width: 700px;
   margin: auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f5fc; // Color de fondo suave
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
 }
 
 h3 {
   text-align: center;
-  color: #444;
+  color: #420054;
+  font-size: 1.75rem;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
@@ -21,39 +26,32 @@ label {
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
+  color: #420054;
 }
 
 textarea, input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px;
+  border: 2px solid #a22c58;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
 }
 
 .submit-btn {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px;
+  background: linear-gradient(135deg, #a22c58, #420054);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
-}
-
-.success {
-  color: green;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.error {
-  color: red;
-  text-align: center;
-  margin-top: 10px;
+  transform: scale(1.05);
 }
 
 /* ✅ Estilos para las postulaciones */
@@ -61,8 +59,8 @@ textarea, input {
   background: white;
   padding: 15px;
   margin-bottom: 15px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .application-header {
@@ -85,14 +83,16 @@ textarea, input {
 }
 
 .freelancer-name {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
+  color: #420054;
 }
 
 .view-profile {
-  font-size: 14px;
-  color: #007bff;
+  font-size: 0.9rem;
+  color: #a22c58;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .view-profile:hover {
@@ -106,12 +106,12 @@ textarea, input {
 }
 
 .status-accepted {
-  color: green;
+  color: #0c9c5e;
   font-weight: bold;
 }
 
 .status-rejected {
-  color: red;
+  color: #d3435b;
   font-weight: bold;
 }
 
@@ -123,27 +123,31 @@ textarea, input {
 }
 
 .btn-accept {
-  background-color: green;
+  background: linear-gradient(135deg, #0c9c5e, #065c38);
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 10px 16px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
 }
 
 .btn-accept:hover {
-  background-color: darkgreen;
+  transform: scale(1.05);
 }
 
 .btn-reject {
-  background-color: red;
+  background: linear-gradient(135deg, #d3435b, #8b1f30);
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 10px 16px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
 }
 
 .btn-reject:hover {
-  background-color: darkred;
+  transform: scale(1.05);
 }

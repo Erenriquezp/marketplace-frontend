@@ -1,48 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 .project-list-container {
-  background: #fdf8fc;
+  background: #eae0ef;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(248, 246, 246, 0.1);
+  font-family: 'Inter', sans-serif;
 }
 
 h2 {
   text-align: center;
   font-size: 1.75rem;
   font-weight: bold;
-  color: #721656;
+  color: #420054;
+  font-family: 'Inter', sans-serif;
 }
 
 .project-card {
   background-color: #ffffff;
-  border-left: 5px solid #721656;
+  border-left: 5px solid #a22c58;
   padding: 1rem;
   border-radius: 8px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  position: relative; // Para el efecto de sombra
-}
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
-.project-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Sombra más pronunciada al pasar el mouse
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
 }
 
 p {
-  color: #555;
+  color: black;
 }
 
 .delete-btn {
-  background: linear-gradient(135deg, #420054, #721652); /* Degradado para el botón */
+  background: linear-gradient(135deg, #420054, #721652);
   color: white;
   padding: 10px 20px;
   border-radius: 40px;
-  font-family: 'Poppins', sans-serif; /* Fuente para el botón */
+  font-family: 'Inter', sans-serif;
   font-weight: bold;
   text-align: center;
   transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-  border: none; // Sin borde
-  cursor: pointer; // Cambia el cursor al pasar sobre el botón
-}
+  border: none;
+  cursor: pointer;
 
-.delete-btn:hover {
-  transform: scale(1.05); // Efecto de aumento al pasar el mouse
+  &:hover {
+    transform: scale(1.05);
+  }
 }
