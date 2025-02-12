@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileService, FullUserProfile, UserProfile } from '../../services/profile.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
@@ -31,11 +31,10 @@ export class SettingsComponent implements OnInit {
       country: [''],
       language: [''],
       description: [''],
-      experience: [''],
-      education: [''],
+      //education: this.fb.array([]), // Educación editable
       skills: this.fb.array([]), // Habilidades dinámicas
       certifications: this.fb.array([]), // Certificaciones dinámicas
-      socialLinks: this.fb.group({}), // Redes sociales
+      socialLinks: this.fb.array([]), // ✅ Redes sociales como FormArray
       notifications: [true]
     });
   }
@@ -43,10 +42,9 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserProfile();
   }
-
   /**
-   * 📌 Cargar los datos del usuario autenticado.
-   */
+     * 📌 Cargar los datos del usuario autenticado.
+     */
   loadUserProfile(): void {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
@@ -73,7 +71,7 @@ export class SettingsComponent implements OnInit {
    * 📌 Llenar el formulario con los datos del usuario.
    */
   private populateForm(data: FullUserProfile): void {
-    const profile = data.profile || {} as UserProfile; // Si no hay perfil, usa un objeto vacío
+    const profile = data.profile || {} as UserProfile;
 
     this.settingsForm.patchValue({
       username: data.user.username,
@@ -82,23 +80,14 @@ export class SettingsComponent implements OnInit {
       country: profile.country || '',
       language: profile.language || '',
       description: profile.description || '',
-      experience: profile.experience || '',
-      education: profile.education || '',
       notifications: true
     });
 
-    // Agregar habilidades y certificaciones dinámicamente
+    // Cargar listas dinámicas
     this.setFormArray('skills', profile.skills || []);
     this.setFormArray('certifications', profile.certifications || []);
-
-    // Manejar redes sociales dinámicamente
-    const socialGroup = this.fb.group({});
-    if (profile.socialLinks) {
-      Object.keys(profile.socialLinks).forEach(platform => {
-        socialGroup.addControl(platform, new FormControl(profile.socialLinks[platform]));
-      });
-    }
-    this.settingsForm.setControl('socialLinks', socialGroup);
+    //this.setFormArray('education', profile.education?.split(';') || []);
+    this.setFormArray('socialLinks', Object.values(profile.socialLinks || {})); // ✅ Manejar redes sociales como FormArray
   }
 
   /**
@@ -111,7 +100,7 @@ export class SettingsComponent implements OnInit {
   }
 
   /**
-   * 📌 Agregar un nuevo elemento a un `FormArray` (habilidades o certificaciones).
+   * 📌 Agregar un nuevo elemento a un `FormArray` (habilidades, experiencia, educación, certificaciones, redes sociales).
    */
   addItem(field: string): void {
     (this.settingsForm.get(field) as FormArray).push(new FormControl(''));
@@ -139,6 +128,11 @@ export class SettingsComponent implements OnInit {
     }
 
     const updatedProfile = this.settingsForm.value;
+    //updatedProfile.education = updatedProfile.education.join(';');
+
+    // Convertir redes sociales a objeto clave-valor antes de enviarlo al backend
+    updatedProfile.socialLinks = this.getSocialLinksAsObject();
+
     this.profileService.updateProfile(userId, updatedProfile).subscribe({
       next: () => {
         this.successMessage = 'Perfil actualizado correctamente.';
@@ -159,7 +153,28 @@ export class SettingsComponent implements OnInit {
     return this.settingsForm.get('certifications') as FormArray;
   }
 
-  getSocialLinksKeys(): string[] {
-    return Object.keys(this.settingsForm.get('socialLinks')?.value || {});
+  get experience(): FormArray {
+    return this.settingsForm.get('experience') as FormArray;
+  }
+
+  get education(): FormArray {
+    return this.settingsForm.get('education') as FormArray;
+  }
+
+  get socialLinks(): FormArray {
+    return this.settingsForm.get('socialLinks') as FormArray;
+  }
+
+  /**
+   * 📌 Convertir el FormArray de `socialLinks` en un objeto clave-valor antes de enviarlo al backend.
+   */
+  private getSocialLinksAsObject(): Record<string, string> {
+    const socialLinksArray = this.socialLinks.value;
+    const keys = Object.keys(this.userProfileData?.profile?.socialLinks || {});
+    const result: Record<string, string> = {};
+    keys.forEach((key, index) => {
+      result[key] = socialLinksArray[index] || '';
+    });
+    return result;
   }
 }

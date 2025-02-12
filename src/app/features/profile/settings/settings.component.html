@@ -2,7 +2,7 @@
   <h2 class="text-2xl font-bold text-center text-[#721656] mb-6">Configuración de Perfil</h2>
 
   <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
-    
+
     <!-- 📌 Información básica -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="form-group">
@@ -49,7 +49,8 @@
     <div class="form-group">
       <label for="certifications">Certificaciones</label>
       <div formArrayName="certifications">
-        <div id="certifications" *ngFor="let cert of certifications.controls; let i = index" class="flex items-center space-x-2">
+        <div id="certifications" *ngFor="let cert of certifications.controls; let i = index"
+          class="flex items-center space-x-2">
           <input [formControlName]="i" class="input-field">
           <button type="button" (click)="removeItem('certifications', i)" class="remove-btn">✖</button>
         </div>
@@ -58,11 +59,18 @@
     </div>
 
     <!-- 📌 Redes Sociales -->
-    <div class="form-group" formGroupName="socialLinks">
+    <div class="form-group">
       <label for="socialLinks">Redes Sociales</label>
-      <div *ngFor="let key of getSocialLinksKeys();" class="flex items-center space-x-2">
-        <input id="socialLinks" [formControlName]="key" placeholder="{{ key }}" class="input-field">
+
+      <div formArrayName="socialLinks">
+        <div *ngFor="let social of socialLinks.controls; let i = index" class="flex items-center space-x-2">
+          <input [formControlName]="i" placeholder="URL de la red social" class="input-field">
+          <button type="button" (click)="removeItem('socialLinks', i)" class="remove-btn">✖</button>
+        </div>
       </div>
+
+      <!-- Agregar nueva red social -->
+      <button type="button" (click)="addItem('socialLinks')" class="add-btn">+ Agregar Red Social</button>
     </div>
 
     <!-- 📌 Guardar cambios -->

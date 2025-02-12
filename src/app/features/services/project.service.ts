@@ -39,9 +39,6 @@ export class ProjectService {
       console.error('⚠️ Solo los clientes pueden publicar proyectos.');
       return of(null);
     }
-    console.log('🚀 Creando proyecto:', project);
-    console.log('🔑 User:', this.authService.currentUserValue?.id);
-    console.log('🔑 User:', this.authService.currentUserValue?.roles);
 
     return this.http.post<Project>(`${this.apiUrl}`, project, { headers: this.getAuthHeaders() }).pipe(
       catchError((error) => {
